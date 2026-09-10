@@ -1,0 +1,6 @@
+{
+  "name": "Student Opportunity Engine",
+  "description": "AI-powered Opportunity Intelligence and Career Growth System for students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

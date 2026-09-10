@@ -1,0 +1,1014 @@
+@import "tailwindcss";
+
+/*
+  Premium warm-neutral theme
+  Intentional constraint: no blue / indigo / sky visual palette.
+  Existing utility names are remapped so legacy components inherit the new system
+  without losing their semantic hierarchy.
+*/
+@theme {
+  /* Warm neutral replacement for Tailwind slate */
+  --color-slate-950: #1b1816;
+  --color-slate-900: #27221f;
+  --color-slate-800: #3a332e;
+  --color-slate-700: #514840;
+  --color-slate-600: #6d6258;
+  --color-slate-500: #887b70;
+  --color-slate-400: #a99c91;
+  --color-slate-300: #c9beb5;
+  --color-slate-200: #e2dad3;
+  --color-slate-100: #f1ece7;
+  --color-slate-50: #faf7f3;
+
+  /* Wine / berry accent replacing old plum-indigo values */
+  --color-plum-950: #3a1121;
+  --color-plum-900: #5b1833;
+  --color-plum-800: #70213e;
+  --color-plum-700: #84294a;
+  --color-plum-600: #9b3659;
+  --color-plum-500: #b34a6b;
+  --color-plum-200: #efc7d5;
+  --color-plum-100: #f8e2e9;
+  --color-plum-50: #fff5f8;
+
+  /* Remap every blue-family utility to non-blue warm/green accents */
+  --color-indigo-950: #123b2d;
+  --color-indigo-900: #15513b;
+  --color-indigo-800: #176348;
+  --color-indigo-700: #1b7252;
+  --color-indigo-600: #21845f;
+  --color-indigo-500: #2d9a70;
+  --color-indigo-400: #56b48d;
+  --color-indigo-300: #8bcdb0;
+  --color-indigo-200: #bfe3d2;
+  --color-indigo-100: #def2e8;
+  --color-indigo-50: #f0faf5;
+
+  --color-blue-950: #123b2d;
+  --color-blue-900: #15513b;
+  --color-blue-800: #176348;
+  --color-blue-700: #1b7252;
+  --color-blue-600: #21845f;
+  --color-blue-500: #2d9a70;
+  --color-blue-400: #56b48d;
+  --color-blue-300: #8bcdb0;
+  --color-blue-200: #bfe3d2;
+  --color-blue-100: #def2e8;
+  --color-blue-50: #f0faf5;
+
+  --color-sky-950: #6a2818;
+  --color-sky-900: #84341f;
+  --color-sky-800: #9b4229;
+  --color-sky-700: #b45135;
+  --color-sky-600: #ca6243;
+  --color-sky-500: #dc7656;
+  --color-sky-400: #e99379;
+  --color-sky-300: #f0b3a0;
+  --color-sky-200: #f6d0c5;
+  --color-sky-100: #fbe8e2;
+  --color-sky-50: #fff7f4;
+
+  --color-cyan-950: #55410f;
+  --color-cyan-900: #6a5112;
+  --color-cyan-800: #806218;
+  --color-cyan-700: #96731d;
+  --color-cyan-600: #ad8625;
+  --color-cyan-500: #c29a35;
+  --color-cyan-400: #d6b356;
+  --color-cyan-300: #e7cc85;
+  --color-cyan-200: #f2deb1;
+  --color-cyan-100: #f9eed2;
+  --color-cyan-50: #fffbef;
+
+  --color-violet-950: #3a1121;
+  --color-violet-900: #5b1833;
+  --color-violet-800: #70213e;
+  --color-violet-700: #84294a;
+  --color-violet-600: #9b3659;
+  --color-violet-500: #b34a6b;
+  --color-violet-400: #ca7690;
+  --color-violet-300: #dba6b8;
+  --color-violet-200: #efc7d5;
+  --color-violet-100: #f8e2e9;
+  --color-violet-50: #fff5f8;
+
+  --color-purple-950: #3a1121;
+  --color-purple-900: #5b1833;
+  --color-purple-800: #70213e;
+  --color-purple-700: #84294a;
+  --color-purple-600: #9b3659;
+  --color-purple-500: #b34a6b;
+  --color-purple-400: #ca7690;
+  --color-purple-300: #dba6b8;
+  --color-purple-200: #efc7d5;
+  --color-purple-100: #f8e2e9;
+  --color-purple-50: #fff5f8;
+
+  --color-coral-600: #bc4f38;
+  --color-coral-500: #d36349;
+  --color-coral-400: #e48770;
+  --color-coral-200: #f5cfc5;
+  --color-coral-100: #fae7e2;
+  --color-coral-50: #fff7f4;
+
+  --color-gold-600: #a66d12;
+  --color-gold-500: #c58a21;
+  --color-gold-400: #dca83e;
+  --color-gold-200: #f1dca7;
+  --color-gold-100: #f8edcf;
+  --color-gold-50: #fffbef;
+
+  --color-ivory-50: #fffdf9;
+  --color-ivory-100: #faf6ef;
+  --color-ivory-200: #efe7dc;
+}
+
+@layer base {
+  :root {
+    --bg-primary: #fffdf9;
+    --bg-surface: #ffffff;
+    --bg-muted: #faf7f3;
+    --border-subtle: #f1ece7;
+    --border-strong: #e2dad3;
+    --text-primary: #1b1816;
+    --text-secondary: #514840;
+    --text-muted: #887b70;
+    --accent-primary: #21845f;
+    --accent-wine: #84294a;
+    --accent-gold: #c58a21;
+    --accent-coral: #ca6243;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: #fffdf9;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background:
+      radial-gradient(circle at 8% 0%, rgba(33, 132, 95, 0.065), transparent 24rem),
+      radial-gradient(circle at 95% 12%, rgba(202, 98, 67, 0.055), transparent 28rem),
+      #fffdf9;
+    color: #1b1816;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.035em;
+  }
+
+  button, a, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid rgba(33, 132, 95, 0.22);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: #21845f;
+    color: #ffffff;
+  }
+}
+
+/* Clean premium app atmosphere */
+.app-shell {
+  isolation: isolate;
+  background: #fffdf9;
+}
+
+.app-shell::before {
+  content: '';
+  position: fixed;
+  inset: 64px 0 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .9;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(33,132,95,.055), transparent 25rem),
+    radial-gradient(circle at 87% 6%, rgba(202,98,67,.05), transparent 22rem),
+    radial-gradient(circle at 58% 85%, rgba(197,138,33,.045), transparent 26rem);
+}
+
+.premium-page {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255,253,249,.94), rgba(255,255,255,.98) 24%, #fffdf9 100%);
+}
+
+.premium-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .32;
+  background-image: radial-gradient(rgba(91,24,51,.16) .65px, transparent .65px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, black, transparent 72%);
+}
+
+/* Upgrade existing cards without changing every component */
+.app-shell main [class*="rounded-2xl"][class*="border-slate-2"],
+.app-shell main [class*="rounded-3xl"][class*="border-slate-2"] {
+  box-shadow: 0 12px 34px rgba(55, 43, 34, 0.055);
+  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.app-shell main [class*="rounded-2xl"][class*="border-slate-2"]:hover,
+.app-shell main [class*="rounded-3xl"][class*="border-slate-2"]:hover {
+  border-color: rgba(33, 132, 95, 0.25);
+  box-shadow: 0 18px 46px rgba(55, 43, 34, 0.085);
+}
+
+/* Interactive polish */
+button {
+  transition-property: color, background-color, border-color, box-shadow, opacity, filter;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+
+button:not(:disabled):hover {
+  filter: saturate(1.03);
+}
+
+input, select, textarea {
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 4px rgba(33, 132, 95, .08);
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #faf7f3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9beb5;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a99c91;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(#e2dad3 1.1px, transparent 1.1px);
+  background-size: 20px 20px;
+}
+
+/* Motion language */
+@keyframes float-subtle {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,-7px,0); }
+}
+
+@keyframes float-diagonal {
+  0%, 100% { transform: translate3d(0,0,0) rotate(0deg); }
+  50% { transform: translate3d(6px,-10px,0) rotate(1.5deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.52; transform: scale(1); }
+  50% { opacity: 0.92; transform: scale(1.055); }
+}
+
+@keyframes premium-shimmer {
+  0% { transform: translateX(-130%) skewX(-18deg); }
+  100% { transform: translateX(260%) skewX(-18deg); }
+}
+
+@keyframes ambient-drift {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  33% { transform: translate3d(24px,-18px,0) scale(1.06); }
+  66% { transform: translate3d(-12px,16px,0) scale(.96); }
+}
+
+.animate-float {
+  animation: float-subtle 4.8s ease-in-out infinite;
+}
+
+.animate-float-diagonal {
+  animation: float-diagonal 6.5s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: pulse-glow 3.6s ease-in-out infinite;
+}
+
+.ambient-orb {
+  animation: ambient-drift 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.premium-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-shine::after {
+  content: '';
+  position: absolute;
+  inset: -20% auto -20% -35%;
+  width: 22%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: premium-shimmer 5.8s ease-in-out infinite;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Professional dashboard interaction language */
+.dashboard-premium {
+  position: relative;
+  background:
+    radial-gradient(circle at 95% 2%, rgba(197,138,33,.055), transparent 20rem),
+    radial-gradient(circle at 4% 28%, rgba(33,132,95,.045), transparent 22rem),
+    transparent;
+}
+
+.dashboard-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 18%, rgba(255,255,255,.82) 42%, transparent 61%);
+  transform: translateX(-135%);
+  animation: dashboard-sheen 8.5s ease-in-out infinite;
+}
+
+.opportunity-board-card,
+.opportunity-card-pro,
+.category-launch-card {
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+.opportunity-board-card::after,
+.category-launch-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(120deg, transparent 15%, rgba(255,255,255,.74) 40%, transparent 65%);
+  transform: translateX(-110%);
+  transition: opacity 220ms ease;
+}
+
+.opportunity-board-card:hover::after,
+.category-launch-card:hover::after {
+  opacity: .7;
+  animation: card-sweep .8s cubic-bezier(.22,1,.36,1) both;
+}
+
+.opportunity-board-card img {
+  filter: saturate(.82) contrast(1.05);
+}
+
+.opportunity-board-card:hover img {
+  filter: saturate(1.02) contrast(1.08);
+}
+
+.opportunity-card-pro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(33,132,95,.46), rgba(197,138,33,.42), transparent);
+  opacity: .45;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.opportunity-card-pro:hover::before {
+  opacity: 1;
+  transform: scaleX(1.04);
+}
+
+.category-launch-card::before {
+  content: '';
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  right: -36px;
+  top: -42px;
+  border-radius: 999px;
+  border: 1px solid rgba(33,132,95,.12);
+  box-shadow: 0 0 0 18px rgba(33,132,95,.025), 0 0 0 34px rgba(197,138,33,.018);
+  transition: transform 450ms cubic-bezier(.22,1,.36,1);
+}
+
+.category-launch-card:hover::before {
+  transform: translate(-7px, 9px) scale(1.08);
+}
+
+@keyframes card-sweep {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(120%); }
+}
+
+@keyframes dashboard-sheen {
+  0%, 72%, 100% { transform: translateX(-135%); }
+  82% { transform: translateX(135%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-hero::after,
+  .opportunity-board-card:hover::after,
+  .category-launch-card:hover::after {
+    animation: none !important;
+  }
+}
+
+
+/* Campus network — high-contrast professional motion system */
+.campus-network-shell {
+  isolation: isolate;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, .14);
+}
+
+.campus-network-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(118deg, transparent 12%, rgba(255,255,255,.08) 37%, transparent 58%);
+  transform: translateX(-130%);
+  animation: campus-network-sheen 9s ease-in-out infinite;
+}
+
+.campus-network-orb {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  filter: blur(58px);
+  opacity: .18;
+  pointer-events: none;
+  animation: campus-orbit 8s ease-in-out infinite alternate;
+}
+
+.campus-network-orb-one {
+  top: -130px;
+  right: 7%;
+  background: #34d399;
+}
+
+.campus-network-orb-two {
+  bottom: -170px;
+  left: 12%;
+  background: #f59e0b;
+  animation-delay: -3s;
+}
+
+.campus-peer-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(125deg, transparent 20%, rgba(255,255,255,.09) 46%, transparent 70%);
+  transform: translateX(-105%);
+  transition: opacity 180ms ease;
+}
+
+.campus-peer-card:hover::before {
+  opacity: 1;
+  animation: campus-peer-sweep .72s cubic-bezier(.22,1,.36,1) both;
+}
+
+.campus-avatar-ring {
+  padding: 2px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(52,211,153,.95), rgba(245,158,11,.9));
+  box-shadow: 0 0 0 4px rgba(255,255,255,.035);
+  animation: avatar-ring-breathe 3.8s ease-in-out infinite;
+}
+
+.campus-metric-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms cubic-bezier(.22,1,.36,1), border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.campus-metric-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(33,132,95,.36);
+  box-shadow: 0 12px 30px rgba(15,23,42,.06);
+}
+
+.campus-metric-card::after {
+  content: '';
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  right: -22px;
+  top: -22px;
+  border-radius: 999px;
+  border: 1px solid rgba(33,132,95,.18);
+  box-shadow: 0 0 0 10px rgba(197,138,33,.035);
+}
+
+@keyframes campus-network-sheen {
+  0%, 72%, 100% { transform: translateX(-130%); }
+  84% { transform: translateX(130%); }
+}
+
+@keyframes campus-orbit {
+  from { transform: translate3d(-8px, -6px, 0) scale(.96); }
+  to { transform: translate3d(12px, 10px, 0) scale(1.08); }
+}
+
+@keyframes campus-peer-sweep {
+  from { transform: translateX(-105%); }
+  to { transform: translateX(115%); }
+}
+
+@keyframes avatar-ring-breathe {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(255,255,255,.03); }
+  50% { box-shadow: 0 0 0 7px rgba(52,211,153,.055); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campus-network-shell::after,
+  .campus-network-orb,
+  .campus-peer-card:hover::before,
+  .campus-avatar-ring {
+    animation: none !important;
+  }
+}
+
+
+/* =========================================================
+   V5 — authenticated career workspace + premium motion layer
+   ========================================================= */
+.private-workspace-main {
+  position: relative;
+  isolation: isolate;
+}
+
+.private-workspace-main::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 300px;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(33,132,95,.08), transparent 30%),
+    radial-gradient(circle at 78% 8%, rgba(132,41,74,.055), transparent 26%),
+    radial-gradient(circle at 58% 34%, rgba(197,138,33,.055), transparent 28%);
+  filter: blur(2px);
+  animation: workspace-atmosphere 12s ease-in-out infinite alternate;
+}
+
+.premium-page::after {
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  right: -240px;
+  top: 210px;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: .32;
+  background:
+    radial-gradient(circle at 34% 34%, rgba(33,132,95,.16), transparent 34%),
+    radial-gradient(circle at 62% 58%, rgba(197,138,33,.13), transparent 32%),
+    radial-gradient(circle at 48% 74%, rgba(132,41,74,.10), transparent 28%);
+  filter: blur(24px);
+  animation: landing-atmosphere 15s cubic-bezier(.45,0,.55,1) infinite alternate;
+}
+
+.landing-access-panel {
+  isolation: isolate;
+  transform: translateZ(0);
+  box-shadow:
+    0 26px 72px rgba(39,34,31,.13),
+    0 1px 0 rgba(255,255,255,.8) inset;
+}
+
+.landing-access-panel::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,.78) 46%, transparent 68%);
+  transform: translateX(-125%);
+  animation: secure-panel-sheen 8.6s ease-in-out infinite;
+  z-index: 2;
+}
+
+.landing-access-step {
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms cubic-bezier(.22,1,.36,1), border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.landing-access-step:hover {
+  transform: translateY(-2px);
+  border-color: rgba(33,132,95,.32);
+  box-shadow: 0 12px 28px rgba(39,34,31,.07);
+}
+
+.landing-auth-square {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.landing-auth-square::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(118deg, transparent 20%, rgba(255,255,255,.22) 48%, transparent 72%);
+  transform: translateX(-120%);
+  transition: transform 620ms cubic-bezier(.22,1,.36,1);
+}
+
+.landing-auth-square:hover::after {
+  transform: translateX(120%);
+}
+
+.auth-premium-panel {
+  isolation: isolate;
+}
+
+.auth-premium-panel::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 0;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, #21845f, #c58a21, #84294a, transparent);
+  opacity: .8;
+  animation: auth-accent-breathe 3.8s ease-in-out infinite;
+}
+
+.dashboard-premium .dashboard-hero,
+.target-jobs-hero {
+  box-shadow:
+    0 22px 56px rgba(39,34,31,.09),
+    0 1px 0 rgba(255,255,255,.72) inset;
+}
+
+.dashboard-premium .dashboard-hero {
+  border-color: rgba(33,132,95,.20);
+}
+
+.dashboard-premium .dashboard-hero::before,
+.target-jobs-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .34;
+  background-image:
+    linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom right, black, transparent 70%);
+}
+
+.target-jobs-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(112deg, transparent 24%, rgba(255,255,255,.09) 46%, transparent 66%);
+  transform: translateX(-120%);
+  animation: target-hero-sheen 9s ease-in-out infinite;
+}
+
+.target-role-list button {
+  transform: translateZ(0);
+}
+
+.target-role-list button:hover {
+  box-shadow: 0 12px 28px rgba(39,34,31,.08);
+}
+
+@keyframes workspace-atmosphere {
+  from { transform: translate3d(-18px,-8px,0) scale(.98); opacity: .72; }
+  to   { transform: translate3d(18px,10px,0) scale(1.04); opacity: 1; }
+}
+
+@keyframes landing-atmosphere {
+  from { transform: translate3d(-18px,-14px,0) rotate(-4deg) scale(.96); }
+  to   { transform: translate3d(22px,28px,0) rotate(5deg) scale(1.08); }
+}
+
+@keyframes secure-panel-sheen {
+  0%, 70%, 100% { transform: translateX(-125%); }
+  82% { transform: translateX(125%); }
+}
+
+@keyframes auth-accent-breathe {
+  0%,100% { opacity: .52; transform: scaleX(.92); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes target-hero-sheen {
+  0%, 72%, 100% { transform: translateX(-120%); }
+  84% { transform: translateX(120%); }
+}
+
+/* Phone-first workspace density: smaller cards, clearer hierarchy, no oversized panels. */
+@media (max-width: 639px) {
+  body {
+    background:
+      radial-gradient(circle at 8% 0%, rgba(33,132,95,.055), transparent 18rem),
+      #fffdf9;
+  }
+
+  .private-workspace-main {
+    padding-bottom: 5.4rem !important;
+  }
+
+  .dashboard-premium,
+  .target-jobs-page {
+    padding-bottom: 5rem !important;
+  }
+
+  .dashboard-premium > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 1rem !important;
+  }
+
+  .dashboard-hero {
+    padding: .95rem !important;
+    border-radius: 20px !important;
+  }
+
+  .dashboard-hero h1 {
+    font-size: 1.35rem !important;
+    line-height: 1.16 !important;
+  }
+
+  /* Dashboard workspaces become compact horizontal tiles on phones. */
+  .opportunity-board-card {
+    display: grid !important;
+    grid-template-columns: 108px minmax(0, 1fr);
+    min-height: 112px;
+    border-radius: 18px !important;
+  }
+
+  .opportunity-board-card > div:first-child {
+    height: 100% !important;
+    min-height: 112px;
+  }
+
+  .opportunity-board-card > div:last-child {
+    min-width: 0;
+    padding: .7rem !important;
+  }
+
+  .opportunity-board-card > div:first-child > div[class*="top-3"] {
+    display: none !important;
+  }
+
+  .opportunity-board-card > div:first-child > div[class*="bottom-3"] {
+    left: .55rem !important;
+    right: .55rem !important;
+    bottom: .55rem !important;
+    gap: .25rem !important;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+
+  .opportunity-board-card > div:first-child > div[class*="bottom-3"] span[class*="text-lg"] {
+    font-size: .78rem !important;
+    line-height: 1.05 !important;
+    max-width: 94px;
+  }
+
+  .opportunity-board-card > div:first-child > div[class*="bottom-3"] > span:last-child {
+    display: none !important;
+  }
+
+  .opportunity-board-card:hover {
+    transform: none !important;
+  }
+
+  .landing-access-panel {
+    border-radius: 22px !important;
+    padding: .9rem !important;
+  }
+
+  .landing-access-step {
+    padding: .72rem !important;
+    border-radius: 15px !important;
+  }
+
+  .landing-auth-square {
+    min-height: 72px !important;
+    border-radius: 15px !important;
+  }
+
+  .auth-premium-panel {
+    width: calc(100% - .75rem) !important;
+    margin: .4rem auto !important;
+    border-radius: 22px !important;
+    max-height: calc(100dvh - .8rem);
+    overflow-y: auto;
+  }
+
+  .target-jobs-hero {
+    border-radius: 20px !important;
+  }
+
+  .target-jobs-page > section {
+    margin-top: 0 !important;
+  }
+
+  .target-role-list button {
+    padding: .7rem !important;
+    border-radius: 15px !important;
+  }
+
+  .campus-peer-card,
+  .campus-metric-card {
+    border-radius: 18px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .opportunity-board-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .opportunity-board-card > div:first-child {
+    min-height: 106px;
+  }
+
+  .target-jobs-hero h1 {
+    font-size: 1.45rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .private-workspace-main::before,
+  .premium-page::after,
+  .landing-access-panel::before,
+  .auth-premium-panel::after,
+  .target-jobs-hero::after {
+    animation: none !important;
+  }
+
+  .landing-access-step,
+  .landing-auth-square,
+  .opportunity-board-card {
+    transform: none !important;
+  }
+}
+
+
+/* V6 focused polish: stronger public contrast + lighter private workspace. */
+.landing-hero-stage {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #d7cdc4;
+  background:
+    linear-gradient(118deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.98) 64%, rgba(240,250,245,.98) 100%);
+  box-shadow: 0 28px 80px rgba(39,34,31,.10);
+}
+
+.landing-hero-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1b1816 0 22%, #21845f 22% 58%, #c58a21 58% 78%, #84294a 78% 100%);
+}
+
+.landing-hero-stage::after {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -110px;
+  bottom: -130px;
+  border-radius: 999px;
+  border: 46px solid rgba(33,132,95,.07);
+  pointer-events: none;
+}
+
+.landing-access-contrast {
+  outline: 7px solid rgba(27,24,22,.035);
+}
+
+.landing-campus-section::before {
+  content: '';
+  position: absolute;
+  inset: 1rem 0;
+  z-index: -1;
+  border-radius: 36px;
+  background: linear-gradient(180deg, rgba(250,247,243,.78), rgba(255,255,255,.96));
+  border: 1px solid rgba(226,218,211,.85);
+}
+
+/* Cards inside the authenticated dashboard use typography and status instead of large photos. */
+.opportunity-board-card {
+  min-height: 220px;
+}
+
+.opportunity-board-card .workspace-card-head {
+  transition: background-position 320ms ease, border-color 220ms ease;
+  background-size: 140% 140%;
+}
+
+.opportunity-board-card:hover .workspace-card-head {
+  background-position: 100% 100%;
+}
+
+/* Target Jobs disclosure should feel like a real expandable control. */
+.target-jobs-page article > button[aria-expanded="true"] {
+  background: #faf7f3;
+  border-bottom-color: #e2dad3;
+}
+
+.target-jobs-page article > button[aria-expanded="true"] .rounded-2xl {
+  box-shadow: 0 0 0 4px rgba(33,132,95,.07);
+}
+
+@media (max-width: 639px) {
+  .landing-hero-stage {
+    width: calc(100% - .75rem) !important;
+    border-radius: 24px !important;
+    padding-left: .9rem !important;
+    padding-right: .9rem !important;
+  }
+
+  .landing-hero-stage::after {
+    display: none;
+  }
+
+  .opportunity-board-card {
+    display: block !important;
+    min-height: 0;
+    border-radius: 18px !important;
+  }
+
+  .opportunity-board-card .workspace-card-head {
+    min-height: 70px !important;
+    padding: .75rem !important;
+  }
+
+  .opportunity-board-card > div:last-child {
+    padding: .75rem !important;
+  }
+
+  .opportunity-board-card h3 {
+    font-size: .8rem !important;
+  }
+
+  .opportunity-board-card p {
+    line-height: 1rem !important;
+  }
+
+  .target-jobs-page article {
+    border-radius: 18px !important;
+  }
+
+  .target-jobs-page article > button {
+    padding: .85rem !important;
+  }
+}
+.field{width:100%;border:1px solid #e2e8f0;border-radius:12px;padding:11px 12px;font-size:12px;font-weight:600;outline:none;background:#fff;color:#0f172a}.field:focus{border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(139,92,246,.09)}
