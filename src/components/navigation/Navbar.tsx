@@ -241,26 +241,28 @@ export const Navbar: React.FC = () => {
 
                     <button
                       onClick={() => {
-                        setActiveTab('profile');
+                        setActiveTab(workspaceMode === 'organization' ? 'organization' : 'profile');
                         setIsUserMenuOpen(false);
                       }}
                       className="w-full px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-colors"
                     >
                       <User className="w-3.5 h-3.5 text-slate-400" />
-                      <span>Student Profile</span>
+                      <span>{workspaceMode === 'organization' ? 'Organization Account' : 'Student Profile'}</span>
                     </button>
 
 
-                    <button
-                      onClick={() => {
-                        startOnboarding();
-                        setIsUserMenuOpen(false);
-                      }}
-                      className="w-full px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-colors"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>Personalization Guide</span>
-                    </button>
+                    {workspaceMode === 'student' && (
+                      <button
+                        onClick={() => {
+                          startOnboarding();
+                          setIsUserMenuOpen(false);
+                        }}
+                        className="w-full px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-colors"
+                      >
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Personalization Guide</span>
+                      </button>
+                    )}
                     <div className="border-t border-slate-100 pt-1">
                       <button
                         onClick={() => {

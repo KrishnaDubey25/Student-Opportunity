@@ -4,13 +4,11 @@ import { Building2, GraduationCap, LogIn, UserPlus, X, ArrowRight } from 'lucide
 import { useApp } from '../../context/AppContext';
 
 export const PortalChoiceModal: React.FC = () => {
-  const { isPortalChoiceOpen, setIsPortalChoiceOpen, setWorkspaceMode, openAuthModal } = useApp();
+  const { isPortalChoiceOpen, setIsPortalChoiceOpen, openPortalAuth } = useApp();
   if (!isPortalChoiceOpen) return null;
 
   const enter = (mode: 'student'|'organization', tab: 'login'|'register') => {
-    setWorkspaceMode(mode);
-    setIsPortalChoiceOpen(false);
-    openAuthModal(tab);
+    openPortalAuth(mode, tab);
   };
 
   return <AnimatePresence><motion.div className="fixed inset-0 z-[80] bg-slate-950/65 backdrop-blur-md flex items-center justify-center p-4" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>

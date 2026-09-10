@@ -149,7 +149,7 @@ export const LandingView: React.FC = () => {
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
 
-              {currentUser && (
+              {currentUser ? (
                 <motion.button
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.96 }}
@@ -261,14 +261,14 @@ export const LandingView: React.FC = () => {
                         <GraduationCap className="h-4 w-4" />
                       </div>
                       <div className="mt-3 text-xs font-black font-['Outfit',sans-serif]">Get Started</div>
-                      <div className="mt-0.5 text-[10px] font-semibold text-emerald-100">Start with a fresh student profile</div>
+                      <div className="mt-0.5 text-[10px] font-semibold text-emerald-100">Choose Student or Organization</div>
                     </motion.button>
                   </div>
                 ) : (
                   <motion.button
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => setActiveTab('dashboard')}
+                    onClick={() => setActiveTab(currentUser?.accountType === 'organization' ? 'organization' : 'dashboard')}
                     className="mt-5 w-full rounded-2xl bg-slate-950 px-4 py-3 text-xs font-black text-white shadow-md"
                   >
                     Continue to My Workspace
@@ -392,7 +392,7 @@ export const LandingView: React.FC = () => {
                     }}
                     className="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-xs font-['Outfit',sans-serif]"
                   >
-                    <span>Register as Student</span>
+                    <span>Open Campus Portal</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                   <button

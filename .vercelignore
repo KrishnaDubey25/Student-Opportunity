@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.vercel
+.env*
+*.zip
+*.dmg
+*.mov
+*.iso
+*.pdf
+*.docx
+*.xlsx

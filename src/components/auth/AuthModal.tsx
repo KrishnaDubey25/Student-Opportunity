@@ -30,7 +30,7 @@ export const AuthModal: React.FC = () => {
     register,
     selectedCollege,
     setSelectedCollege,
-    workspaceMode
+    authPortalMode
   } = useApp();
 
   // Login Fields
@@ -61,7 +61,7 @@ export const AuthModal: React.FC = () => {
 
   if (!isAuthModalOpen) return null;
 
-  const isOrganization = workspaceMode === 'organization';
+  const isOrganization = authPortalMode === 'organization';
   const portalLabel = isOrganization ? 'Organization' : 'Student';
 
   // Email format validation helper
@@ -100,7 +100,7 @@ export const AuthModal: React.FC = () => {
       if (!result.success) {
         setErrorMessage(result.error || 'Invalid credentials. Please verify and try again.');
       } else {
-        setSuccessNotice(workspaceMode === 'organization' ? 'Sign-in verified. Opening organization workspace...' : 'Sign-in verified. Opening your private student workspace...');
+        setSuccessNotice(authPortalMode === 'organization' ? 'Sign-in verified. Opening organization workspace...' : 'Sign-in verified. Opening your private student workspace...');
       }
     }, 200);
   };
@@ -110,7 +110,7 @@ export const AuthModal: React.FC = () => {
     setErrorMessage(null);
 
     if (!fullName.trim()) {
-      setErrorMessage(workspaceMode === 'organization' ? 'Please enter the account holder name.' : 'Please enter your full name.');
+      setErrorMessage(authPortalMode === 'organization' ? 'Please enter the account holder name.' : 'Please enter your full name.');
       return;
     }
 
@@ -292,7 +292,7 @@ export const AuthModal: React.FC = () => {
               <form onSubmit={handleLoginSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-800 mb-1.5 font-['Outfit',sans-serif]">
-                      {isOrganization ? 'Registered Organization Email *' : 'College Email *'}
+                    {isOrganization ? 'Registered Organization Email *' : 'College Email *'}
                   </label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />

@@ -117,6 +117,8 @@ interface AppContextType {
 
   workspaceMode: WorkspaceMode;
   setWorkspaceMode: (mode: WorkspaceMode) => void;
+  authPortalMode: WorkspaceMode;
+  openPortalAuth: (mode: WorkspaceMode, tab?: 'login' | 'register') => void;
   isPortalChoiceOpen: boolean;
   setIsPortalChoiceOpen: (open: boolean) => void;
   applications: OpportunityApplication[];
@@ -173,6 +175,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [selectedOpportunityId, setSelectedOpportunityId] = useState<string | null>(null);
   const [compareList, setCompareList] = useState<string[]>([]);
   const [workspaceMode, setWorkspaceMode] = useState<WorkspaceMode>('student');
+  const [authPortalMode, setAuthPortalMode] = useState<WorkspaceMode>('student');
   const [isPortalChoiceOpen, setIsPortalChoiceOpen] = useState(false);
 
 
@@ -383,9 +386,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setActiveCategoryFilter(cat);
     if (!currentUser) {
       setPendingTab('discover');
-      setAuthModalTab('login');
-      setIsAuthModalOpen(true);
-      showToast('Sign in to open personalized opportunity results.');
+      setIsPortalChoiceOpen(true);
+      showToast('Choose Student or Organization, then sign in to continue.');
       return;
     }
     navigateToTab('discover');
@@ -481,9 +483,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const navigateToTab = (tab: NavTab) => {
     if (tab !== 'landing' && !currentUser) {
       setPendingTab(tab);
-      setAuthModalTab('login');
-      setIsAuthModalOpen(true);
-      showToast('Sign in with your registered college email to access your workspace.');
+      setIsPortalChoiceOpen(true);
+      showToast('Choose your portal to access the correct workspace.');
       return;
     }
 
@@ -501,6 +502,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const openAuthModal = (tab: 'login' | 'register' = 'login') => {
     setAuthModalTab(tab);
+    setIsAuthModalOpen(true);
+  };
+
+  const openPortalAuth = (mode: WorkspaceMode, tab: 'login' | 'register' = 'login') => {
+    setAuthPortalMode(mode);
+    setAuthModalTab(tab);
+    setIsPortalChoiceOpen(false);
     setIsAuthModalOpen(true);
   };
 
@@ -542,15 +550,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         u.studentIdOrEmail.toLowerCase() === query ||
         u.email?.toLowerCase() === query
     );
-    const user = matchingEmailAccounts.find(u => (u.accountType || 'student') === workspaceMode);
+    const user = matchingEmailAccounts.find(u => (u.accountType || 'student') === authPortalMode);
 
     if (!user) {
       if (matchingEmailAccounts.length > 0) {
-        const otherPortal = workspaceMode === 'student' ? 'Organization' : 'Student';
-        const thisPortal = workspaceMode === 'student' ? 'Student' : 'Organization';
+        const otherPortal = authPortalMode === 'student' ? 'Organization' : 'Student';
+        const thisPortal = authPortalMode === 'student' ? 'Student' : 'Organization';
         return { success: false, error: `This email is registered for the ${otherPortal} portal, not the ${thisPortal} portal.` };
       }
-      return { success: false, error: `No ${workspaceMode} account found with this institutional email.` };
+      return { success: false, error: `No ${authPortalMode} account found with this institutional email.` };
     }
 
     if (user.password !== password) {
@@ -604,16 +612,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setIsAuthModalOpen(false);
     showToast(`Welcome back, ${user.name}!`);
 
-    // First successful sign-in opens guided setup before the dashboard.
-    if (workspaceMode === 'student' && shouldOpenOnboarding(user)) {
-      setIsOnboardingOpen(true);
-      setActiveTabState(workspaceMode === 'organization' ? 'organization' : 'dashboard');
+    // Route strictly by the authenticated account type. Organization accounts can never enter student tabs.
+    if ((user.accountType || 'student') === 'organization') {
+      setIsOnboardingOpen(false);
       setPendingTab(null);
-    } else if (pendingTab) {
+      setActiveTabState('organization');
+    } else if (shouldOpenOnboarding(user)) {
+      setIsOnboardingOpen(true);
+      setActiveTabState('dashboard');
+      setPendingTab(null);
+    } else if (pendingTab && pendingTab !== 'organization') {
       setActiveTabState(pendingTab);
       setPendingTab(null);
     } else {
-      setActiveTabState(workspaceMode === 'organization' ? 'organization' : 'dashboard');
+      setPendingTab(null);
+      setActiveTabState('dashboard');
     }
 
     const mainEl = document.getElementById('main-scroll-container');
@@ -644,7 +657,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const query = data.studentIdOrEmail.trim().toLowerCase();
     const existingIndex = registeredUsers.findIndex(
       u =>
-        (u.accountType || 'student') === workspaceMode &&
+        (u.accountType || 'student') === authPortalMode &&
         (u.studentIdOrEmail.toLowerCase() === query ||
         u.email?.toLowerCase() === query ||
         u.studentId?.toLowerCase() === query)
@@ -677,7 +690,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (existingIndex !== -1) {
       return {
         success: false,
-        error: `A ${workspaceMode} account with this email already exists. Please sign in through the ${workspaceMode === 'student' ? 'Student' : 'Organization'} portal instead.`
+        error: `A ${authPortalMode} account with this email already exists. Please sign in through the ${authPortalMode === 'student' ? 'Student' : 'Organization'} portal instead.`
       };
     }
 
@@ -710,7 +723,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newUser: UserAccount = {
       id: 'usr_' + Date.now(),
-      accountType: workspaceMode,
+      accountType: authPortalMode,
       name: data.name.trim(),
       studentIdOrEmail: data.studentIdOrEmail.trim(),
       studentId: studentRoll,
@@ -723,7 +736,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Update registered users list
     setRegisteredUsers(prev => {
-      const filtered = prev.filter(u => !((u.accountType || 'student') === workspaceMode && (u.studentIdOrEmail.toLowerCase() === query || u.email?.toLowerCase() === query)));
+      const filtered = prev.filter(u => !((u.accountType || 'student') === authPortalMode && (u.studentIdOrEmail.toLowerCase() === query || u.email?.toLowerCase() === query)));
       const updated = [...filtered, newUser];
       localStorage.setItem('soe_registered_users', JSON.stringify(updated));
       return updated;
@@ -740,7 +753,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setSelectedCollegeState(matchedCollege);
     localStorage.setItem('soe_selected_college', JSON.stringify(matchedCollege));
-    showToast(`${workspaceMode === 'organization' ? 'Organization' : 'Student'} account created. Sign in through the same portal to continue.`);
+    showToast(`${authPortalMode === 'organization' ? 'Organization' : 'Student'} account created. Sign in through the same portal to continue.`);
 
     return { success: true };
   };
@@ -1077,9 +1090,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (!currentUser) {
       setPendingTab('intelligence');
       setSelectedOpportunityId(id);
-      setAuthModalTab('login');
-      setIsAuthModalOpen(true);
-      showToast('Sign in to view match intelligence and readiness details.');
+      setIsPortalChoiceOpen(true);
+      showToast('Choose your portal, then sign in to continue.');
       return;
     }
     setSelectedOpportunityId(id);
@@ -1198,6 +1210,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         workspaceMode,
         setWorkspaceMode,
+        authPortalMode,
+        openPortalAuth,
         isPortalChoiceOpen,
         setIsPortalChoiceOpen,
         applications,
