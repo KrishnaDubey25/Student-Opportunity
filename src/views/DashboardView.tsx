@@ -28,7 +28,12 @@ import {
   Kanban,
   Code2,
   ExternalLink,
-  Plus
+  Plus,
+  BellRing,
+  BrainCircuit,
+  Activity,
+  MapPin,
+  Star
 } from 'lucide-react';
 import { OpportunityCategory, Opportunity } from '../types';
 
@@ -47,7 +52,10 @@ export const DashboardView: React.FC = () => {
     profileStrength,
     openIntelligence,
     showToast,
-    openCategoryInDiscover
+    openCategoryInDiscover,
+    campusMessages,
+    applications,
+    currentUser
   } = useApp();
 
   // In-dashboard category preview filter
@@ -95,6 +103,20 @@ export const DashboardView: React.FC = () => {
   };
 
   // Filtered preview list
+  const campusRecentMessages = campusMessages
+    .filter(message => message.collegeCode === selectedCollege.code && (!message.studentUserId || message.studentUserId === currentUser?.id))
+    .slice()
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 3);
+
+  const personalizedRecommendations = opportunities
+    .filter(opp => !opp.isMissed && opp.registrationStatus !== 'Applied')
+    .slice()
+    .sort((a, b) => (b.matchScore + b.eligibilityScore + b.careerImpact) - (a.matchScore + a.eligibilityScore + a.careerImpact))
+    .slice(0, 3);
+
+  const myCampusApplications = applications.filter(app => app.studentUserId === currentUser?.id && app.collegeCode === selectedCollege.code);
+
   const previewOpportunities = opportunities.filter(opp => {
     if (previewCategory === 'All') return true;
     if (previewCategory === 'Hackathons') return opp.type === 'Hackathon' || opp.category.includes('Hackathon');
@@ -247,7 +269,7 @@ export const DashboardView: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight font-['Outfit',sans-serif] text-slate-950">
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight font-['Outfit',sans-serif] text-slate-950">
               Welcome, {profile.name}!
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 font-medium max-w-2xl">
@@ -274,7 +296,41 @@ export const DashboardView: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* 2. PROFESSIONAL WORKSPACE NAVIGATION CARDS */}
+      {/* 2. CAMPUS INTELLIGENCE STRIP */}
+      <section className="grid xl:grid-cols-[1.05fr_1fr_1.15fr] gap-5">
+        <motion.div whileHover={{ y: -4 }} className="relative overflow-hidden rounded-[28px] border border-slate-800 bg-slate-950 p-6 text-white shadow-xl">
+          <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-emerald-400/15 blur-3xl" />
+          <div className="relative z-10">
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-[12px] font-black uppercase tracking-[0.16em] text-emerald-300">Campus Snapshot</div>
+              <Building2 className="h-5 w-5 text-emerald-300" />
+            </div>
+            <h2 className="mt-3 text-2xl font-black tracking-tight font-['Outfit',sans-serif]">{selectedCollege.shortName}</h2>
+            <p className="mt-1 text-sm font-semibold text-slate-300">{selectedCollege.campusTheme || selectedCollege.type}</p>
+            <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3"><div className="text-[11px] text-slate-400">Campus opportunities</div><div className="mt-1 text-xl font-black">{selectedCollege.partnerOpportunitiesCount}</div></div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3"><div className="text-[11px] text-slate-400">My applications</div><div className="mt-1 text-xl font-black">{myCampusApplications.length}</div></div>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">{(selectedCollege.campusFocus || []).slice(0,3).map(item => <span key={item} className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-[10px] font-black text-emerald-200">{item}</span>)}</div>
+            <div className="mt-4 flex items-start gap-2 text-xs text-slate-300"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300"/><span>{selectedCollege.city} • {selectedCollege.campusStrength}</span></div>
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -4 }} className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-violet-700">Recent Updates</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What changed on campus</h2></div><BellRing className="h-5 w-5 text-violet-700"/></div>
+          <div className="mt-5 space-y-3">
+            {campusRecentMessages.length ? campusRecentMessages.map(item => <div key={item.id} className="rounded-2xl border border-slate-100 bg-slate-50 p-3.5"><div className="text-sm font-black text-slate-900">{item.title}</div><div className="mt-1 text-xs leading-relaxed text-slate-600 line-clamp-2">{item.message}</div><div className="mt-2 text-[10px] font-bold text-slate-400">{new Date(item.createdAt).toLocaleString()}</div></div>) : <div className="rounded-2xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No new campus broadcast yet. Organization updates will appear here live.</div>}
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -4 }} className="relative overflow-hidden rounded-[28px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-6 shadow-sm">
+          <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-emerald-700">Recommended For You</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Best next opportunities</h2></div><BrainCircuit className="h-6 w-6 text-emerald-700"/></div>
+          <p className="mt-2 text-sm text-slate-600">Ranked using your match, eligibility and career-impact scores.</p>
+          <div className="mt-4 space-y-3">{personalizedRecommendations.map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="w-full rounded-2xl border border-white bg-white/90 p-3.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-slate-950">{opp.title}</div><div className="mt-1 text-[11px] font-semibold text-slate-500">{opp.type} • {opp.organization}</div></div><div className="rounded-xl bg-emerald-600 px-2.5 py-1.5 text-xs font-black text-white">{opp.matchScore}%</div></div><div className="mt-2 flex items-center gap-1.5 text-[10px] font-black text-emerald-700"><Star className="h-3 w-3"/>Recommended because it fits your current profile</div></button>)}</div>
+        </motion.div>
+      </section>
+
+      {/* 3. PROFESSIONAL WORKSPACE NAVIGATION CARDS */}
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
@@ -286,7 +342,7 @@ export const DashboardView: React.FC = () => {
                 9 focused workspaces
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
               Explore Your Opportunity Workspace
             </h2>
           </div>
@@ -337,10 +393,10 @@ export const DashboardView: React.FC = () => {
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(33,132,95,.08)]" />
                       <span className="text-[9px] font-black tracking-[0.16em] text-slate-400 font-mono uppercase">Student Workspace</span>
                     </div>
-                    <h3 className="text-sm font-black text-slate-950 group-hover:text-emerald-700 transition-colors font-['Outfit',sans-serif] leading-snug">
+                    <h3 className="text-base font-black text-slate-950 group-hover:text-emerald-700 transition-colors font-['Outfit',sans-serif] leading-snug">
                       {card.title}
                     </h3>
-                    <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-1.5 line-clamp-2">
+                    <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1.5 line-clamp-2">
                       {card.subtitle}
                     </p>
                   </div>
@@ -367,7 +423,7 @@ Open workspace
           <span className="text-[11px] font-black uppercase text-emerald-600 font-mono tracking-wider">
             Student Analytics & Metrics
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
             How Much Progress to the Industry Level?
           </h2>
           <p className="text-xs text-slate-500">
@@ -505,7 +561,7 @@ Open workspace
           <div className="lg:col-span-5 p-6 rounded-3xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-black text-slate-900 font-['Outfit',sans-serif]">
+                <h3 className="text-base font-black text-slate-900 font-['Outfit',sans-serif]">
                   Opportunity Ecosystem Graph
                 </h3>
                 <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-slate-100 text-slate-700">
@@ -548,7 +604,7 @@ Open workspace
       <div className="space-y-3 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
               Explore Active Opportunities Right Here
             </h2>
             <p className="text-xs text-slate-500">
@@ -654,7 +710,7 @@ Open workspace
           <span className="text-[11px] font-black uppercase text-emerald-600 font-mono tracking-wider">
             Execution Roadmap
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
             Status & Execution Cards
           </h2>
           <p className="text-xs text-slate-500">
@@ -673,7 +729,7 @@ Open workspace
                     <ListTodo className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-black text-slate-900 font-['Outfit',sans-serif]">
+                    <h3 className="text-base font-black text-slate-900 font-['Outfit',sans-serif]">
                       Next Actions
                     </h3>
                     <span className="text-[10px] text-slate-400 font-bold uppercase font-mono">
@@ -727,7 +783,7 @@ Open workspace
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-black text-slate-900 font-['Outfit',sans-serif]">
+                    <h3 className="text-base font-black text-slate-900 font-['Outfit',sans-serif]">
                       Completed & In Progress
                     </h3>
                     <span className="text-[10px] text-slate-400 font-bold uppercase font-mono">
@@ -791,7 +847,7 @@ Open workspace
                     <AlertCircle className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-black text-slate-900 font-['Outfit',sans-serif]">
+                    <h3 className="text-base font-black text-slate-900 font-['Outfit',sans-serif]">
                       Gaps Requiring Attention
                     </h3>
                     <span className="text-[10px] text-slate-400 font-bold uppercase font-mono">

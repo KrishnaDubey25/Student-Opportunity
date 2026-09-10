@@ -33,7 +33,9 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity, f
     submitOpportunityApplication,
     shareOpportunity, 
     copyOpportunityDigest,
-    navigateToTab
+    navigateToTab,
+    profile,
+    selectedCollege
   } = useApp();
 
   const [showApply, setShowApply] = useState(false);
@@ -276,12 +278,14 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity, f
     <AnimatePresence>
       {showApply && (
         <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[95] bg-slate-950/65 backdrop-blur-sm flex items-center justify-center p-4">
-          <motion.div initial={{opacity:0,y:20,scale:.97}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:12,scale:.98}} className="w-full max-w-lg rounded-[26px] bg-white p-6 shadow-2xl">
+          <motion.div initial={{opacity:0,y:20,scale:.97}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:12,scale:.98}} className="w-full max-w-2xl rounded-[30px] bg-white p-6 sm:p-7 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div className="text-[10px] uppercase tracking-[.18em] font-black text-emerald-700">Application Flow</div>
-            <h3 className="mt-1 text-xl font-black text-slate-950">Apply to {opportunity.title}</h3>
-            <p className="mt-1 text-xs text-slate-500">Your application will appear in My Applications and in your college organization dashboard.</p>
-            {isHackathon && <div className="mt-5"><label className="text-xs font-black text-slate-700">Participation type</label><div className="mt-2 grid grid-cols-2 gap-2">{(['Individual','Team'] as const).map(v=><button key={v} onClick={()=>setParticipation(v)} className={`rounded-xl px-3 py-3 text-xs font-black border ${participation===v?'bg-slate-950 text-white border-slate-950':'bg-white text-slate-700 border-slate-200'}`}>{v}</button>)}</div></div>}
-            {isHackathon && participation==='Team' && <div className="mt-4 space-y-3"><input className="field" placeholder="Team name" value={teamName} onChange={e=>setTeamName(e.target.value)}/><div className="text-xs font-black text-slate-700">Team members</div>{members.map((m,i)=><input key={i} className="field" placeholder={`Member ${i+1} name / roll number`} value={m} onChange={e=>setMembers(prev=>prev.map((x,j)=>j===i?e.target.value:x))}/>)}<button onClick={()=>setMembers(prev=>[...prev,''])} className="text-xs font-black text-violet-700">+ Add another member</button></div>}
+            <h3 className="mt-1 text-2xl font-black text-slate-950">Apply to {opportunity.title}</h3>
+            <p className="mt-1 text-sm text-slate-500">Complete the application once. It will appear in My Applications and your college organization dashboard.</p>
+            <div className="mt-4 grid grid-cols-3 gap-2 text-[10px] font-black uppercase tracking-wide"><div className="rounded-xl bg-emerald-600 text-white p-2 text-center">1. Applicant</div><div className="rounded-xl bg-slate-100 text-slate-700 p-2 text-center">2. Participation</div><div className="rounded-xl bg-slate-100 text-slate-700 p-2 text-center">3. Submit</div></div>
+            <div className="mt-4 grid sm:grid-cols-2 gap-3"><div className="rounded-2xl bg-slate-50 border border-slate-100 p-3"><div className="text-[10px] uppercase font-black text-slate-400">Student</div><div className="mt-1 text-sm font-black">{profile.name}</div><div className="text-[10px] text-slate-500">{profile.studentId}</div></div><div className="rounded-2xl bg-slate-50 border border-slate-100 p-3"><div className="text-[10px] uppercase font-black text-slate-400">College</div><div className="mt-1 text-sm font-black">{selectedCollege.shortName}</div><div className="text-[10px] text-slate-500">{selectedCollege.code} • verified campus</div></div></div>
+            {isHackathon && <div className="mt-5"><label className="text-sm font-black text-slate-800">Participation type</label><div className="mt-2 grid grid-cols-2 gap-2">{(['Individual','Team'] as const).map(v=><button type="button" key={v} onClick={()=>setParticipation(v)} className={`rounded-xl px-3 py-3 text-sm font-black border ${participation===v?'bg-slate-950 text-white border-slate-950':'bg-white text-slate-700 border-slate-200'}`}>{v}</button>)}</div></div>}
+            {isHackathon && participation==='Team' && <div className="mt-4 space-y-3 rounded-2xl border border-violet-100 bg-violet-50/50 p-4"><div><div className="text-sm font-black text-slate-900">Team registration form</div><div className="text-[11px] text-slate-500 mt-1">Add team name and each member's name / roll number. College will receive the same team record.</div></div><input className="field" placeholder="Team name *" value={teamName} onChange={e=>setTeamName(e.target.value)}/><div className="text-xs font-black text-slate-700">Team members</div>{members.map((m,i)=><input key={i} className="field" placeholder={`Member ${i+1} name / roll number`} value={m} onChange={e=>setMembers(prev=>prev.map((x,j)=>j===i?e.target.value:x))}/>)}<button type="button" onClick={()=>setMembers(prev=>[...prev,''])} className="text-xs font-black text-violet-700">+ Add another member</button></div>}
             <div className="mt-6 flex justify-end gap-2"><button onClick={()=>setShowApply(false)} className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-black">Cancel</button><button onClick={()=>{ if(isHackathon){ if(participation==='Team' && !teamName.trim()) return; submitOpportunityApplication(opportunity.id,participation,teamName,members); } else { submitOpportunityApplication(opportunity.id,'Individual'); } setShowApply(false); }} className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-black">Submit Application</button></div>
           </motion.div>
         </motion.div>

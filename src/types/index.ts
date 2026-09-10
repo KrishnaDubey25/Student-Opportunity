@@ -64,6 +64,11 @@ export interface CollegeInfo {
   featuredHackathon?: string;
   logoText: string;
   isPopular?: boolean;
+  campusTheme?: string;
+  campusFocus?: string[];
+  departments?: string[];
+  campusStrength?: string;
+  placementSignal?: string;
 }
 
 export interface Opportunity {

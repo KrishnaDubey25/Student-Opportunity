@@ -12,7 +12,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 28,
     featuredHackathon: 'Innobuzz National Hackathon 2026',
     logoText: 'SLRT',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'AI • Full-Stack • Innovation',
+    campusFocus: ['AI/ML', 'Web Engineering', 'Hackathons'],
+    departments: ['Computer Engineering', 'IT', 'Electronics & Computer Science'],
+    campusStrength: 'Fast-growing project and hackathon culture',
+    placementSignal: 'Strong software-role preparation'
   },
   {
     id: 'col-tcet',
@@ -25,7 +30,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 26,
     featuredHackathon: 'Zephyr Hackfest & Tech Carnival 2026',
     logoText: 'TCET',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'Product • Coding • Industry',
+    campusFocus: ['Product Engineering', 'Competitive Coding', 'Cloud'],
+    departments: ['Computer Engineering', 'IT', 'AI & Data Science'],
+    campusStrength: 'Industry-linked technical ecosystem',
+    placementSignal: 'High internship and placement participation'
   },
   {
     id: 'col-atharva',
@@ -38,7 +48,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 22,
     featuredHackathon: 'Techithon Robotics & AI Hackathon',
     logoText: 'ACE',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'Robotics • AI • Startup',
+    campusFocus: ['Robotics', 'AI/ML', 'Startup Projects'],
+    departments: ['Computer Engineering', 'Electronics', 'AI & Data Science'],
+    campusStrength: 'Hands-on innovation and maker culture',
+    placementSignal: 'Growing startup and technical hiring pipeline'
   },
   {
     id: 'col-mithibai',
@@ -51,7 +66,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 20,
     featuredHackathon: 'Mithibai Tech Innovations & Data Fest',
     logoText: 'MITH',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'Data • Research • Interdisciplinary',
+    campusFocus: ['Data Science', 'Research', 'Business-Tech'],
+    departments: ['Computer Science', 'Data Science', 'Statistics'],
+    campusStrength: 'Interdisciplinary academic ecosystem',
+    placementSignal: 'Strong research and analytics orientation'
   },
   {
     id: 'col-vjti',
@@ -64,7 +84,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 32,
     featuredHackathon: 'Technovanza CodeWars 2026',
     logoText: 'VJTI',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'Core Tech • Systems • Competitive',
+    campusFocus: ['Systems', 'Core Engineering', 'Competitive Programming'],
+    departments: ['Computer Engineering', 'IT', 'Electronics'],
+    campusStrength: 'Deep technical and competitive culture',
+    placementSignal: 'High-intensity technical opportunity pipeline'
   },
   {
     id: 'col-spit',
@@ -77,7 +102,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 25,
     featuredHackathon: 'Oculus National TechSprint',
     logoText: 'SPIT',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'Software • Research • Product',
+    campusFocus: ['Software Engineering', 'Research', 'Product Development'],
+    departments: ['Computer Engineering', 'IT', 'Electronics'],
+    campusStrength: 'Project-driven engineering culture',
+    placementSignal: 'Strong product and software readiness'
   },
   {
     id: 'col-iitb',
@@ -90,7 +120,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 42,
     featuredHackathon: 'e-Yantra Robotics & AI Hackathon',
     logoText: 'IITB',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'Research • Deep Tech • Entrepreneurship',
+    campusFocus: ['Deep Tech', 'Research', 'Entrepreneurship'],
+    departments: ['CSE', 'Electrical Engineering', 'Mechanical Engineering'],
+    campusStrength: 'Research-intensive innovation ecosystem',
+    placementSignal: 'Top-tier research and technology opportunities'
   },
   {
     id: 'col-bits',
@@ -103,7 +138,12 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     partnerOpportunitiesCount: 38,
     featuredHackathon: 'APOGEE Innovation Challenge',
     logoText: 'BITS',
-    isPopular: true
+    isPopular: true,
+    campusTheme: 'Entrepreneurship • Research • Product',
+    campusFocus: ['Entrepreneurship', 'Research', 'Product'],
+    departments: ['Computer Science', 'Electronics', 'Mechanical Engineering'],
+    campusStrength: 'Flexible project and startup ecosystem',
+    placementSignal: 'Strong internship and startup participation'
   }
 ];
 
