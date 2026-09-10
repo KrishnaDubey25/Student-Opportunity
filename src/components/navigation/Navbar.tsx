@@ -22,7 +22,8 @@ import {
   Building2,
   BarChart3,
   UserPlus,
-  Target
+  Target,
+  ArrowRight
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
