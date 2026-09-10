@@ -205,6 +205,7 @@ export interface SkillGapItem {
 
 export interface UserAccount {
   id: string;
+  accountType: WorkspaceMode;
   name: string;
   studentIdOrEmail: string;
   password: string;

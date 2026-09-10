@@ -322,10 +322,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          const cleaned = parsed.filter((user: UserAccount) =>
-            user.id !== 'usr_alex_default' &&
-            user.email?.toLowerCase() !== 'alex.sharma@slrtce.edu.in'
-          );
+          const cleaned = parsed
+            .filter((user: UserAccount) =>
+              user.id !== 'usr_alex_default' &&
+              user.email?.toLowerCase() !== 'alex.sharma@slrtce.edu.in'
+            )
+            .map((user: UserAccount) => ({ ...user, accountType: user.accountType || 'student' }));
           if (cleaned.length > 0) return cleaned;
         }
       }
@@ -363,6 +365,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
     return null;
   });
+
+
+  useEffect(() => {
+    if (currentUser?.accountType) {
+      setWorkspaceMode(currentUser.accountType);
+    }
+  }, [currentUser]);
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
@@ -528,21 +537,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return { success: false, error: 'Please sign in using the college email used during registration.' };
     }
 
-    const user = registeredUsers.find(
+    const matchingEmailAccounts = registeredUsers.filter(
       u =>
         u.studentIdOrEmail.toLowerCase() === query ||
         u.email?.toLowerCase() === query
     );
+    const user = matchingEmailAccounts.find(u => (u.accountType || 'student') === workspaceMode);
 
     if (!user) {
-      return { success: false, error: 'No account found with this college email.' };
+      if (matchingEmailAccounts.length > 0) {
+        const otherPortal = workspaceMode === 'student' ? 'Organization' : 'Student';
+        const thisPortal = workspaceMode === 'student' ? 'Student' : 'Organization';
+        return { success: false, error: `This email is registered for the ${otherPortal} portal, not the ${thisPortal} portal.` };
+      }
+      return { success: false, error: `No ${workspaceMode} account found with this institutional email.` };
     }
 
     if (user.password !== password) {
       return { success: false, error: 'Incorrect password. Please verify your credentials.' };
     }
 
-    // Success — hydrate only this student's private local workspace.
+    // Success — enter only the portal this account belongs to.
+    setWorkspaceMode(user.accountType || 'student');
     setCurrentUser(user);
     if (user.profile) {
       const hydratedProfile = readUserWorkspace(user.id, 'profile', user.profile);
@@ -628,9 +644,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const query = data.studentIdOrEmail.trim().toLowerCase();
     const existingIndex = registeredUsers.findIndex(
       u =>
-        u.studentIdOrEmail.toLowerCase() === query ||
+        (u.accountType || 'student') === workspaceMode &&
+        (u.studentIdOrEmail.toLowerCase() === query ||
         u.email?.toLowerCase() === query ||
-        u.studentId?.toLowerCase() === query
+        u.studentId?.toLowerCase() === query)
     );
 
     const isEmail = data.studentIdOrEmail.includes('@');
@@ -660,7 +677,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (existingIndex !== -1) {
       return {
         success: false,
-        error: 'An account with this college email already exists. Please sign in instead.'
+        error: `A ${workspaceMode} account with this email already exists. Please sign in through the ${workspaceMode === 'student' ? 'Student' : 'Organization'} portal instead.`
       };
     }
 
@@ -693,6 +710,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newUser: UserAccount = {
       id: 'usr_' + Date.now(),
+      accountType: workspaceMode,
       name: data.name.trim(),
       studentIdOrEmail: data.studentIdOrEmail.trim(),
       studentId: studentRoll,
@@ -705,7 +723,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Update registered users list
     setRegisteredUsers(prev => {
-      const filtered = prev.filter(u => u.studentIdOrEmail.toLowerCase() !== query && u.email?.toLowerCase() !== query);
+      const filtered = prev.filter(u => !((u.accountType || 'student') === workspaceMode && (u.studentIdOrEmail.toLowerCase() === query || u.email?.toLowerCase() === query)));
       const updated = [...filtered, newUser];
       localStorage.setItem('soe_registered_users', JSON.stringify(updated));
       return updated;
@@ -722,7 +740,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setSelectedCollegeState(matchedCollege);
     localStorage.setItem('soe_selected_college', JSON.stringify(matchedCollege));
-    showToast('Registration complete. Sign in with your college email to continue.');
+    showToast(`${workspaceMode === 'organization' ? 'Organization' : 'Student'} account created. Sign in through the same portal to continue.`);
 
     return { success: true };
   };

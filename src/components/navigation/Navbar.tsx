@@ -39,11 +39,11 @@ export const Navbar: React.FC = () => {
     markNotificationRead,
     currentUser,
     openAuthModal,
+    setIsPortalChoiceOpen,
     logout,
     selectedCollege,
     startOnboarding,
-    workspaceMode,
-    setWorkspaceMode
+    workspaceMode
   } = useApp();
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -203,11 +203,6 @@ export const Navbar: React.FC = () => {
           </div>
           )}
 
-          {currentUser && (
-            <button onClick={() => { const next = workspaceMode === 'student' ? 'organization' : 'student'; setWorkspaceMode(next); setActiveTab(next === 'organization' ? 'organization' : 'dashboard'); }} className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-violet-200 bg-violet-50 text-violet-800 text-[10px] font-black">
-              <Building2 className="w-3.5 h-3.5" /> {workspaceMode === 'student' ? 'Organization View' : 'Student View'}
-            </button>
-          )}
 
           {/* User Account / Auth CTA */}
           {currentUser ? (
@@ -285,22 +280,13 @@ export const Navbar: React.FC = () => {
           ) : (
             <div className="flex items-center gap-2">
               <motion.button
-                whileHover={{ scale: 1.025, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => openAuthModal('login')}
-                className="h-9 sm:h-11 px-2.5 sm:px-4 rounded-xl bg-white text-slate-900 border border-slate-300 text-xs font-black flex items-center gap-2 shadow-sm hover:bg-ivory-50 hover:border-slate-500 transition-all font-['Outfit',sans-serif]"
-              >
-                <LogIn className="w-4 h-4" />
-                <span className="hidden xs:inline sm:inline">Sign In</span>
-              </motion.button>
-              <motion.button
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => openAuthModal('register')}
+                onClick={() => setIsPortalChoiceOpen(true)}
                 className="premium-shine h-9 sm:h-11 px-3 sm:px-5 rounded-xl bg-emerald-700 text-white text-xs font-black flex items-center gap-2 shadow-md shadow-emerald-900/15 hover:bg-emerald-800 transition-all font-['Outfit',sans-serif]"
               >
-                <UserPlus className="w-4 h-4" />
-                <span>Register</span>
+                <ArrowRight className="w-4 h-4" />
+                <span>Get Started</span>
               </motion.button>
             </div>
           )}

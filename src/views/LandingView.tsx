@@ -29,7 +29,6 @@ import { COLLEGES_LIST } from '../data/colleges';
 export const LandingView: React.FC = () => {
   const { 
     setActiveTab, 
-    openAuthModal, 
     currentUser, 
     selectedCollege, 
     setSelectedCollege,
@@ -61,7 +60,7 @@ export const LandingView: React.FC = () => {
 
   const handleGetStarted = () => {
     if (currentUser) {
-      setActiveTab('dashboard');
+      setActiveTab(currentUser.accountType === 'organization' ? 'organization' : 'dashboard');
       return;
     }
     setIsPortalChoiceOpen(true);
@@ -150,34 +149,14 @@ export const LandingView: React.FC = () => {
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
 
-              {!currentUser ? (
-                <>
-                  <motion.button
-                    whileHover={{ scale: 1.04, y: -2 }}
-                    whileTap={{ scale: 0.96 }}
-                    onClick={() => openAuthModal('register')}
-                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all shadow-md shadow-emerald-600/20 font-['Outfit',sans-serif]"
-                  >
-                    <span>Register Account</span>
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.04, y: -2 }}
-                    whileTap={{ scale: 0.96 }}
-                    onClick={() => openAuthModal('login')}
-                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all shadow-xs font-['Outfit',sans-serif]"
-                  >
-                    <span>Student Login</span>
-                  </motion.button>
-                </>
-              ) : (
+              {currentUser ? (
                 <motion.button
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => setActiveTab('dashboard')}
                   className="w-full sm:w-auto px-5 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all font-['Outfit',sans-serif]"
                 >
-                  <span>Enter Student Dashboard</span>
+                  <span>Enter My Workspace</span>
                 </motion.button>
               )}
             </div>
@@ -217,7 +196,7 @@ export const LandingView: React.FC = () => {
                       <Lock className="h-4.5 w-4.5" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-black uppercase tracking-[0.18em] text-emerald-700">Private Student Workspace</div>
+                      <div className="text-[10px] font-black uppercase tracking-[0.18em] text-emerald-700">Secure Portal Access</div>
                       <div className="mt-0.5 text-sm font-black text-slate-950 font-['Outfit',sans-serif]">Access begins after verification</div>
                     </div>
                   </div>
@@ -228,7 +207,7 @@ export const LandingView: React.FC = () => {
 
                 <div className="mt-5 grid gap-2.5">
                   {[
-                    { n: '01', title: 'Register your student account', text: 'Create a fresh profile using your college email.', icon: GraduationCap },
+                    { n: '01', title: 'Choose Student or Organization', text: 'Select your portal first, then sign in or create the correct account type.', icon: GraduationCap },
                     { n: '02', title: 'Sign in securely', text: 'Dashboard access is available only after a valid sign-in.', icon: ShieldCheck },
                     { n: '03', title: 'Complete guided setup', text: 'Choose campus, interests, skills and target outcomes.', icon: Sparkles }
                   ].map((item, index) => {
@@ -262,26 +241,26 @@ export const LandingView: React.FC = () => {
                     <motion.button
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
-                      onClick={() => openAuthModal('login')}
+                      onClick={() => setIsPortalChoiceOpen(true)}
                       className="landing-auth-square group min-h-[92px] rounded-2xl border border-slate-300 bg-white p-3 text-left shadow-sm transition-all hover:border-slate-500 hover:shadow-md"
                     >
                       <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-900">
                         <ShieldCheck className="h-4 w-4" />
                       </div>
-                      <div className="mt-3 text-xs font-black text-slate-950 font-['Outfit',sans-serif]">Student Sign In</div>
+                      <div className="mt-3 text-xs font-black text-slate-950 font-['Outfit',sans-serif]">Choose Portal</div>
                       <div className="mt-0.5 text-[10px] font-semibold text-slate-500">Use registered college email</div>
                     </motion.button>
 
                     <motion.button
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
-                      onClick={() => openAuthModal('register')}
+                      onClick={() => setIsPortalChoiceOpen(true)}
                       className="landing-auth-square premium-shine group min-h-[92px] rounded-2xl border border-emerald-700 bg-emerald-700 p-3 text-left text-white shadow-md shadow-emerald-900/15 transition-all hover:bg-emerald-800"
                     >
                       <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/14 text-white border border-white/10">
                         <GraduationCap className="h-4 w-4" />
                       </div>
-                      <div className="mt-3 text-xs font-black font-['Outfit',sans-serif]">Create Account</div>
+                      <div className="mt-3 text-xs font-black font-['Outfit',sans-serif]">Get Started</div>
                       <div className="mt-0.5 text-[10px] font-semibold text-emerald-100">Start with a fresh student profile</div>
                     </motion.button>
                   </div>
@@ -298,7 +277,7 @@ export const LandingView: React.FC = () => {
 
                 <div className="mt-4 flex items-center justify-center gap-2 text-[10px] font-bold text-slate-400">
                   <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-                  Private workspace unlocks only after verified sign-in · Student progress stays account-specific
+                  Private workspace unlocks only after verified sign-in · Student and Organization accounts stay separate
                 </div>
               </div>
             </div>
@@ -409,7 +388,7 @@ export const LandingView: React.FC = () => {
                   <button
                     onClick={() => {
                       setSelectedCollege(college);
-                      openAuthModal('register');
+                      setIsPortalChoiceOpen(true);
                     }}
                     className="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-xs font-['Outfit',sans-serif]"
                   >
@@ -419,12 +398,12 @@ export const LandingView: React.FC = () => {
                   <button
                     onClick={() => {
                       setSelectedCollege(college);
-                      openAuthModal('login');
+                      setIsPortalChoiceOpen(true);
                     }}
                     className="px-3 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all"
                     title={`Sign in for ${college.shortName}`}
                   >
-                    Sign In
+                    Get Started
                   </button>
                 </div>
               </motion.div>
@@ -660,7 +639,7 @@ export const LandingView: React.FC = () => {
                   className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs shadow-xs inline-flex items-center gap-2 transition-all font-['Outfit',sans-serif]"
                 >
                   <Sparkles className="w-4 h-4 text-gold-600" />
-                  <span>{currentUser ? 'Open Skill Simulator' : 'Sign In to Use Simulator'}</span>
+                  <span>{currentUser ? 'Open Skill Simulator' : 'Get Started to Use Simulator'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>
@@ -714,7 +693,7 @@ export const LandingView: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => openAuthModal('register')}
+              onClick={() => setIsPortalChoiceOpen(true)}
               className="px-6 py-3 rounded-xl bg-plum-900 hover:bg-black text-white font-black text-sm shadow-sm transition-all font-['Outfit',sans-serif]"
             >
               <span>Register Free Account</span>

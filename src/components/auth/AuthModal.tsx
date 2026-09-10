@@ -61,6 +61,9 @@ export const AuthModal: React.FC = () => {
 
   if (!isAuthModalOpen) return null;
 
+  const isOrganization = workspaceMode === 'organization';
+  const portalLabel = isOrganization ? 'Organization' : 'Student';
+
   // Email format validation helper
   const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
@@ -141,10 +144,10 @@ export const AuthModal: React.FC = () => {
           password: registerPassword,
           college: selectedCollegeName,
           collegeCode: matched ? matched.code : undefined,
-          degree,
-          year,
-          careerGoal: 'Software Engineer / AI Systems Engineer',
-          studentRollId: studentRollId.trim() || undefined
+          degree: isOrganization ? 'Organization Account' : degree,
+          year: isOrganization ? 'Organization' : year,
+          careerGoal: isOrganization ? 'Campus Opportunity Management' : 'Software Engineer / AI Systems Engineer',
+          studentRollId: isOrganization ? undefined : (studentRollId.trim() || undefined)
         },
         rememberMe
       );
@@ -157,7 +160,7 @@ export const AuthModal: React.FC = () => {
         setLoginPassword('');
         setRegisterPassword('');
         setAuthModalTab('login');
-        setSuccessNotice('Account created successfully. Sign in with your college email to continue to guided setup.');
+        setSuccessNotice(`${portalLabel} account created successfully. Sign in through the ${portalLabel} portal to continue.`);
       }
     }, 150);
   };
@@ -191,10 +194,10 @@ export const AuthModal: React.FC = () => {
                 </div>
                 <div>
                   <h2 className="text-lg font-black tracking-tight font-['Outfit',sans-serif]">
-                    Student Opportunity Engine
+                    {portalLabel} Portal
                   </h2>
                   <p className="text-xs text-slate-300 font-medium">
-                    Verified Campus Career & Hackathon Network
+                    {isOrganization ? 'Institution Management & Opportunity Publishing' : 'Personal Career & Opportunity Workspace'}
                   </p>
                 </div>
               </div>
@@ -223,7 +226,7 @@ export const AuthModal: React.FC = () => {
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
-                Student Sign In
+                {portalLabel} Sign In
               </button>
               <button
                 type="button"
@@ -238,7 +241,7 @@ export const AuthModal: React.FC = () => {
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
-                New Student Register
+                Create {portalLabel} Account
               </button>
             </div>
           </div>
@@ -289,7 +292,7 @@ export const AuthModal: React.FC = () => {
               <form onSubmit={handleLoginSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-800 mb-1.5 font-['Outfit',sans-serif]">
-                    Registered College Email *
+                    {isOrganization ? 'Registered Organization Email *' : 'Registered {isOrganization ? 'Official Organization Email *' : 'College Email *'}'}
                   </label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -360,7 +363,7 @@ export const AuthModal: React.FC = () => {
               <form onSubmit={handleRegisterSubmit} className="space-y-3.5">
                 <div>
                   <label className="block text-xs font-bold text-slate-800 mb-1 font-['Outfit',sans-serif]">
-                    Full Student Name *
+                    {isOrganization ? 'Organization Admin / Representative Name *' : 'Full Student Name *'}
                   </label>
                   <div className="relative">
                     <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -378,7 +381,7 @@ export const AuthModal: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-bold text-slate-800 mb-1 font-['Outfit',sans-serif]">
-                      College Email *
+                      {isOrganization ? 'Official Organization Email *' : 'College Email *'}
                     </label>
                     <div className="relative">
                       <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -393,7 +396,7 @@ export const AuthModal: React.FC = () => {
                     </div>
                   </div>
 
-                  <div>
+                  {!isOrganization && <div>
                     <label className="block text-xs font-bold text-slate-800 mb-1 font-['Outfit',sans-serif]">
                       Roll No / Student ID (Optional)
                     </label>
@@ -404,7 +407,7 @@ export const AuthModal: React.FC = () => {
                       placeholder="e.g. 2024CS184"
                       className="w-full px-3.5 py-2.5 rounded-xl text-xs border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-100 font-medium transition-all"
                     />
-                  </div>
+                  </div>}
                 </div>
 
                 {/* College Selection */}
@@ -458,7 +461,7 @@ export const AuthModal: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {!isOrganization && <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-bold text-slate-800 mb-1 font-['Outfit',sans-serif]">
                       Degree Track
@@ -493,7 +496,7 @@ export const AuthModal: React.FC = () => {
                       <option>Postgraduate / Masters</option>
                     </select>
                   </div>
-                </div>
+                </div>}
 
                 <div>
                   <label className="block text-xs font-bold text-slate-800 mb-1 font-['Outfit',sans-serif]">

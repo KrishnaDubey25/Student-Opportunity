@@ -5,7 +5,7 @@ import { Opportunity, OpportunityCategory, OpportunityType } from '../types';
 import { Users, Plus, Send, BriefcaseBusiness, ClipboardCheck, Search, Trash2, Eye, GraduationCap, TrendingUp, MessageSquare, Sparkles, ArrowRightLeft } from 'lucide-react';
 
 export const OrganizationView: React.FC = () => {
-  const { registeredUsers, selectedCollege, applications, opportunities, publishCampusOpportunity, removeCampusOpportunity, sendCampusMessage, updateApplicationReviewStatus, setWorkspaceMode, setActiveTab } = useApp();
+  const { registeredUsers, selectedCollege, applications, opportunities, publishCampusOpportunity, removeCampusOpportunity, sendCampusMessage, updateApplicationReviewStatus } = useApp();
   const [search, setSearch] = useState('');
   const [showPublisher, setShowPublisher] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
@@ -14,7 +14,7 @@ export const OrganizationView: React.FC = () => {
   const [msgBody, setMsgBody] = useState('');
   const [form, setForm] = useState({ title:'', type:'Internship' as OpportunityType, category:'Internships' as OpportunityCategory, domain:'Technology', deadline:'2026-10-15', benefit:'Certificate + Mentorship', description:'', skills:'React, JavaScript', mode:'Hybrid' as Opportunity['mode'] });
 
-  const students = useMemo(() => registeredUsers.filter(u => (u.collegeCode || u.profile?.collegeCode) === selectedCollege.code).filter(u => `${u.name} ${u.studentId||''} ${u.profile?.degree||''} ${u.profile?.year||''}`.toLowerCase().includes(search.toLowerCase())), [registeredUsers, selectedCollege.code, search]);
+  const students = useMemo(() => registeredUsers.filter(u => (u.accountType || 'student') === 'student' && (u.collegeCode || u.profile?.collegeCode) === selectedCollege.code).filter(u => `${u.name} ${u.studentId||''} ${u.profile?.degree||''} ${u.profile?.year||''}`.toLowerCase().includes(search.toLowerCase())), [registeredUsers, selectedCollege.code, search]);
   const campusOpps = opportunities.filter(o => o.collegeCode === selectedCollege.code);
   const campusApps = applications.filter(a => a.collegeCode === selectedCollege.code);
 
@@ -35,7 +35,7 @@ export const OrganizationView: React.FC = () => {
   return <div className="space-y-6 pb-20">
     <section className="relative overflow-hidden rounded-[30px] bg-[#111018] text-white p-6 sm:p-8 border border-violet-400/20 shadow-xl">
       <div className="absolute -right-24 -top-24 w-72 h-72 rounded-full bg-violet-500/20 blur-3xl"/><div className="absolute left-1/3 -bottom-28 w-72 h-72 rounded-full bg-emerald-500/15 blur-3xl"/>
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><div className="text-[10px] uppercase tracking-[.22em] font-black text-violet-300">Organization Command Center</div><h1 className="mt-2 text-3xl font-black font-['Outfit',sans-serif]">{selectedCollege.shortName} Opportunity Operations</h1><p className="mt-2 text-sm text-slate-300 max-w-2xl">Track student journeys, publish campus opportunities, review applicants, and send targeted updates from one live workspace.</p></div><div className="flex flex-wrap gap-2"><button onClick={()=>setShowPublisher(true)} className="px-4 py-3 rounded-xl bg-violet-400 text-slate-950 text-xs font-black flex items-center gap-2"><Plus className="w-4 h-4"/>Add Opportunity</button><button onClick={()=>setShowMessage(true)} className="px-4 py-3 rounded-xl bg-emerald-400 text-slate-950 text-xs font-black flex items-center gap-2"><Send className="w-4 h-4"/>Send Message</button><button onClick={()=>{setWorkspaceMode('student');setActiveTab('dashboard')}} className="px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-xs font-black flex items-center gap-2"><ArrowRightLeft className="w-4 h-4"/>Student View</button></div></div>
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><div className="text-[10px] uppercase tracking-[.22em] font-black text-violet-300">Organization Command Center</div><h1 className="mt-2 text-3xl font-black font-['Outfit',sans-serif]">{selectedCollege.shortName} Opportunity Operations</h1><p className="mt-2 text-sm text-slate-300 max-w-2xl">Track student journeys, publish campus opportunities, review applicants, and send targeted updates from one live workspace.</p></div><div className="flex flex-wrap gap-2"><button onClick={()=>setShowPublisher(true)} className="px-4 py-3 rounded-xl bg-violet-400 text-slate-950 text-xs font-black flex items-center gap-2"><Plus className="w-4 h-4"/>Add Opportunity</button><button onClick={()=>setShowMessage(true)} className="px-4 py-3 rounded-xl bg-emerald-400 text-slate-950 text-xs font-black flex items-center gap-2"><Send className="w-4 h-4"/>Send Message</button></div></div>
     </section>
 
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
