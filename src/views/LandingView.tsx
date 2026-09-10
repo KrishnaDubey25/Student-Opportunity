@@ -149,7 +149,7 @@ export const LandingView: React.FC = () => {
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
 
-              {currentUser \{currentUser ? (\{currentUser ? ( (
+              {currentUser && (
                 <motion.button
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.96 }}
