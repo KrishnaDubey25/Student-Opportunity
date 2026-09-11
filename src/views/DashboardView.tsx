@@ -344,7 +344,7 @@ export const DashboardView: React.FC = () => {
 
       {/* 2. CAMPUS INTELLIGENCE STRIP */}
       <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-campus relative overflow-hidden rounded-[28px] p-6 bg-[#fffdf9] border border-[#ddd2c8] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-campus relative overflow-hidden rounded-[24px] p-5 bg-[#fffdf9] border border-[#ddd2c8] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-emerald-400/15 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-center justify-between gap-3">
@@ -362,20 +362,20 @@ export const DashboardView: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-updates relative overflow-hidden rounded-[28px] p-6 bg-[#f7f1eb] border border-[#d8cabb] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-updates relative overflow-hidden rounded-[24px] p-5 bg-[#f7f1eb] border border-[#d8cabb] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-violet-700">Recent Updates</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What changed on campus</h2></div><BellRing className="h-5 w-5 text-violet-700"/></div>
           <div className="mt-5 space-y-3">
             {campusRecentMessages.length ? campusRecentMessages.map(item => <div key={item.id} className="rounded-2xl border border-[#ded4ca] bg-[#fbf7f2] p-3.5"><div className="text-sm font-black text-[#2b241f]">{item.title}</div><div className="mt-1 text-xs leading-relaxed text-[#665b52] line-clamp-2">{item.message}</div><div className="mt-2 text-[10px] font-bold text-[#8a7d72]">{new Date(item.createdAt).toLocaleString()}</div></div>) : <div className="rounded-2xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No new campus broadcast yet. Organization updates will appear here live.</div>}
           </div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco relative overflow-hidden rounded-[28px] p-6 bg-[#f2ece6] border border-[#d5c7ba] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco relative overflow-hidden rounded-[24px] p-5 bg-[#f2ece6] border border-[#d5c7ba] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-[#76533e]">Recommended For You</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Best next opportunities</h2></div><BrainCircuit className="h-6 w-6 text-[#76533e]"/></div>
           <p className="mt-2 text-sm text-slate-600">Ranked using your match, eligibility and career-impact scores.</p>
           <div className="mt-4 space-y-3">{personalizedRecommendations.map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="w-full rounded-2xl border border-[#ded4ca] bg-[#fbf7f2] p-3.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-[#f6efe8] hover:border-[#cbb8a7]"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-[#2b241f]">{opp.title}</div><div className="mt-1 text-[12px] font-semibold text-[#6f6258]">{opp.type} • {opp.organization}</div></div><div className="rounded-xl bg-[#3a2d25] px-2.5 py-1.5 text-xs font-black text-white">{opp.matchScore}%</div></div><div className="mt-2 flex items-center gap-1.5 text-[11px] font-black text-[#7a5b47]"><Star className="h-3 w-3"/>Recommended because it fits your current profile</div></button>)}</div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-rank relative overflow-hidden rounded-[28px] p-6 bg-[#eee5dc] border border-[#cfbeae] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-rank relative overflow-hidden rounded-[24px] p-5 bg-[#eee5dc] border border-[#cfbeae] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="text-[12px] font-black uppercase tracking-[0.14em] text-slate-700">Campus Rank</div>
@@ -470,10 +470,10 @@ export const DashboardView: React.FC = () => {
                 whileTap={{ scale: 0.985 }}
                 animate={{ scale: activatingCard === card.id ? 0.985 : 1 }}
                 onClick={() => openAnimatedCard(card)}
-                className={`opportunity-board-card feature-${card.id} premium-motion-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-[#fffdf9] flex flex-col justify-between min-h-[270px]`}
+                className={`opportunity-board-card feature-${card.id} premium-motion-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-[#fffdf9] flex flex-col justify-between min-h-[225px]`}
               >
                 {/* Lightweight category header: no remote image banner. */}
-                <div className="workspace-card-head relative min-h-[96px] overflow-hidden border-b p-4 sm:p-5">
+                <div className="workspace-card-head relative min-h-[82px] overflow-hidden border-b p-4 sm:p-5">
                   <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-emerald-400/10 blur-2xl" />
                   <div className="relative z-10 flex h-full items-start justify-between gap-3">
                     <div className="min-w-0">
@@ -492,7 +492,7 @@ export const DashboardView: React.FC = () => {
                 </div>
 
                 {/* Card Content */}
-                <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5 sm:space-y-3">
+                <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5 sm:space-y-3">
                   <div>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="card-dot h-2 w-2 rounded-full shadow-[0_0_0_4px_rgba(33,132,95,.08)]" />

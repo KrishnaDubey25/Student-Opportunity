@@ -1610,3 +1610,118 @@ body{background:var(--v8-bg)!important;color:var(--v8-text)!important;font-famil
 .opportunity-card-pro,.premium-pillar,.auth-premium-panel button,.landing-access-step{transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s ease,border-color .28s ease,background .28s ease!important;}
 .premium-pillar:hover{transform:translateY(-5px)!important;box-shadow:0 22px 52px rgba(67,48,37,.14)!important;}
 @media(max-width:768px){body{font-size:15px!important}.text-xs{font-size:12.5px!important}.text-sm{font-size:14px!important}}
+
+/* === V9 visibility-first premium layout === */
+:root{
+  --v9-canvas:#f5f1ec;
+  --v9-card:#fffdf9;
+  --v9-card-soft:#f8f3ed;
+  --v9-coffee:#6b5546;
+  --v9-coffee-dark:#4d3b31;
+  --v9-taupe:#8b7463;
+  --v9-beige:#e8ddd2;
+  --v9-border:#d9cec4;
+  --v9-ink:#241f1b;
+  --v9-ink-2:#4d443d;
+  --v9-muted:#6e635b;
+}
+
+body{
+  background:var(--v9-canvas)!important;
+  color:var(--v9-ink)!important;
+}
+
+/* Make the whole product lighter and calmer without introducing a second accent color. */
+.dashboard-hero{
+  background:linear-gradient(135deg,#604b3e 0%,#745d4d 58%,#8a715f 100%)!important;
+  box-shadow:0 22px 56px rgba(73,55,44,.18)!important;
+}
+.dashboard-hero p,.dashboard-hero .text-slate-300,.dashboard-hero .text-slate-400{color:#f1e8df!important;}
+.dashboard-hero .bg-emerald-500,.dashboard-hero .bg-emerald-400{background:#efe4d9!important;color:#392c24!important;}
+
+.workspace-card-head{
+  background:linear-gradient(135deg,#665043 0%,#765e4e 100%)!important;
+}
+.workspace-card-head .card-kicker{color:#ead9ca!important;}
+.workspace-card-head .card-category{color:#fffaf5!important;}
+.workspace-card-head .card-icon{background:#f2e7dc!important;color:#4d3b31!important;}
+
+/* Shorter dashboard cards: same content, tighter proportions. */
+.premium-pillar{min-height:218px!important;}
+.opportunity-board-card{min-height:225px!important;}
+.standard-dashboard-card{min-height:0!important;}
+.dashboard-premium .grid{align-items:stretch;}
+
+/* Visibility audit — every light card uses dark text, every helper line stays readable. */
+.dashboard-premium :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.metric-tile),
+.organization-premium :where(.premium-soft-card,[class*="bg-white"],[class*="bg-slate-50"],[class*="bg-[#fb"],[class*="bg-[#f8"]){
+  color:var(--v9-ink)!important;
+}
+.dashboard-premium :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.metric-tile) :where(.text-slate-950,.text-slate-900,.text-slate-800,.text-slate-700),
+.organization-premium :where(.premium-soft-card,[class*="bg-white"],[class*="bg-slate-50"],[class*="bg-[#fb"],[class*="bg-[#f8"]) :where(.text-slate-950,.text-slate-900,.text-slate-800,.text-slate-700){
+  color:var(--v9-ink)!important;
+}
+.dashboard-premium :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.metric-tile) :where(.text-slate-600,.text-slate-500,.text-slate-400,.text-slate-300),
+.organization-premium :where(.premium-soft-card,[class*="bg-white"],[class*="bg-slate-50"],[class*="bg-[#fb"],[class*="bg-[#f8"]) :where(.text-slate-600,.text-slate-500,.text-slate-400,.text-slate-300){
+  color:var(--v9-muted)!important;
+  opacity:1!important;
+}
+.dashboard-premium :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card) p,
+.organization-premium :where(.premium-soft-card,[class*="bg-white"],[class*="bg-slate-50"]) p{
+  color:var(--v9-muted)!important;
+  opacity:1!important;
+}
+
+/* Preserve correct text on intentionally dark surfaces. */
+.dashboard-hero :where(h1,h2,h3,.text-white),
+.workspace-card-head :where(h1,h2,h3,.card-category,.text-white),
+.organization-premium :where(.bg-slate-950,.bg-violet-700,.bg-emerald-700,.bg-[#463126]){
+  color:#fffaf5!important;
+}
+.organization-premium :where(.bg-slate-950,.bg-violet-700,.bg-emerald-700,.bg-[#463126]) *{color:inherit;}
+
+/* Organization side now follows the same premium card language. */
+.organization-premium{
+  color:var(--v9-ink)!important;
+}
+.organization-premium .org-premium-hero{
+  background:linear-gradient(135deg,#fffdf9 0%,#f5eee7 58%,#ece1d7 100%)!important;
+  border-color:var(--v9-border)!important;
+  box-shadow:0 16px 44px rgba(68,51,40,.09)!important;
+}
+.organization-premium .premium-soft-card,
+.organization-premium section[class*="bg-white"],
+.organization-premium div[class*="bg-white"]{
+  border-color:var(--v9-border)!important;
+}
+.organization-premium .premium-soft-card{
+  background:var(--v9-card)!important;
+  box-shadow:0 10px 30px rgba(68,51,40,.075)!important;
+}
+.organization-premium .premium-soft-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 42px rgba(68,51,40,.12)!important;
+}
+
+/* Typography: no tiny washed-out text; preserve hierarchy instead of making everything large. */
+#root .text-\[9px\]{font-size:11px!important;line-height:1.35!important;}
+#root .text-\[10px\]{font-size:11.5px!important;line-height:1.4!important;}
+#root .text-\[11px\]{font-size:12px!important;line-height:1.45!important;}
+#root .text-xs{line-height:1.55!important;}
+#root p{font-weight:560!important;}
+#root h1,#root h2,#root h3,#root h4{font-weight:800!important;}
+
+/* Clean premium motion — restrained and consistent. */
+.premium-pillar,.opportunity-board-card,.standard-dashboard-card,.premium-soft-card{
+  transition:transform .26s cubic-bezier(.22,1,.36,1),box-shadow .26s ease,border-color .26s ease!important;
+}
+.premium-pillar:hover,.opportunity-board-card:hover,.standard-dashboard-card:hover,.premium-soft-card:hover{
+  transform:translateY(-4px)!important;
+  box-shadow:0 20px 46px rgba(68,51,40,.12)!important;
+}
+.opportunity-board-card:hover{rotate:0deg!important;}
+
+@media(max-width:1024px){
+  .premium-pillar{min-height:auto!important;}
+  .opportunity-board-card{min-height:215px!important;}
+}

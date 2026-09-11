@@ -90,7 +90,7 @@ export const OrganizationView: React.FC = () => {
     setForm({ ...form, title: '', description: '' });
   };
 
-  return <div className="space-y-7 pb-20">
+  return <div className="organization-premium space-y-7 pb-20">
     <section className="org-premium-hero relative overflow-hidden rounded-[32px] bg-gradient-to-br from-white via-emerald-50/70 to-amber-50/60 text-slate-950 p-7 sm:p-9 border border-emerald-100 shadow-sm">
       <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-emerald-300/20 blur-3xl" />
       <div className="absolute left-1/3 -bottom-28 w-80 h-80 rounded-full bg-amber-300/20 blur-3xl" />
