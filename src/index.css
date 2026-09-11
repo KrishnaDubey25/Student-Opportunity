@@ -1795,3 +1795,135 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
 #root .dashboard-premium .dashboard-dark-card{
   background:linear-gradient(135deg,#604536 0%,#6d503e 58%,#7b5b47 100%)!important;
 }
+
+/* =========================================================
+   V19 — DASHBOARD HEADER + TOP FOUR: CLEAN BLACK & WHITE
+   Scope intentionally limited to the signed-in Dashboard hero
+   and the four executive cards directly below it.
+   Landing and all lower dashboard sections remain unchanged.
+   ========================================================= */
+
+/* Main dashboard header: white surface, black text. */
+#root .dashboard-premium .dashboard-hero{
+  background:#ffffff!important;
+  color:#111111!important;
+  border:1px solid #dedede!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.08)!important;
+}
+#root .dashboard-premium .dashboard-hero :is(h1,h2,h3,h4,strong,p,small,span){
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+  opacity:1!important;
+}
+#root .dashboard-premium .dashboard-hero svg{
+  color:#111111!important;
+  opacity:1!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-badge{
+  background:#f6f6f6!important;
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+  border-color:#d7d7d7!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-badge *{
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-action{
+  background:#111111!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  border-color:#111111!important;
+  box-shadow:none!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-action *{
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-action:hover{
+  background:#000000!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary{
+  background:#ffffff!important;
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+  border-color:#bdbdbd!important;
+  box-shadow:none!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary *{
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+}
+#root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary:hover{
+  background:#f4f4f4!important;
+  border-color:#111111!important;
+}
+
+/* Four executive cards: white surface, black text, neutral inner tiles. */
+#root .dashboard-premium .executive-strip .executive-pillar{
+  background:#ffffff!important;
+  color:#111111!important;
+  border:1px solid #dddddd!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.07)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar:hover{
+  background:#ffffff!important;
+  border-color:#c7c7c7!important;
+  box-shadow:0 14px 30px rgba(0,0,0,.10)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar :is(h1,h2,h3,h4,strong,p,small,span,div){
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+  opacity:1!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar svg{
+  color:#111111!important;
+  opacity:1!important;
+}
+#root .dashboard-premium .executive-strip .executive-inner-tile{
+  background:#f7f7f7!important;
+  color:#111111!important;
+  border-color:#dddddd!important;
+  box-shadow:none!important;
+}
+#root .dashboard-premium .executive-strip button.executive-inner-tile:hover{
+  background:#eeeeee!important;
+  border-color:#bdbdbd!important;
+}
+#root .dashboard-premium .executive-strip .executive-chip{
+  background:#eeeeee!important;
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+  border-color:#d2d2d2!important;
+}
+#root .dashboard-premium .executive-strip .executive-score{
+  background:#111111!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  border:1px solid #111111!important;
+}
+#root .dashboard-premium .executive-strip .executive-score *{
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+#root .dashboard-premium .executive-strip .executive-scroll-cue{
+  background:linear-gradient(180deg,rgba(255,255,255,0),#ffffff 46%,#ffffff 100%)!important;
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+  border-top-color:#ececec!important;
+}
+#root .dashboard-premium .executive-strip .executive-scroll-cue *{
+  color:#111111!important;
+  -webkit-text-fill-color:#111111!important;
+}
+#root .dashboard-premium .executive-pillar-scroll{
+  scrollbar-color:#111111 #eeeeee!important;
+}
+#root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-track{
+  background:#eeeeee!important;
+}
+#root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-thumb{
+  background:#111111!important;
+  border:2px solid transparent!important;
+  background-clip:padding-box!important;
+}
