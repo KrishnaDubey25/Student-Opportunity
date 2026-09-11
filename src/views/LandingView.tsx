@@ -67,7 +67,7 @@ export const LandingView: React.FC = () => {
   };
 
   return (
-    <div className="premium-page w-full flex flex-col min-h-screen bg-[#f1ece6] text-slate-900 selection:bg-amber-400 selection:text-slate-950 pb-12 overflow-hidden">
+    <div className="premium-page w-full flex flex-col min-h-screen bg-[#f7f7f5] text-slate-950 selection:bg-slate-900 selection:text-white pb-12 overflow-hidden">
       {/* Subtle Background Elements (Warm Ivory & Pure White) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="ambient-orb absolute -top-32 -left-32 w-96 h-96 bg-emerald-900/30 rounded-full blur-3xl opacity-70" />
@@ -75,7 +75,7 @@ export const LandingView: React.FC = () => {
       </div>
 
       {/* 1. HERO SECTION */}
-      <section className="landing-hero-stage relative z-10 mt-4 sm:mt-8 pt-10 sm:pt-14 pb-10 sm:pb-14 px-5 sm:px-7 lg:px-10 max-w-7xl mx-auto w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] rounded-[30px] sm:rounded-[38px] bg-gradient-to-br from-slate-950 via-[#211d1a] to-[#45172d] border border-white/10 shadow-[0_34px_100px_rgba(15,23,42,.28)]">
+      <section className="landing-hero-stage relative z-10 mt-4 sm:mt-8 pt-10 sm:pt-14 pb-10 sm:pb-14 px-5 sm:px-7 lg:px-10 max-w-7xl mx-auto w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] rounded-[30px] sm:rounded-[38px] bg-white border border-slate-200 shadow-[0_28px_90px_rgba(15,23,42,.10)]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Headline, Tagline, & CTAs */}
           <motion.div 
@@ -96,7 +96,7 @@ export const LandingView: React.FC = () => {
             </motion.div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-[-0.055em] text-white font-['Outfit',sans-serif] leading-[0.98]">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-[-0.055em] text-slate-950 font-['Outfit',sans-serif] leading-[0.98]">
               Student Opportunity Engine
             </h1>
 
@@ -114,7 +114,7 @@ export const LandingView: React.FC = () => {
             </div>
 
             {/* Dynamic Animated Keyword Banner */}
-            <div className="mt-5 flex items-center gap-2 text-base sm:text-lg font-extrabold text-slate-200 font-['Outfit',sans-serif]">
+            <div className="mt-5 flex items-center gap-2 text-base sm:text-lg font-extrabold text-slate-700 font-['Outfit',sans-serif]">
               <span>Accelerating student careers in</span>
               <div className="h-9 min-w-[210px] relative overflow-hidden bg-emerald-400/10 border border-emerald-300/20 rounded-xl shadow-sm flex items-center justify-center px-3 backdrop-blur">
                 <AnimatePresence mode="wait">
@@ -133,7 +133,7 @@ export const LandingView: React.FC = () => {
             </div>
 
             {/* Short explanation */}
-            <p className="mt-5 text-[15px] sm:text-[17px] text-slate-300 max-w-xl leading-8 font-semibold">
+            <p className="mt-5 text-[15px] sm:text-[17px] text-slate-600 max-w-xl leading-8 font-semibold">
               A focused career operating system for engineering and university students. Discover verified opportunities, understand readiness, track applications, and connect with relevant campus peers based on shared technical interests.
             </p>
 
@@ -185,7 +185,7 @@ export const LandingView: React.FC = () => {
             transition={{ duration: 0.65, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-5 relative"
           >
-            <div className="landing-access-panel landing-access-contrast relative mx-auto w-full max-w-md overflow-hidden rounded-[30px] border border-white/10 bg-[#171513]/90 p-5 sm:p-6 shadow-[0_28px_80px_rgba(0,0,0,.34)] backdrop-blur-xl">
+            <div className="landing-access-panel landing-access-contrast relative mx-auto w-full max-w-md overflow-hidden rounded-[30px] border border-slate-200 bg-white p-5 sm:p-6 shadow-[0_24px_70px_rgba(15,23,42,.10)]">
               <div className="pointer-events-none absolute -right-14 -top-16 h-44 w-44 rounded-full bg-emerald-200/55 blur-3xl ambient-orb" />
               <div className="pointer-events-none absolute -bottom-16 -left-12 h-44 w-44 rounded-full bg-gold-200/45 blur-3xl ambient-orb" />
 

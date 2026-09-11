@@ -297,7 +297,7 @@ export const DashboardView: React.FC = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }} className="dashboard-premium w-full space-y-8 pb-16 text-slate-900">
       
       {/* 1. STUDENT & CAMPUS BANNER */}
-      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="dashboard-hero p-7 sm:p-9 rounded-[30px] border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-[#40152a] text-white relative overflow-hidden shadow-[0_28px_80px_rgba(15,23,42,.28)]">
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="dashboard-hero p-7 sm:p-9 rounded-[30px] border border-slate-200 bg-white text-slate-950 relative overflow-hidden shadow-[0_20px_60px_rgba(15,23,42,.08)]">
         {/* Background decorative blur */}
         <div className="absolute -right-16 -top-16 w-64 h-64 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none ambient-orb" />
         <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl pointer-events-none ambient-orb" />
@@ -343,8 +343,8 @@ export const DashboardView: React.FC = () => {
       </motion.div>
 
       {/* 2. CAMPUS INTELLIGENCE STRIP */}
-      <section className="grid md:grid-cols-3 gap-5">
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-campus relative overflow-hidden rounded-[28px] p-6 bg-gradient-to-br from-[#102c23] via-[#173b2f] to-[#0d2019] border border-emerald-300/10 shadow-[0_22px_60px_rgba(10,34,26,.22)]">
+      <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-campus relative overflow-hidden rounded-[28px] p-6 bg-white border border-slate-200 shadow-[0_16px_42px_rgba(15,23,42,.08)]">
           <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-emerald-400/15 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-center justify-between gap-3">
@@ -362,23 +362,43 @@ export const DashboardView: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-updates relative overflow-hidden rounded-[28px] p-6 bg-gradient-to-br from-[#24171f] via-[#3b2030] to-[#1e141a] border border-rose-300/10 shadow-[0_22px_60px_rgba(45,18,31,.20)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-updates relative overflow-hidden rounded-[28px] p-6 bg-white border border-slate-200 shadow-[0_16px_42px_rgba(15,23,42,.08)]">
           <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-violet-700">Recent Updates</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What changed on campus</h2></div><BellRing className="h-5 w-5 text-violet-700"/></div>
           <div className="mt-5 space-y-3">
             {campusRecentMessages.length ? campusRecentMessages.map(item => <div key={item.id} className="rounded-2xl border border-white/10 bg-white/[0.06] p-3.5"><div className="text-sm font-black text-white">{item.title}</div><div className="mt-1 text-xs leading-relaxed text-slate-300 line-clamp-2">{item.message}</div><div className="mt-2 text-[10px] font-bold text-slate-400">{new Date(item.createdAt).toLocaleString()}</div></div>) : <div className="rounded-2xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No new campus broadcast yet. Organization updates will appear here live.</div>}
           </div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco relative overflow-hidden rounded-[28px] p-6 bg-gradient-to-br from-[#2e2414] via-[#4d381b] to-[#20180f] border border-amber-300/10 shadow-[0_22px_60px_rgba(56,40,15,.20)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco relative overflow-hidden rounded-[28px] p-6 bg-white border border-slate-200 shadow-[0_16px_42px_rgba(15,23,42,.08)]">
           <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-emerald-700">Recommended For You</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Best next opportunities</h2></div><BrainCircuit className="h-6 w-6 text-emerald-700"/></div>
           <p className="mt-2 text-sm text-slate-600">Ranked using your match, eligibility and career-impact scores.</p>
           <div className="mt-4 space-y-3">{personalizedRecommendations.map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="w-full rounded-2xl border border-white/10 bg-white/[0.07] p-3.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-white/[0.11] hover:border-amber-300/30"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-white">{opp.title}</div><div className="mt-1 text-[12px] font-semibold text-slate-300">{opp.type} • {opp.organization}</div></div><div className="rounded-xl bg-amber-400 px-2.5 py-1.5 text-xs font-black text-slate-950">{opp.matchScore}%</div></div><div className="mt-2 flex items-center gap-1.5 text-[11px] font-black text-amber-300"><Star className="h-3 w-3"/>Recommended because it fits your current profile</div></button>)}</div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-rank relative overflow-hidden rounded-[28px] p-6 bg-white border border-slate-200 shadow-[0_16px_42px_rgba(15,23,42,.08)]">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <div className="text-[12px] font-black uppercase tracking-[0.14em] text-slate-700">Campus Rank</div>
+              <h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Your campus standing</h2>
+            </div>
+            <Trophy className="h-6 w-6 text-slate-800"/>
+          </div>
+          <div className="mt-5 flex items-end gap-3">
+            <div className="text-5xl font-black tracking-[-0.06em] text-slate-950 font-['Outfit',sans-serif]">#{campusRank}</div>
+            <div className="pb-1 text-sm font-bold text-slate-500">within {selectedCollege.shortName}</div>
+          </div>
+          <div className="mt-5 grid grid-cols-3 gap-2">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3"><div className="text-[11px] font-extrabold text-slate-500">Score</div><div className="mt-1 text-xl font-black text-slate-950">{campusOpportunityScore}</div></div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3"><div className="text-[11px] font-extrabold text-slate-500">Percentile</div><div className="mt-1 text-xl font-black text-slate-950">{campusPercentile}%</div></div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3"><div className="text-[11px] font-extrabold text-slate-500">Coverage</div><div className="mt-1 text-xl font-black text-slate-950">{opportunityCoverage}%</div></div>
+          </div>
+          <p className="mt-4 text-sm font-semibold text-slate-600">Calculated from profile evidence, readiness and active applications.</p>
         </motion.div>
       </section>
 
       {/* 3. LIVE CAMPUS EXECUTION LAYER */}
       <section className="grid xl:grid-cols-[1.15fr_.9fr_.95fr] gap-5">
-        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-violet-300/15 bg-gradient-to-br from-[#201828] via-[#2b2035] to-[#17131d] p-6 text-white shadow-[0_20px_55px_rgba(25,15,34,.18)] overflow-hidden relative">
+        <motion.div whileHover={{ y: -3 }} className="standard-dashboard-card rounded-[30px] border border-slate-200 bg-white p-6 text-slate-950 shadow-[0_16px_42px_rgba(15,23,42,.07)] overflow-hidden relative">
           <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-violet-500/20 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-start justify-between gap-4"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-violet-700">My Campus Tasks</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Work that moves your profile</h2></div><CheckSquare2 className="h-6 w-6 text-violet-700" /></div>
@@ -401,13 +421,13 @@ export const DashboardView: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-emerald-300/15 bg-gradient-to-br from-[#102a22] via-[#17392e] to-[#101d19] p-6 text-white shadow-[0_20px_55px_rgba(11,42,32,.18)]">
+        <motion.div whileHover={{ y: -3 }} className="standard-dashboard-card rounded-[30px] border border-slate-200 bg-white p-6 text-slate-950 shadow-[0_16px_42px_rgba(15,23,42,.07)]">
           <div className="flex items-start justify-between"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-emerald-700">Study Resource Channel</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What to study. Where to study.</h2></div><BookOpenCheck className="h-6 w-6 text-emerald-700"/></div>
           <p className="mt-2 text-sm text-slate-600">Curated learning links published by your college for current preparation.</p>
           <div className="mt-5 space-y-3">{campusStudyResources.map(resource => <div key={resource.id} className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm"><div className="text-sm font-black text-white">{resource.title}</div><div className="mt-1 text-[11px] font-bold text-emerald-700">{resource.subject} • {resource.level}</div><p className="mt-2 text-xs text-slate-600">{resource.description}</p><div className="mt-3 flex flex-wrap gap-2">{resource.links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-2.5 py-1.5 text-[10px] font-black text-slate-700 hover:border-emerald-400"><Link2 className="h-3 w-3"/>{link.label}</a>)}</div></div>)}{!campusStudyResources.length && <div className="rounded-2xl border border-dashed border-emerald-200 p-5 text-sm text-slate-500">Your faculty resource channels will appear here.</div>}</div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-amber-300/15 bg-gradient-to-br from-[#2b2115] via-[#413019] to-[#21170f] p-6 text-white shadow-[0_20px_55px_rgba(51,35,14,.18)]">
+        <motion.div whileHover={{ y: -3 }} className="standard-dashboard-card rounded-[30px] border border-slate-200 bg-white p-6 text-slate-950 shadow-[0_16px_42px_rgba(15,23,42,.07)]">
           <div className="flex items-start justify-between"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-amber-700">Inter-College Network</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Collaborations & live openings</h2></div><UsersRound className="h-6 w-6 text-amber-700"/></div>
           <p className="mt-2 text-sm text-slate-600">See workshops, hackathons, research and placement collaborations opened by your campus.</p>
           <div className="mt-5 space-y-3">{campusCollaborations.map(collab => <div key={collab.id} className="rounded-2xl border border-white bg-white/90 p-4 shadow-sm"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-white">{collab.title}</div><div className="mt-1 text-[11px] font-bold text-slate-500">with {collab.partnerCollege}</div></div><span className="rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-black text-amber-800">{collab.status}</span></div><div className="mt-2 flex items-center gap-2 text-[11px] font-bold text-violet-700"><Presentation className="h-3.5 w-3.5"/>{collab.type} • {collab.date}</div></div>)}{!campusCollaborations.length && <div className="rounded-2xl border border-dashed border-amber-200 p-5 text-sm text-slate-500">No active collaboration posted yet.</div>}</div>
@@ -501,23 +521,6 @@ Open workspace
           })}
         </div>
       </div>
-
-      {/* CAMPUS RANK & MOMENTUM */}
-      <section className="rank-band rounded-[30px] border border-slate-200 bg-gradient-to-r from-emerald-50 via-white to-amber-50 p-5 sm:p-6 shadow-sm">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-          <div className="max-w-xl">
-            <div className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700">Campus Standing</div>
-            <h2 className="mt-1 text-2xl sm:text-3xl font-black text-slate-950 font-['Outfit',sans-serif]">Your current opportunity rank</h2>
-            <p className="mt-2 text-sm text-slate-600">Prototype ranking based on profile evidence, readiness, hackathon strength and active application activity inside {selectedCollege.shortName}.</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full lg:max-w-2xl">
-            <div className="metric-tile"><span>Campus Rank</span><strong>#{campusRank}</strong><small>within current college</small></div>
-            <div className="metric-tile"><span>Opportunity Score</span><strong>{campusOpportunityScore}</strong><small>/100 momentum score</small></div>
-            <div className="metric-tile"><span>Percentile</span><strong>{campusPercentile}%</strong><small>current prototype band</small></div>
-            <div className="metric-tile"><span>Coverage</span><strong>{opportunityCoverage}%</strong><small>visible ecosystem mix</small></div>
-          </div>
-        </div>
-      </section>
 
       {/* 3. VISUAL GRAPHS & INDUSTRY LEVEL READINESS GAUGE */}
       <div className="space-y-3 pt-2">
