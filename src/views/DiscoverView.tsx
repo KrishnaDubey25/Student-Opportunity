@@ -8,7 +8,6 @@ import {
   ArrowUpDown,
   Compass,
   Bookmark,
-  Scale,
   Clock,
   MapPin,
   Users,
@@ -38,7 +37,6 @@ const CATEGORIES_LIST: (OpportunityCategory | 'All')[] = [
 export const DiscoverView: React.FC = () => {
   const { 
     opportunities, 
-    compareList, 
     setActiveTab,
     selectedCollege,
     activeCategoryFilter,
@@ -139,18 +137,6 @@ export const DiscoverView: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {compareList.length > 0 && (
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setActiveTab('compare')}
-              className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold flex items-center gap-2 transition-colors shadow-xs font-['Outfit',sans-serif]"
-            >
-              <Scale className="w-3.5 h-3.5" />
-              <span>Compare ({compareList.length})</span>
-            </motion.button>
-          )}
-
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}

@@ -40,7 +40,6 @@ export type NavTab =
   | 'tracker'
   | 'deadlines'
   | 'recovery'
-  | 'compare'
   | 'career'
   | 'target-jobs'
   | 'analytics'
@@ -66,9 +65,6 @@ interface AppContextType {
   selectedOpportunityId: string | null;
   setSelectedOpportunityId: (id: string | null) => void;
   openIntelligence: (id: string) => void;
-  compareList: string[];
-  toggleCompareOpportunity: (id: string) => void;
-  clearCompareList: () => void;
   roadmapSteps: RoadmapStep[];
   toggleRoadmapStep: (id: string) => void;
   notifications: NotificationItem[];
@@ -173,7 +169,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeTab, setActiveTabState] = useState<NavTab>('landing');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [selectedOpportunityId, setSelectedOpportunityId] = useState<string | null>(null);
-  const [compareList, setCompareList] = useState<string[]>([]);
   const [workspaceMode, setWorkspaceMode] = useState<WorkspaceMode>('student');
   const [authPortalMode, setAuthPortalMode] = useState<WorkspaceMode>('student');
   const [isPortalChoiceOpen, setIsPortalChoiceOpen] = useState(false);
@@ -586,7 +581,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setNotifications(Array.from(notificationMap.values()).reverse());
       setJobReadinessItems(readUserWorkspace(user.id, 'job_readiness', getFreshJobReadiness()));
       setNextActions(readUserWorkspace(user.id, 'next_actions', getFreshNextActions()));
-      setCompareList([]);
       setSelectedOpportunityId(null);
 
       const userCol = COLLEGES_LIST.find(
@@ -970,24 +964,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(copied ? 'Opportunity digest copied to clipboard!' : 'Could not access clipboard. Try again from a secure tab.');
   };
 
-  const toggleCompareOpportunity = (id: string) => {
-    setCompareList(prev => {
-      if (prev.includes(id)) {
-        return prev.filter(item => item !== id);
-      }
-      if (prev.length >= 4) {
-        showToast('Maximum 4 opportunities can be compared at once.');
-        return prev;
-      }
-      showToast('Added to Opportunity Comparison matrix');
-      return [...prev, id];
-    });
-  };
-
-  const clearCompareList = () => {
-    setCompareList([]);
-  };
-
   const toggleRoadmapStep = (id: string) => {
     setRoadmapSteps(prev =>
       prev.map(step => {
@@ -1109,7 +1085,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setNotifications([]);
     setJobReadinessItems(getFreshJobReadiness());
     setNextActions(getFreshNextActions());
-    setCompareList([]);
     setSelectedOpportunityId(null);
 
     localStorage.setItem(userStorageKey(currentUser.id, 'opportunities'), JSON.stringify(getFreshOpportunities()));
@@ -1176,9 +1151,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         selectedOpportunityId,
         setSelectedOpportunityId,
         openIntelligence,
-        compareList,
-        toggleCompareOpportunity,
-        clearCompareList,
         roadmapSteps,
         toggleRoadmapStep,
         notifications,

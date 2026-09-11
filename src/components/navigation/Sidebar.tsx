@@ -13,7 +13,6 @@ import {
   RotateCcw,
   TrendingUp,
   User,
-  Scale,
   ChevronLeft,
   ChevronRight,
   Zap,
@@ -30,7 +29,6 @@ export const Sidebar: React.FC = () => {
     activeTab, 
     setActiveTab, 
     stats, 
-    compareList, 
     resetWorkspaceData,
     currentUser,
     logout,
@@ -70,7 +68,6 @@ export const Sidebar: React.FC = () => {
         { id: 'profile', label: 'Student Profile', icon: User },
         { id: 'recovery', label: 'Opportunity Recovery', icon: RotateCcw },
         { id: 'career', label: 'Career Trajectory', icon: TrendingUp },
-        { id: 'compare', label: 'Compare Matrix', icon: Scale, badge: compareList.length > 0 ? compareList.length : undefined },
       ]
     }
   ];

@@ -17,7 +17,6 @@ import { RoadmapView } from './views/RoadmapView';
 import { TrackerView } from './views/TrackerView';
 import { DeadlinesView } from './views/DeadlinesView';
 import { RecoveryView } from './views/RecoveryView';
-import { CompareView } from './views/CompareView';
 import { CareerView } from './views/CareerView';
 import { ProfileView } from './views/ProfileView';
 import { ReadinessView } from './views/ReadinessView';
@@ -75,8 +74,6 @@ const AppContent: React.FC = () => {
         return <DeadlinesView />;
       case 'recovery':
         return <RecoveryView />;
-      case 'compare':
-        return <CompareView />;
       case 'career':
         return <CareerView />;
       case 'analytics':

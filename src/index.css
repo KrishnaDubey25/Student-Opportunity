@@ -1797,133 +1797,153 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
 }
 
 /* =========================================================
-   V19 — DASHBOARD HEADER + TOP FOUR: CLEAN BLACK & WHITE
-   Scope intentionally limited to the signed-in Dashboard hero
-   and the four executive cards directly below it.
-   Landing and all lower dashboard sections remain unchanged.
+   V20 — TOP DASHBOARD MATCHES THE THREE EXECUTION CARDS
+   Only the signed-in dashboard hero + four executive cards.
+   Landing and lower dashboard sections remain unchanged.
    ========================================================= */
 
-/* Main dashboard header: white surface, black text. */
+/* Main dashboard header now uses the same cream surface language as the 3-card row below. */
 #root .dashboard-premium .dashboard-hero{
-  background:#ffffff!important;
-  color:#111111!important;
-  border:1px solid #dedede!important;
-  box-shadow:0 12px 30px rgba(0,0,0,.08)!important;
+  background:#fffdf9!important;
+  color:#2b241f!important;
+  border:1px solid #dfd6ce!important;
+  box-shadow:0 16px 42px rgba(74,55,42,.065)!important;
 }
-#root .dashboard-premium .dashboard-hero :is(h1,h2,h3,h4,strong,p,small,span){
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+#root .dashboard-premium .dashboard-hero :is(h1,h2,h3,h4,strong){
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
+  opacity:1!important;
+}
+#root .dashboard-premium .dashboard-hero :is(p,small){
+  color:#6f6258!important;
+  -webkit-text-fill-color:#6f6258!important;
   opacity:1!important;
 }
 #root .dashboard-premium .dashboard-hero svg{
-  color:#111111!important;
+  color:#76533e!important;
   opacity:1!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-badge{
-  background:#f6f6f6!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-  border-color:#d7d7d7!important;
+  background:#f3ebe4!important;
+  color:#5c4638!important;
+  -webkit-text-fill-color:#5c4638!important;
+  border-color:#dfd1c5!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-badge *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+  color:#5c4638!important;
+  -webkit-text-fill-color:#5c4638!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action{
-  background:#111111!important;
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
-  border-color:#111111!important;
+  background:#6b5546!important;
+  color:#fffaf5!important;
+  -webkit-text-fill-color:#fffaf5!important;
+  border-color:#6b5546!important;
   box-shadow:none!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action *{
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
+  color:#fffaf5!important;
+  -webkit-text-fill-color:#fffaf5!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action:hover{
-  background:#000000!important;
+  background:#5a4639!important;
+  border-color:#5a4639!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary{
   background:#ffffff!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-  border-color:#bdbdbd!important;
+  color:#5c4638!important;
+  -webkit-text-fill-color:#5c4638!important;
+  border-color:#d8c9bd!important;
   box-shadow:none!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+  color:#5c4638!important;
+  -webkit-text-fill-color:#5c4638!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary:hover{
-  background:#f4f4f4!important;
-  border-color:#111111!important;
+  background:#f7f0e9!important;
+  border-color:#bda999!important;
 }
 
-/* Four executive cards: white surface, black text, neutral inner tiles. */
+/* Four cards below the header now visually match the 3 execution cards below them. */
 #root .dashboard-premium .executive-strip .executive-pillar{
-  background:#ffffff!important;
-  color:#111111!important;
-  border:1px solid #dddddd!important;
-  box-shadow:0 10px 24px rgba(0,0,0,.07)!important;
+  background:#fffdf9!important;
+  color:#2b241f!important;
+  border:1px solid #dfd6ce!important;
+  box-shadow:0 16px 42px rgba(74,55,42,.065)!important;
 }
 #root .dashboard-premium .executive-strip .executive-pillar:hover{
-  background:#ffffff!important;
-  border-color:#c7c7c7!important;
-  box-shadow:0 14px 30px rgba(0,0,0,.10)!important;
+  background:#fffdf9!important;
+  border-color:#d5c7bc!important;
+  box-shadow:0 18px 44px rgba(74,55,42,.085)!important;
 }
-#root .dashboard-premium .executive-strip .executive-pillar :is(h1,h2,h3,h4,strong,p,small,span,div){
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+#root .dashboard-premium .executive-strip .executive-pillar :is(h1,h2,h3,h4,strong){
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
   opacity:1!important;
 }
+#root .dashboard-premium .executive-strip .executive-pillar :is(p,small){
+  color:#6f6258!important;
+  -webkit-text-fill-color:#6f6258!important;
+  opacity:1!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar > .executive-pillar-scroll > div:first-child,
+#root .dashboard-premium .executive-strip .executive-pillar > .executive-pillar-scroll > div:first-child *{
+  color:#76533e!important;
+  -webkit-text-fill-color:#76533e!important;
+}
 #root .dashboard-premium .executive-strip .executive-pillar svg{
-  color:#111111!important;
+  color:#76533e!important;
   opacity:1!important;
 }
 #root .dashboard-premium .executive-strip .executive-inner-tile{
-  background:#f7f7f7!important;
-  color:#111111!important;
-  border-color:#dddddd!important;
-  box-shadow:none!important;
+  background:#ffffff!important;
+  color:#2b241f!important;
+  border-color:#e7ddd4!important;
+  box-shadow:0 4px 12px rgba(74,55,42,.035)!important;
+}
+#root .dashboard-premium .executive-strip .executive-inner-tile :is(div,span,p,strong){
+  color:inherit!important;
+  -webkit-text-fill-color:currentColor!important;
+  opacity:1!important;
 }
 #root .dashboard-premium .executive-strip button.executive-inner-tile:hover{
-  background:#eeeeee!important;
-  border-color:#bdbdbd!important;
+  background:#fbf6f1!important;
+  border-color:#d8c9bd!important;
 }
 #root .dashboard-premium .executive-strip .executive-chip{
-  background:#eeeeee!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-  border-color:#d2d2d2!important;
+  background:#f3ebe4!important;
+  color:#5c4638!important;
+  -webkit-text-fill-color:#5c4638!important;
+  border-color:#dfd1c5!important;
 }
 #root .dashboard-premium .executive-strip .executive-score{
-  background:#111111!important;
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
-  border:1px solid #111111!important;
+  background:#6b5546!important;
+  color:#fffaf5!important;
+  -webkit-text-fill-color:#fffaf5!important;
+  border:1px solid #6b5546!important;
 }
 #root .dashboard-premium .executive-strip .executive-score *{
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
+  color:#fffaf5!important;
+  -webkit-text-fill-color:#fffaf5!important;
 }
 #root .dashboard-premium .executive-strip .executive-scroll-cue{
-  background:linear-gradient(180deg,rgba(255,255,255,0),#ffffff 46%,#ffffff 100%)!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-  border-top-color:#ececec!important;
+  background:linear-gradient(180deg,rgba(255,253,249,0),#fffdf9 48%,#fffdf9 100%)!important;
+  color:#76533e!important;
+  -webkit-text-fill-color:#76533e!important;
+  border-top-color:#eee5dd!important;
 }
 #root .dashboard-premium .executive-strip .executive-scroll-cue *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+  color:#76533e!important;
+  -webkit-text-fill-color:#76533e!important;
 }
 #root .dashboard-premium .executive-pillar-scroll{
-  scrollbar-color:#111111 #eeeeee!important;
+  scrollbar-color:#b9a393 #f1e8e1!important;
 }
 #root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-track{
-  background:#eeeeee!important;
+  background:#f1e8e1!important;
 }
 #root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-thumb{
-  background:#111111!important;
+  background:#b9a393!important;
   border:2px solid transparent!important;
   background-clip:padding-box!important;
 }
