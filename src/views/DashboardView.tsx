@@ -347,7 +347,6 @@ export const DashboardView: React.FC = () => {
               <Building2 className="h-5 w-5" />
             </div>
             <h2 className="mt-3 text-2xl font-black tracking-tight font-['Outfit',sans-serif]">{selectedCollege.shortName}</h2>
-            <p className="mt-1 text-sm font-semibold">{selectedCollege.campusTheme || selectedCollege.type}</p>
             <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
               <div className="executive-inner-tile rounded-xl border p-3"><div className="text-[11px] font-extrabold">Campus opportunities</div><div className="mt-0.5 text-lg font-black">{selectedCollege.partnerOpportunitiesCount}</div></div>
               <div className="executive-inner-tile rounded-xl border p-3"><div className="text-[11px] font-extrabold">My applications</div><div className="mt-0.5 text-lg font-black">{myCampusApplications.length}</div></div>
@@ -356,16 +355,16 @@ export const DashboardView: React.FC = () => {
               <div className="text-[11px] font-extrabold uppercase tracking-[0.12em]">Campus focus</div>
               <div className="mt-2 flex flex-wrap gap-1.5">{(selectedCollege.campusFocus || []).map(item => <span key={item} className="executive-chip rounded-full border px-2.5 py-1 text-[10px] font-black">{item}</span>)}</div>
             </div>
-            <div className="mt-3 flex items-start gap-2 text-[12px] font-semibold"><MapPin className="mt-0.5 h-4 w-4 shrink-0"/><span>{selectedCollege.city} • {selectedCollege.campusStrength}</span></div>
+            <div className="mt-3 flex items-center gap-2 text-[12px] font-semibold"><MapPin className="h-4 w-4 shrink-0"/><span>{selectedCollege.city}</span></div>
           </div>
           <div className="executive-scroll-cue" aria-hidden="true"><span>Scroll details</span><ChevronRight className="h-3 w-3 rotate-90"/></div>
         </motion.div>
 
         <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-updates executive-pillar relative rounded-[22px] border shadow-[0_16px_42px_rgba(74,55,42,.12)]">
           <div className="executive-pillar-scroll">
-            <div className="flex items-center justify-between gap-3"><div><div className="text-[12px] font-black uppercase tracking-[0.14em]">Recent Updates</div><h2 className="mt-1 text-2xl font-black font-['Outfit',sans-serif]">What changed on campus</h2></div><BellRing className="h-5 w-5 shrink-0"/></div>
+            <div className="flex items-center justify-between gap-3"><h2 className="text-xl font-black font-['Outfit',sans-serif]">Recent Updates</h2><BellRing className="h-5 w-5 shrink-0"/></div>
             <div className="mt-3 space-y-2">
-              {campusRecentMessages.length ? campusRecentMessages.map(item => <div key={item.id} className="executive-inner-tile rounded-xl border p-3"><div className="text-sm font-black">{item.title}</div><div className="mt-1 text-xs leading-relaxed">{item.message}</div><div className="mt-2 text-[10px] font-bold">{new Date(item.createdAt).toLocaleString()}</div></div>) : <div className="executive-inner-tile rounded-xl border border-dashed p-5 text-sm">No new campus broadcast yet. Organization updates will appear here live.</div>}
+              {campusRecentMessages.length ? campusRecentMessages.map(item => <div key={item.id} className="executive-inner-tile rounded-xl border p-3"><div className="text-sm font-black">{item.title}</div><div className="mt-1 text-xs line-clamp-2">{item.message}</div></div>) : <div className="executive-inner-tile rounded-xl border border-dashed p-4 text-sm">No campus updates yet.</div>}
             </div>
           </div>
           <div className="executive-scroll-cue" aria-hidden="true"><span>Scroll details</span><ChevronRight className="h-3 w-3 rotate-90"/></div>
@@ -373,9 +372,8 @@ export const DashboardView: React.FC = () => {
 
         <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco executive-pillar relative rounded-[22px] border shadow-[0_16px_42px_rgba(74,55,42,.12)]">
           <div className="executive-pillar-scroll">
-            <div className="flex items-center justify-between gap-3"><div><div className="text-[12px] font-black uppercase tracking-[0.14em]">Recommended For You</div><h2 className="mt-1 text-2xl font-black font-['Outfit',sans-serif]">Best next opportunities</h2></div><BrainCircuit className="h-6 w-6 shrink-0"/></div>
-            <p className="mt-2 text-sm">Ranked using your match, eligibility and career-impact scores.</p>
-            <div className="mt-3 space-y-2">{personalizedRecommendations.map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="executive-inner-tile w-full rounded-xl border p-3 text-left shadow-sm transition hover:-translate-y-0.5"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><div className="text-sm font-black">{opp.title}</div><div className="mt-1 text-[12px] font-semibold">{opp.type} • {opp.organization}</div></div><div className="executive-score rounded-xl px-2.5 py-1.5 text-xs font-black">{opp.matchScore}%</div></div><div className="mt-2 flex items-center gap-1.5 text-[11px] font-black"><Star className="h-3 w-3"/>Recommended because it fits your current profile</div></button>)}</div>
+            <div className="flex items-center justify-between gap-3"><h2 className="text-xl font-black font-['Outfit',sans-serif]">Recommended For You</h2><BrainCircuit className="h-6 w-6 shrink-0"/></div>
+            <div className="mt-3 space-y-2">{personalizedRecommendations.map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="executive-inner-tile w-full rounded-xl border p-3 text-left shadow-sm transition hover:-translate-y-0.5"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><div className="text-sm font-black">{opp.title}</div><div className="mt-1 text-[12px] font-semibold">{opp.type} • {opp.organization}</div></div><div className="executive-score rounded-xl px-2.5 py-1.5 text-xs font-black">{opp.matchScore}%</div></div></button>)}</div>
           </div>
           <div className="executive-scroll-cue" aria-hidden="true"><span>Scroll details</span><ChevronRight className="h-3 w-3 rotate-90"/></div>
         </motion.div>
@@ -384,8 +382,7 @@ export const DashboardView: React.FC = () => {
           <div className="executive-pillar-scroll">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <div className="text-[12px] font-black uppercase tracking-[0.14em]">Campus Rank</div>
-                <h2 className="mt-1 text-2xl font-black font-['Outfit',sans-serif]">Your campus standing</h2>
+                <h2 className="text-xl font-black font-['Outfit',sans-serif]">Campus Rank</h2>
               </div>
               <Trophy className="h-6 w-6 shrink-0"/>
             </div>
@@ -398,7 +395,6 @@ export const DashboardView: React.FC = () => {
               <div className="executive-inner-tile rounded-xl border p-3"><div className="text-[11px] font-extrabold">Percentile</div><div className="mt-1 text-xl font-black">{campusPercentile}%</div></div>
               <div className="executive-inner-tile rounded-xl border p-3"><div className="text-[11px] font-extrabold">Coverage</div><div className="mt-1 text-xl font-black">{opportunityCoverage}%</div></div>
             </div>
-            <div className="mt-3 executive-inner-tile rounded-xl border p-3 text-[12px] font-semibold leading-relaxed">Calculated from your profile evidence, readiness and active applications. Improve profile completeness and complete preparation tasks to strengthen this score.</div>
           </div>
           <div className="executive-scroll-cue" aria-hidden="true"><span>Scroll details</span><ChevronRight className="h-3 w-3 rotate-90"/></div>
         </motion.div>

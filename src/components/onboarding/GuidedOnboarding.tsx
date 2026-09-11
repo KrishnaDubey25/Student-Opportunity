@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   ArrowLeft,
@@ -95,6 +95,12 @@ export const GuidedOnboarding: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const progress = Math.round((step / 3) * 100);
+
+  useEffect(() => {
+    const registeredCampusCode = currentUser?.collegeCode || profile.collegeCode || selectedCollege.code;
+    setCollegeCode(registeredCampusCode);
+  }, [currentUser?.collegeCode, profile.collegeCode, selectedCollege.code]);
+
   const selectedCollegeInfo = useMemo(
     () => collegesList.find(college => college.code === collegeCode) || selectedCollege,
     [collegeCode, collegesList, selectedCollege]

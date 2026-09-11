@@ -296,6 +296,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     )}`;
   };
 
+  const resolveCollegeForAccount = (user: UserAccount, profileOverride?: StudentProfile): CollegeInfo => {
+    const emailCollege = detectCollegeFromEmail(user.email || user.studentIdOrEmail || '');
+    if (emailCollege) return emailCollege;
+
+    const profileToUse = profileOverride || user.profile;
+    return COLLEGES_LIST.find(college =>
+      college.code === user.collegeCode ||
+      college.code === profileToUse?.collegeCode ||
+      college.name.toLowerCase() === (profileToUse?.college || '').toLowerCase()
+    ) || selectedCollege || DEFAULT_COLLEGE;
+  };
+
   const getCollegeForWorkspace = (collegeCode?: string) =>
     COLLEGES_LIST.find(college => college.code === collegeCode) || selectedCollege || DEFAULT_COLLEGE;
 
@@ -414,6 +426,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setWorkspaceMode(currentUser.accountType);
     }
   }, [currentUser]);
+
+  // Repair legacy accounts that were previously bound to the default SLRTCE campus.
+  // The institutional email domain is authoritative when it matches a listed partner college.
+  useEffect(() => {
+    if (!currentUser) return;
+    const emailCollege = detectCollegeFromEmail(currentUser.email || currentUser.studentIdOrEmail || '');
+    if (!emailCollege || currentUser.collegeCode === emailCollege.code) return;
+
+    const repairedProfile: StudentProfile = {
+      ...(currentUser.profile || profile || INITIAL_STUDENT_PROFILE),
+      ...profile,
+      college: emailCollege.name,
+      collegeCode: emailCollege.code
+    };
+    const repairedUser: UserAccount = {
+      ...currentUser,
+      collegeCode: emailCollege.code,
+      profile: repairedProfile
+    };
+
+    setSelectedCollegeState(emailCollege);
+    localStorage.setItem('soe_selected_college', JSON.stringify(emailCollege));
+    setProfile(repairedProfile);
+    localStorage.setItem(userStorageKey(currentUser.id, 'profile'), JSON.stringify(repairedProfile));
+    setOpportunities(buildCollegeWorkspaceOpportunities(
+      emailCollege.code,
+      readUserWorkspace(currentUser.id, 'opportunities', [] as Opportunity[])
+    ));
+    setRegisteredUsers(all => {
+      const updated = all.map(account => account.id === currentUser.id ? repairedUser : account);
+      localStorage.setItem('soe_registered_users', JSON.stringify(updated));
+      return updated;
+    });
+    setCurrentUser(repairedUser);
+    if (localStorage.getItem('soe_remember_me') === 'true') {
+      localStorage.setItem('soe_current_user', JSON.stringify(repairedUser));
+    } else {
+      sessionStorage.setItem('soe_current_user', JSON.stringify(repairedUser));
+    }
+  }, [currentUser?.id, currentUser?.email, currentUser?.collegeCode]);
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
@@ -609,12 +661,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Success — enter only the portal this account belongs to.
     setWorkspaceMode(user.accountType || 'student');
-    setCurrentUser(user);
     if (user.profile) {
       const hydratedProfile = readUserWorkspace(user.id, 'profile', user.profile);
-      setProfile(hydratedProfile);
+      const resolvedCollege = resolveCollegeForAccount(user, hydratedProfile);
+      const correctedProfile: StudentProfile = {
+        ...hydratedProfile,
+        college: resolvedCollege.name,
+        collegeCode: resolvedCollege.code
+      };
+      const correctedUser: UserAccount = {
+        ...user,
+        collegeCode: resolvedCollege.code,
+        profile: correctedProfile
+      };
+
+      setCurrentUser(correctedUser);
+      setProfile(correctedProfile);
+      localStorage.setItem(userStorageKey(user.id, 'profile'), JSON.stringify(correctedProfile));
+      setRegisteredUsers(all => {
+        const updated = all.map(account => account.id === user.id ? correctedUser : account);
+        localStorage.setItem('soe_registered_users', JSON.stringify(updated));
+        return updated;
+      });
+      setSelectedCollegeState(resolvedCollege);
+      localStorage.setItem('soe_selected_college', JSON.stringify(resolvedCollege));
+
       setOpportunities(() => {
-        const collegeCode = user.collegeCode || hydratedProfile.collegeCode;
+        const collegeCode = resolvedCollege.code;
         const saved = readUserWorkspace(user.id, 'opportunities', [] as Opportunity[]);
         const personal = buildCollegeWorkspaceOpportunities(collegeCode, saved);
         const campus = campusPublishedOpportunities.filter(o => !o.collegeCode || o.collegeCode === collegeCode);
@@ -626,7 +699,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setRoadmapSteps(readUserWorkspace(user.id, 'roadmap', getFreshRoadmap()));
       const savedNotifications = readUserWorkspace(user.id, 'notifications', []);
       const messageNotifications: NotificationItem[] = campusMessages
-        .filter(m => m.collegeCode === (user.collegeCode || hydratedProfile.collegeCode) && (!m.studentUserId || m.studentUserId === user.id))
+        .filter(m => m.collegeCode === resolvedCollege.code && (!m.studentUserId || m.studentUserId === user.id))
         .map(m => ({ id: m.id, title: m.title, message: m.message, timestamp: new Date(m.createdAt).toLocaleDateString(), read: false, type: 'system' as const, targetTab: 'college' }));
       const notificationMap = new Map([...savedNotifications, ...messageNotifications].map(n => [n.id, n]));
       setNotifications(Array.from(notificationMap.values()).reverse());
@@ -634,24 +707,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setNextActions(readUserWorkspace(user.id, 'next_actions', getFreshNextActions()));
       setSelectedOpportunityId(null);
 
-      const userCol = COLLEGES_LIST.find(
-        c => c.code === user.collegeCode || 
-             c.code === hydratedProfile.collegeCode || 
-             c.name.toLowerCase() === hydratedProfile.college.toLowerCase()
-      );
-      if (userCol) {
-        setSelectedCollegeState(userCol);
-        localStorage.setItem('soe_selected_college', JSON.stringify(userCol));
-      }
     }
+
+    const loginCollege = resolveCollegeForAccount(user, user.profile);
+    const persistedProfile = user.profile ? {
+      ...readUserWorkspace(user.id, 'profile', user.profile),
+      college: loginCollege.name,
+      collegeCode: loginCollege.code
+    } : user.profile;
+    const persistedUser: UserAccount = { ...user, collegeCode: loginCollege.code, profile: persistedProfile };
 
     if (remember) {
       localStorage.setItem('soe_remember_me', 'true');
-      localStorage.setItem('soe_current_user', JSON.stringify(user));
+      localStorage.setItem('soe_current_user', JSON.stringify(persistedUser));
     } else {
       localStorage.setItem('soe_remember_me', 'false');
       localStorage.removeItem('soe_current_user');
-      sessionStorage.setItem('soe_current_user', JSON.stringify(user));
+      sessionStorage.setItem('soe_current_user', JSON.stringify(persistedUser));
     }
 
     setIsAuthModalOpen(false);

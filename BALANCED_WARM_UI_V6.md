@@ -1,1 +1,0 @@
-Balanced warm premium V6: fixed white-on-white visibility, reduced dark brown coverage, ivory surfaces, mocha accents, charcoal text, professional typography.
