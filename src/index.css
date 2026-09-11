@@ -2108,3 +2108,130 @@ html,body,#root{background:var(--v12-canvas)!important;color:var(--v12-ink)!impo
   transform:translateY(-2px)!important;
   box-shadow:0 16px 38px rgba(66,47,36,.12)!important;
 }
+
+/* =========================================================
+   V13 — BUTTON + IMAGE VISIBILITY HOTFIX
+   Explicit interactive contrast rules so older theme layers
+   cannot make labels/icons disappear on click/hover/focus.
+   ========================================================= */
+:root{
+  --v13-beige:#f4ede6;
+  --v13-paper:#fffaf6;
+  --v13-brown:#624838;
+  --v13-brown-hover:#51392c;
+  --v13-brown-soft:#eaded2;
+  --v13-ink:#241b16;
+  --v13-muted:#62564d;
+  --v13-border:#d7c7ba;
+  --v13-ivory:#fffaf4;
+}
+
+/* Every button must have readable copy in normal, hover, focus and active states. */
+#root button,
+#root [role="button"]{
+  opacity:1!important;
+  -webkit-text-fill-color:currentColor;
+}
+#root button :where(span,strong,small,svg),
+#root [role="button"] :where(span,strong,small,svg){
+  opacity:1!important;
+  color:inherit!important;
+}
+
+/* Light/outline buttons. */
+#root button:is(.bg-white,[class~="bg-white"],[class~="bg-slate-50"],[class*="bg-[#fff"],[class*="bg-[#fb"],[class*="bg-[#f8"]),
+#root button:not([class*="bg-"]){
+  color:var(--v13-brown)!important;
+}
+#root button:is(.bg-white,[class~="bg-white"],[class~="bg-slate-50"],[class*="bg-[#fff"],[class*="bg-[#fb"],[class*="bg-[#f8"]):hover,
+#root button:is(.bg-white,[class~="bg-white"],[class~="bg-slate-50"],[class*="bg-[#fff"],[class*="bg-[#fb"],[class*="bg-[#f8"]):focus-visible{
+  color:var(--v13-brown-hover)!important;
+  background:var(--v13-brown-soft)!important;
+  border-color:#bfa998!important;
+}
+
+/* Dark/primary buttons — always ivory text/icons, including click/focus. */
+#root button:is(
+  [class~="bg-slate-950"],[class~="bg-slate-900"],[class~="bg-slate-800"],
+  [class~="bg-violet-700"],[class~="bg-violet-600"],
+  [class~="bg-emerald-700"],[class~="bg-emerald-600"],[class~="bg-emerald-500"],
+  [class*="bg-[#463126]"],[class*="bg-[#3a2d25]"],[class*="bg-[#5a4031]"]
+){
+  color:var(--v13-ivory)!important;
+  -webkit-text-fill-color:var(--v13-ivory)!important;
+}
+#root button:is(
+  [class~="bg-slate-950"],[class~="bg-slate-900"],[class~="bg-slate-800"],
+  [class~="bg-violet-700"],[class~="bg-violet-600"],
+  [class~="bg-emerald-700"],[class~="bg-emerald-600"],[class~="bg-emerald-500"],
+  [class*="bg-[#463126]"],[class*="bg-[#3a2d25]"],[class*="bg-[#5a4031]"]
+):is(:hover,:focus-visible,:active){
+  color:var(--v13-ivory)!important;
+  -webkit-text-fill-color:var(--v13-ivory)!important;
+  filter:none!important;
+}
+
+/* Brown primary CTA class stays brown instead of being washed to white. */
+#root .landing-primary-cta,
+#root .premium-shine,
+#root .v13-primary-button{
+  background:var(--v13-brown)!important;
+  color:var(--v13-ivory)!important;
+  -webkit-text-fill-color:var(--v13-ivory)!important;
+  border-color:var(--v13-brown)!important;
+}
+#root .landing-primary-cta:hover,
+#root .premium-shine:hover,
+#root .v13-primary-button:hover{
+  background:var(--v13-brown-hover)!important;
+  color:var(--v13-ivory)!important;
+}
+
+/* Disabled buttons remain legible instead of becoming white-on-white. */
+#root button:disabled{
+  opacity:.72!important;
+}
+#root button:disabled :where(span,svg){opacity:1!important;color:inherit!important;}
+
+/* File upload / image preview surfaces. */
+#root .application-image-panel{
+  background:#fbf5ef!important;
+  border-color:#ccb7a6!important;
+  color:var(--v13-ink)!important;
+}
+#root .application-image-picker{
+  background:#fffdf9!important;
+  color:var(--v13-brown)!important;
+  border-color:#bfa895!important;
+  -webkit-text-fill-color:var(--v13-brown)!important;
+}
+#root .application-image-picker:hover{
+  background:#eee1d5!important;
+  color:var(--v13-brown-hover)!important;
+}
+#root .application-image-preview{
+  background:linear-gradient(135deg,#efe2d6 25%,#f9f3ed 25%,#f9f3ed 50%,#efe2d6 50%,#efe2d6 75%,#f9f3ed 75%)!important;
+  background-size:24px 24px!important;
+  border:1px solid #cdb8a8!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.65)!important;
+}
+#root img.application-image-preview,
+#root .application-image-preview img{
+  opacity:1!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+}
+
+/* Profile/application avatars always show a visible fallback frame. */
+#root .application-avatar-frame{
+  background:#e9ddd1!important;
+  color:var(--v13-brown-hover)!important;
+  border:1px solid #c9b5a5!important;
+}
+
+/* Focus ring must not paint controls white. */
+#root button:focus-visible,
+#root [role="button"]:focus-visible{
+  outline:3px solid rgba(98,72,56,.25)!important;
+  outline-offset:2px!important;
+}
