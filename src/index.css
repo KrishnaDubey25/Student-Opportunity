@@ -1797,135 +1797,130 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
 }
 
 /* =========================================================
-   V22 — RESTORE V4/V5 COLOR LANGUAGE (COLOR ONLY)
-   Scope: signed-in dashboard main header + four cards below it.
-   No layout, sizing, scroll, spacing, content or behavior changes.
+   V23 — TOP FOUR MATCH LOWER THREE + LIGHTER HERO
+   Scope: signed-in dashboard main header + the four cards below it only.
+   Color-only change. No layout, sizing, spacing, scroll, content or behavior changes.
    ========================================================= */
 
-/* Main dashboard header — V5 espresso brown + ivory copy. */
+/* Main dashboard header: keep the warm identity, but make the brown visibly lighter. */
 #root .dashboard-premium .dashboard-hero{
-  background:linear-gradient(135deg,#3b2921 0%,#4a3328 52%,#5a3f31 100%)!important;
-  color:#fffaf3!important;
-  border-color:rgba(255,250,243,.16)!important;
+  background:linear-gradient(135deg,#6f5849 0%,#806857 54%,#927a66 100%)!important;
+  color:#fffdf9!important;
+  border-color:rgba(255,255,255,.24)!important;
 }
 #root .dashboard-premium .dashboard-hero :is(h1,h2,h3,h4,strong,span){
-  color:#fffaf3!important;
-  -webkit-text-fill-color:#fffaf3!important;
+  color:#fffdf9!important;
+  -webkit-text-fill-color:#fffdf9!important;
 }
 #root .dashboard-premium .dashboard-hero :is(p,small,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600){
-  color:#e8ddd4!important;
-  -webkit-text-fill-color:#e8ddd4!important;
+  color:#f3ebe4!important;
+  -webkit-text-fill-color:#f3ebe4!important;
   opacity:1!important;
 }
-#root .dashboard-premium .dashboard-hero svg{color:#f4e4d5!important;}
+#root .dashboard-premium .dashboard-hero svg{color:#fff5ec!important;}
 #root .dashboard-premium .dashboard-hero .dashboard-hero-badge{
-  background:rgba(255,250,243,.10)!important;
-  color:#f8eadc!important;
-  -webkit-text-fill-color:#f8eadc!important;
-  border-color:rgba(255,250,243,.18)!important;
+  background:rgba(255,255,255,.14)!important;
+  color:#fffaf4!important;
+  -webkit-text-fill-color:#fffaf4!important;
+  border-color:rgba(255,255,255,.24)!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action{
-  background:#fff5e9!important;
-  color:#3b2921!important;
-  -webkit-text-fill-color:#3b2921!important;
-  border-color:#ead1b9!important;
+  background:#fffdf9!important;
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
+  border-color:#e3d9d0!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action *{
-  color:#3b2921!important;
-  -webkit-text-fill-color:#3b2921!important;
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary{
-  background:rgba(255,250,243,.10)!important;
-  color:#fffaf3!important;
-  -webkit-text-fill-color:#fffaf3!important;
-  border-color:rgba(255,250,243,.20)!important;
+  background:rgba(255,255,255,.12)!important;
+  color:#fffdf9!important;
+  -webkit-text-fill-color:#fffdf9!important;
+  border-color:rgba(255,255,255,.26)!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary *{
-  color:#fffaf3!important;
-  -webkit-text-fill-color:#fffaf3!important;
+  color:#fffdf9!important;
+  -webkit-text-fill-color:#fffdf9!important;
 }
 
-/* Four top cards — nuanced brown tones from the V4/V5 family. */
-#root .dashboard-premium .executive-strip .executive-pillar{
-  color:#fffaf3!important;
-  border-color:rgba(255,250,243,.16)!important;
-}
-#root .dashboard-premium .executive-strip .executive-pillar:nth-child(1){
-  background:linear-gradient(145deg,#402d24 0%,#4c352a 56%,#593f31 100%)!important;
-}
-#root .dashboard-premium .executive-strip .executive-pillar:nth-child(2){
-  background:linear-gradient(145deg,#453026 0%,#52392d 56%,#604536 100%)!important;
-}
-#root .dashboard-premium .executive-strip .executive-pillar:nth-child(3){
-  background:linear-gradient(145deg,#4a3328 0%,#583e30 56%,#674a39 100%)!important;
-}
+/* The four cards now use the exact same neutral surface language as the three cards below. */
+#root .dashboard-premium .executive-strip .executive-pillar,
+#root .dashboard-premium .executive-strip .executive-pillar:nth-child(1),
+#root .dashboard-premium .executive-strip .executive-pillar:nth-child(2),
+#root .dashboard-premium .executive-strip .executive-pillar:nth-child(3),
 #root .dashboard-premium .executive-strip .executive-pillar:nth-child(4){
-  background:linear-gradient(145deg,#50382c 0%,#5e4334 56%,#6d4f3d 100%)!important;
+  background:#fffdf9!important;
+  color:#2b241f!important;
+  border-color:#dfd6ce!important;
 }
 #root .dashboard-premium .executive-strip .executive-pillar :is(h1,h2,h3,h4,strong,span){
-  color:#fffaf3!important;
-  -webkit-text-fill-color:#fffaf3!important;
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
   opacity:1!important;
 }
 #root .dashboard-premium .executive-strip .executive-pillar :is(p,small,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600){
-  color:#e8ddd4!important;
-  -webkit-text-fill-color:#e8ddd4!important;
+  color:#6f6258!important;
+  -webkit-text-fill-color:#6f6258!important;
   opacity:1!important;
 }
-#root .dashboard-premium .executive-strip .executive-pillar svg{color:#f1dbc5!important;opacity:1!important;}
+#root .dashboard-premium .executive-strip .executive-pillar svg{
+  color:#76533e!important;
+  opacity:1!important;
+}
 
-/* Inner mini-panels stay warm/translucent like V5, not white cards. */
+/* Inner content follows the same quiet cream/white treatment used inside the lower three cards. */
 #root .dashboard-premium .executive-strip .executive-inner-tile{
-  background:rgba(255,250,243,.085)!important;
-  color:#fffaf3!important;
-  -webkit-text-fill-color:#fffaf3!important;
-  border-color:rgba(255,250,243,.16)!important;
+  background:#fbf7f2!important;
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
+  border-color:#ded4ca!important;
 }
 #root .dashboard-premium .executive-strip .executive-inner-tile :is(h1,h2,h3,h4,strong,span){
-  color:#fffaf3!important;
-  -webkit-text-fill-color:#fffaf3!important;
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
 }
 #root .dashboard-premium .executive-strip .executive-inner-tile :is(p,small){
-  color:#e8ddd4!important;
-  -webkit-text-fill-color:#e8ddd4!important;
+  color:#6f6258!important;
+  -webkit-text-fill-color:#6f6258!important;
 }
 #root .dashboard-premium .executive-strip .executive-chip{
-  background:rgba(255,250,243,.10)!important;
-  border-color:rgba(255,250,243,.18)!important;
-  color:#f8ece1!important;
-  -webkit-text-fill-color:#f8ece1!important;
+  background:#f3ece5!important;
+  border-color:#ded4ca!important;
+  color:#5f5148!important;
+  -webkit-text-fill-color:#5f5148!important;
 }
 #root .dashboard-premium .executive-strip .executive-chip *{
-  color:#f8ece1!important;
-  -webkit-text-fill-color:#f8ece1!important;
+  color:#5f5148!important;
+  -webkit-text-fill-color:#5f5148!important;
 }
 #root .dashboard-premium .executive-strip .executive-score{
-  background:#fff5e9!important;
-  color:#3b2921!important;
-  -webkit-text-fill-color:#3b2921!important;
-  border-color:#ead1b9!important;
+  background:#fffdf9!important;
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
+  border-color:#ded4ca!important;
 }
 #root .dashboard-premium .executive-strip .executive-score *{
-  color:#3b2921!important;
-  -webkit-text-fill-color:#3b2921!important;
+  color:#2b241f!important;
+  -webkit-text-fill-color:#2b241f!important;
 }
 #root .dashboard-premium .executive-strip .executive-scroll-cue{
-  background:rgba(45,29,22,.88)!important;
-  border-color:rgba(255,250,243,.15)!important;
-  color:#f6e9de!important;
-  -webkit-text-fill-color:#f6e9de!important;
+  background:rgba(255,253,249,.96)!important;
+  border-color:#dfd6ce!important;
+  color:#6f6258!important;
+  -webkit-text-fill-color:#6f6258!important;
 }
 #root .dashboard-premium .executive-strip .executive-scroll-cue *{
-  color:#f6e9de!important;
-  -webkit-text-fill-color:#f6e9de!important;
+  color:#6f6258!important;
+  -webkit-text-fill-color:#6f6258!important;
 }
 #root .dashboard-premium .executive-pillar-scroll{
-  scrollbar-color:#c5a78f rgba(255,255,255,.08)!important;
+  scrollbar-color:#c8bbb0 #f4eee8!important;
 }
 #root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-track{
-  background:rgba(255,255,255,.06)!important;
+  background:#f4eee8!important;
 }
 #root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-thumb{
-  background:#c5a78f!important;
+  background:#c8bbb0!important;
 }
-
