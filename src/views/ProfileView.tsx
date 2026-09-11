@@ -205,7 +205,7 @@ export const ProfileView: React.FC = () => {
               className={`p-3 rounded-xl border flex flex-col items-center text-center space-y-1 transition-all ${
                 badge.unlocked 
                   ? 'border-amber-200/80 bg-amber-50/40 text-slate-900' 
-                  : 'border-slate-200/60 bg-slate-50/40 text-slate-400 opacity-60'
+                  : 'border-slate-200 bg-slate-50 text-slate-600 opacity-90'
               }`}
             >
               <span className="text-xl">{badge.icon}</span>

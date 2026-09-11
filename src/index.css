@@ -1882,3 +1882,229 @@ body{background:var(--v11-canvas)!important;color:var(--v11-ink)!important;}
   transform:translateY(-3px)!important;
   box-shadow:0 18px 42px rgba(73,54,42,.12)!important;
 }
+
+/* =========================================================
+   V12 — FINAL CARD-BY-CARD VISIBILITY AUDIT
+   Purpose: eliminate low-contrast text across every surface.
+   This layer intentionally sits last so older theme patches
+   cannot re-introduce invisible copy.
+   ========================================================= */
+:root{
+  --v12-canvas:#f3ede6;
+  --v12-paper:#fffaf4;
+  --v12-paper-soft:#f8f1ea;
+  --v12-paper-strong:#efe3d7;
+  --v12-ink:#211a16;
+  --v12-body:#4f433a;
+  --v12-muted:#65584f;
+  --v12-brown:#6a5142;
+  --v12-brown-dark:#49362d;
+  --v12-ivory:#fff8ef;
+  --v12-border:#d9cbbf;
+}
+
+html,body,#root{background:var(--v12-canvas)!important;color:var(--v12-ink)!important;}
+
+/* Global readable typography. */
+#root{font-weight:570!important;}
+#root :where(h1,h2,h3,h4,h5,h6){color:var(--v12-ink);font-weight:800!important;opacity:1!important;}
+#root :where(p,small,label){opacity:1!important;}
+#root .text-slate-300{color:#76685e!important;}
+#root .text-slate-400{color:#6a5d54!important;}
+#root .text-slate-500{color:#5c5048!important;}
+#root .text-slate-600{color:#4f443c!important;}
+#root .text-slate-700{color:#40372f!important;}
+#root .text-slate-800{color:#312a25!important;}
+#root .text-slate-900,#root .text-slate-950{color:var(--v12-ink)!important;}
+
+/* LIGHT SURFACES — every card type used by Student + Organization + Auth + Landing. */
+#root :is(
+  .premium-pillar,
+  .standard-dashboard-card,
+  .opportunity-board-card,
+  .metric-tile,
+  .premium-soft-card,
+  .auth-premium-panel,
+  .landing-access-panel,
+  .landing-access-step,
+  .landing-auth-square,
+  .org-premium-hero,
+  [class~="bg-white"],
+  [class~="bg-slate-50"],
+  [class~="bg-amber-50"],
+  [class~="bg-stone-50"],
+  [class~="bg-neutral-50"],
+  [class*="bg-[#fff"],
+  [class*="bg-[#fb"],
+  [class*="bg-[#fc"],
+  [class*="bg-[#f8"],
+  [class*="bg-[#f7"],
+  [class*="bg-[#f6"],
+  [class*="bg-[#f4"],
+  [class*="bg-[#f3"],
+  [class*="bg-[#f2"],
+  [class*="bg-[#f1"],
+  [class*="bg-[#f0"],
+  [class*="bg-[#ef"],
+  [class*="bg-[#ee"],
+  [class*="bg-[#ed"],
+  [class*="bg-[#ea"],
+  [class*="bg-[#db"]
+){color:var(--v12-ink)!important;}
+
+#root :is(
+  .premium-pillar,
+  .standard-dashboard-card,
+  .opportunity-board-card,
+  .metric-tile,
+  .premium-soft-card,
+  .auth-premium-panel,
+  .landing-access-panel,
+  .landing-access-step,
+  .landing-auth-square,
+  .org-premium-hero,
+  [class~="bg-white"],
+  [class~="bg-slate-50"],
+  [class*="bg-[#fff"],
+  [class*="bg-[#fb"],
+  [class*="bg-[#f8"],
+  [class*="bg-[#f7"],
+  [class*="bg-[#f6"],
+  [class*="bg-[#f4"],
+  [class*="bg-[#f3"],
+  [class*="bg-[#f2"],
+  [class*="bg-[#f1"],
+  [class*="bg-[#f0"],
+  [class*="bg-[#ef"],
+  [class*="bg-[#ee"],
+  [class*="bg-[#ed"],
+  [class*="bg-[#ea"]
+) :where(h1,h2,h3,h4,h5,h6,strong,.font-black,.font-extrabold){
+  color:var(--v12-ink)!important;
+  opacity:1!important;
+}
+
+#root :is(
+  .premium-pillar,
+  .standard-dashboard-card,
+  .opportunity-board-card,
+  .metric-tile,
+  .premium-soft-card,
+  .auth-premium-panel,
+  .landing-access-panel,
+  .landing-access-step,
+  .landing-auth-square,
+  .org-premium-hero,
+  [class~="bg-white"],
+  [class~="bg-slate-50"],
+  [class*="bg-[#fff"],
+  [class*="bg-[#fb"],
+  [class*="bg-[#f8"],
+  [class*="bg-[#f7"],
+  [class*="bg-[#f6"],
+  [class*="bg-[#f4"],
+  [class*="bg-[#f3"],
+  [class*="bg-[#f2"],
+  [class*="bg-[#f1"],
+  [class*="bg-[#f0"],
+  [class*="bg-[#ef"],
+  [class*="bg-[#ee"],
+  [class*="bg-[#ed"],
+  [class*="bg-[#ea"]
+) :where(p,small,label,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600,.text-gray-400,.text-gray-500,.text-gray-600){
+  color:var(--v12-body)!important;
+  opacity:1!important;
+}
+
+/* DARK BROWN SURFACES — explicitly reverse contrast. */
+#root :is(
+  .dashboard-hero,
+  .workspace-card-head,
+  .campus-access-story,
+  .campus-network-shell,
+  [class~="bg-slate-950"],
+  [class~="bg-slate-900"],
+  [class~="bg-slate-800"],
+  [class*="bg-[#201711]"],
+  [class*="bg-[#3a2d25]"],
+  [class*="bg-[#463126]"],
+  [class*="bg-[#4a3a30]"],
+  [class*="bg-[#5a4031]"],
+  [class*="bg-[#5a4437]"],
+  [class*="bg-[#5a4639]"],
+  [class*="bg-[#6b5546]"]
+){color:var(--v12-ivory)!important;}
+
+#root :is(
+  .dashboard-hero,
+  .workspace-card-head,
+  .campus-access-story,
+  .campus-network-shell,
+  [class~="bg-slate-950"],
+  [class~="bg-slate-900"],
+  [class~="bg-slate-800"],
+  [class*="bg-[#201711]"],
+  [class*="bg-[#3a2d25]"],
+  [class*="bg-[#463126]"],
+  [class*="bg-[#4a3a30]"],
+  [class*="bg-[#5a4031]"],
+  [class*="bg-[#5a4437]"],
+  [class*="bg-[#5a4639]"],
+  [class*="bg-[#6b5546]"]
+) :where(h1,h2,h3,h4,h5,h6,strong,span,p,small,label,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600,.text-slate-700,.text-slate-800,.text-slate-900,.text-slate-950){
+  color:var(--v12-ivory)!important;
+  opacity:1!important;
+}
+
+/* Muted copy on dark surfaces stays readable, not bright-white washed out. */
+#root :is(.dashboard-hero,.workspace-card-head,.campus-access-story,.campus-network-shell) :where(p,small,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600){
+  color:#eadfd4!important;
+}
+
+/* Disabled controls may be dim, normal cards must never be. */
+#root :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.premium-soft-card,.metric-tile) .opacity-60,
+#root :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.premium-soft-card,.metric-tile) .opacity-50{
+  opacity:.92!important;
+}
+
+/* Inputs/selects: readable on both auth and organization forms. */
+#root :where(input,select,textarea,.field){
+  color:var(--v12-ink)!important;
+  background:#fffdf9!important;
+  border-color:var(--v12-border)!important;
+}
+#root :where(input,textarea)::placeholder{color:#78695f!important;opacity:1!important;}
+#root select option{color:var(--v12-ink)!important;background:#fffdf9!important;}
+
+/* Compact executive strip — no tall vertical cards on desktop. */
+@media(min-width:1024px){
+  #root .dashboard-premium .premium-pillar{
+    min-height:0!important;
+    height:auto!important;
+    max-height:245px!important;
+    padding:13px!important;
+    border-radius:18px!important;
+  }
+  #root .dashboard-premium .premium-pillar h2{font-size:1rem!important;line-height:1.18!important;}
+  #root .dashboard-premium .premium-pillar p{font-size:.74rem!important;line-height:1.38!important;}
+  #root .dashboard-premium .premium-pillar .mt-3{margin-top:.45rem!important;}
+  #root .dashboard-premium .premium-pillar [class*="p-3"]{padding:.52rem!important;}
+}
+
+/* Professional beige + brown finish. */
+#root .premium-pillar,
+#root .standard-dashboard-card,
+#root .opportunity-board-card,
+#root .premium-soft-card,
+#root .metric-tile{
+  border-color:var(--v12-border)!important;
+  box-shadow:0 10px 28px rgba(66,47,36,.075)!important;
+}
+#root .premium-pillar:hover,
+#root .standard-dashboard-card:hover,
+#root .opportunity-board-card:hover,
+#root .premium-soft-card:hover,
+#root .metric-tile:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 16px 38px rgba(66,47,36,.12)!important;
+}
