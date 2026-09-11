@@ -65,7 +65,7 @@ export const DashboardView: React.FC = () => {
   } = useApp();
 
   // In-dashboard category preview filter
-  const [previewCategory, setPreviewCategory] = useState<'All' | 'Hackathons' | 'Internships' | 'Scholarships' | 'Competitions'>('All');
+  const [previewCategory, setPreviewCategory] = useState<'All' | 'Hackathons' | 'Workshops' | 'Internships' | 'Scholarships' | 'Competitions'>('All');
 
   // Interactive Skill Simulator state on dashboard
   const [simulatedSkillName, setSimulatedSkillName] = useState<string | null>(null);
@@ -138,6 +138,7 @@ export const DashboardView: React.FC = () => {
   const previewOpportunities = opportunities.filter(opp => {
     if (previewCategory === 'All') return true;
     if (previewCategory === 'Hackathons') return opp.type === 'Hackathon' || opp.category.includes('Hackathon');
+    if (previewCategory === 'Workshops') return opp.type === 'Workshop' || opp.category === 'Workshops';
     if (previewCategory === 'Internships') return opp.type === 'Internship';
     if (previewCategory === 'Scholarships') return opp.type === 'Scholarship';
     if (previewCategory === 'Competitions') return opp.type === 'Competition' || opp.category.includes('Competition');
@@ -278,7 +279,7 @@ export const DashboardView: React.FC = () => {
     }
   ];
 
-  const visibleFeatureCards = showMoreTools ? featureCards : featureCards.slice(0, 5);
+  const visibleFeatureCards = featureCards;
   const openAnimatedCard = (card: typeof featureCards[number]) => {
     setActivatingCard(card.id);
     window.setTimeout(() => {
@@ -286,6 +287,11 @@ export const DashboardView: React.FC = () => {
       setActivatingCard(null);
     }, 220);
   };
+
+  const campusOpportunityScore = Math.min(100, Math.round((profileStrength * 0.34) + (overallJobReadinessScore * 0.31) + (hackathonReadinessScore * 0.20) + (Math.min(100, myCampusApplications.length * 12) * 0.15)));
+  const campusRank = Math.max(1, Math.round((101 - campusOpportunityScore) / 4));
+  const campusPercentile = Math.min(99, Math.max(1, campusOpportunityScore));
+  const opportunityCoverage = Math.min(100, Math.round(((collegeHackathons.length + workshops.length + internships.length + scholarships.length + competitions.length) / Math.max(1, opportunities.length)) * 100));
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }} className="dashboard-premium w-full space-y-8 pb-16 text-slate-900">
@@ -309,10 +315,10 @@ export const DashboardView: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight font-['Outfit',sans-serif] text-slate-950">
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight font-['Outfit',sans-serif] text-slate-950">
               Welcome, {profile.name}!
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium max-w-2xl">
+            <p className="text-sm sm:text-base text-slate-600 font-medium max-w-2xl">
               {profile.degree} • {selectedCollege.name}. Your private workspace combines campus context, opportunities, target-job study plans, readiness and application progress.
             </p>
           </div>
@@ -372,11 +378,11 @@ export const DashboardView: React.FC = () => {
 
       {/* 3. LIVE CAMPUS EXECUTION LAYER */}
       <section className="grid xl:grid-cols-[1.15fr_.9fr_.95fr] gap-5">
-        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-slate-800 bg-slate-950 p-6 text-white shadow-xl overflow-hidden relative">
+        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-rose-50 p-6 text-slate-950 shadow-sm overflow-hidden relative">
           <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-violet-500/20 blur-3xl" />
           <div className="relative z-10">
-            <div className="flex items-start justify-between gap-4"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-violet-300">My Campus Tasks</div><h2 className="mt-1 text-2xl font-black font-['Outfit',sans-serif]">Work that moves your profile</h2></div><CheckSquare2 className="h-6 w-6 text-violet-300" /></div>
-            <p className="mt-2 text-sm text-slate-300">PPTs, reviews, presentations, research and duties assigned by your college appear here live.</p>
+            <div className="flex items-start justify-between gap-4"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-violet-700">My Campus Tasks</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Work that moves your profile</h2></div><CheckSquare2 className="h-6 w-6 text-violet-700" /></div>
+            <p className="mt-2 text-sm text-slate-600">PPTs, reviews, presentations, research and duties assigned by your college appear here live.</p>
             <div className="mt-5 space-y-3">
               {myCampusTasks.slice(0,4).map(task => {
                 const status = task.statusByStudent[currentUser?.id || ''] || 'Pending';
@@ -420,17 +426,17 @@ export const DashboardView: React.FC = () => {
                 Core tools + workshops
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
               Your Opportunity Workspace
             </h2>
           </div>
           <p className="text-xs text-slate-500">
-            Start with the most-used student tools, including live workshops. Open more only when you need them.
+            Every major workspace is visible here in one aligned board—no hidden tools and no card flipping.
           </p>
         </div>
 
         {/* Highly visual, animated workspace cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
           {visibleFeatureCards.map((card) => {
             const Icon = card.icon;
             return (
@@ -440,26 +446,26 @@ export const DashboardView: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: Math.min(0.18, visibleFeatureCards.indexOf(card) * 0.04), ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -5, scale: 1.01, rotateX: 2, rotateY: -2 }}
+                whileHover={{ y: -7, scale: 1.012 }}
                 whileTap={{ scale: 0.985 }}
-                animate={{ rotateY: activatingCard === card.id ? 10 : 0, scale: activatingCard === card.id ? 0.97 : 1 }}
+                animate={{ scale: activatingCard === card.id ? 0.985 : 1 }}
                 onClick={() => openAnimatedCard(card)}
-                className={`opportunity-board-card premium-motion-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-white flex flex-col justify-between`}
+                className={`opportunity-board-card premium-motion-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-white flex flex-col justify-between min-h-[270px]`}
               >
                 {/* Lightweight category header: no remote image banner. */}
-                <div className="workspace-card-head relative min-h-[82px] overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-3.5 sm:p-4">
+                <div className="workspace-card-head relative min-h-[82px] overflow-hidden border-b border-slate-200 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-4 sm:p-5">
                   <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-emerald-400/10 blur-2xl" />
                   <div className="relative z-10 flex h-full items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <span className="text-[9px] font-black uppercase tracking-[0.18em] text-emerald-300 font-mono">Student Workspace</span>
-                      <div className="mt-1 text-lg sm:text-xl font-black tracking-tight text-white font-['Outfit',sans-serif] leading-none">
+                      <span className="text-[9px] font-black uppercase tracking-[0.18em] text-emerald-700 font-mono">Student Workspace</span>
+                      <div className="mt-1 text-lg sm:text-xl font-black tracking-tight text-slate-950 font-['Outfit',sans-serif] leading-none">
                         {card.categoryLabel}
                       </div>
-                      <div className="mt-2 inline-flex max-w-full items-center rounded-full border border-white/10 bg-white/[0.07] px-2.5 py-1 text-[9px] font-black text-slate-200">
+                      <div className="mt-2 inline-flex max-w-full items-center rounded-full border border-emerald-200 bg-white px-2.5 py-1 text-[10px] font-black text-slate-600">
                         <span className="truncate">{card.countLabel}</span>
                       </div>
                     </div>
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.08] text-white">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-emerald-200 bg-white text-emerald-700">
                       <Icon className="h-4 w-4" />
                     </div>
                   </div>
@@ -472,10 +478,10 @@ export const DashboardView: React.FC = () => {
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(33,132,95,.08)]" />
                       <span className="text-[9px] font-black tracking-[0.16em] text-slate-400 font-mono uppercase">Student Workspace</span>
                     </div>
-                    <h3 className="text-base font-black text-slate-950 group-hover:text-emerald-700 transition-colors font-['Outfit',sans-serif] leading-snug">
+                    <h3 className="text-lg font-black text-slate-950 group-hover:text-emerald-700 transition-colors font-['Outfit',sans-serif] leading-snug">
                       {card.title}
                     </h3>
-                    <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1.5 line-clamp-2">
+                    <p className="text-sm text-slate-600 font-medium leading-relaxed mt-1.5 line-clamp-2">
                       {card.subtitle}
                     </p>
                   </div>
@@ -494,19 +500,24 @@ Open workspace
             );
           })}
         </div>
-        {featureCards.length > 5 && (
-          <div className="flex justify-center pt-2">
-            <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setShowMoreTools(v => !v)}
-              className="rounded-2xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-black text-slate-700 shadow-sm hover:border-emerald-300 hover:text-emerald-700 transition"
-            >
-              {showMoreTools ? 'Show fewer tools' : `Show ${featureCards.length - 5} more tools`}
-            </motion.button>
-          </div>
-        )}
       </div>
+
+      {/* CAMPUS RANK & MOMENTUM */}
+      <section className="rank-band rounded-[30px] border border-slate-200 bg-gradient-to-r from-emerald-50 via-white to-amber-50 p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+          <div className="max-w-xl">
+            <div className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700">Campus Standing</div>
+            <h2 className="mt-1 text-2xl sm:text-3xl font-black text-slate-950 font-['Outfit',sans-serif]">Your current opportunity rank</h2>
+            <p className="mt-2 text-sm text-slate-600">Prototype ranking based on profile evidence, readiness, hackathon strength and active application activity inside {selectedCollege.shortName}.</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full lg:max-w-2xl">
+            <div className="metric-tile"><span>Campus Rank</span><strong>#{campusRank}</strong><small>within current college</small></div>
+            <div className="metric-tile"><span>Opportunity Score</span><strong>{campusOpportunityScore}</strong><small>/100 momentum score</small></div>
+            <div className="metric-tile"><span>Percentile</span><strong>{campusPercentile}%</strong><small>current prototype band</small></div>
+            <div className="metric-tile"><span>Coverage</span><strong>{opportunityCoverage}%</strong><small>visible ecosystem mix</small></div>
+          </div>
+        </div>
+      </section>
 
       {/* 3. VISUAL GRAPHS & INDUSTRY LEVEL READINESS GAUGE */}
       <div className="space-y-3 pt-2">
@@ -517,7 +528,7 @@ Open workspace
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
             How Much Progress to the Industry Level?
           </h2>
-          <p className="text-xs text-slate-500">
+          <p className="text-sm text-slate-600">
             Real-time readiness gauge with interactive skill booster and category distribution graph.
           </p>
         </div>
@@ -525,7 +536,7 @@ Open workspace
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
           
           {/* Main Industry Gauge (7 cols) */}
-          <div className="lg:col-span-7 p-6 sm:p-7 rounded-3xl bg-slate-900 text-white border border-slate-800 shadow-md flex flex-col justify-between">
+          <div className="lg:col-span-7 p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white border border-emerald-800 shadow-md flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
@@ -705,7 +716,7 @@ Open workspace
 
           {/* Filter Chips */}
           <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-slate-100 border border-slate-200 text-xs font-bold flex-wrap">
-            {(['All', 'Hackathons', 'Internships', 'Scholarships', 'Competitions'] as const).map((cat) => (
+            {(['All', 'Hackathons', 'Workshops', 'Internships', 'Scholarships', 'Competitions'] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setPreviewCategory(cat)}

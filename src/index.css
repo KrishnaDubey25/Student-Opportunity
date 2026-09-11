@@ -1078,3 +1078,111 @@ input:focus, select:focus, textarea:focus {
 @media (prefers-reduced-motion: reduce) {
   .premium-motion-card::after { display: none; }
 }
+
+
+/* 2026 dashboard visual system: aligned, premium, readable */
+.dashboard-premium {
+  --card-radius: 28px;
+  font-size: 15px;
+}
+
+.dashboard-premium > * {
+  position: relative;
+}
+
+.dashboard-premium h2 {
+  line-height: 1.08;
+}
+
+.dashboard-premium p,
+.dashboard-premium button,
+.dashboard-premium a {
+  letter-spacing: -0.008em;
+}
+
+.dashboard-premium .opportunity-board-card {
+  border-radius: var(--card-radius);
+  box-shadow: 0 12px 32px rgba(45, 39, 34, 0.065);
+  transform-origin: center;
+}
+
+.dashboard-premium .opportunity-board-card:hover {
+  box-shadow: 0 22px 52px rgba(45, 39, 34, 0.12);
+}
+
+.dashboard-premium .workspace-card-head::after {
+  content: '';
+  position: absolute;
+  inset: auto -16% -70% 36%;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(197, 138, 33, .12);
+  filter: blur(22px);
+  pointer-events: none;
+}
+
+.metric-tile {
+  min-height: 116px;
+  border: 1px solid #e8e0d9;
+  border-radius: 20px;
+  padding: 14px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 7px 22px rgba(55,43,34,.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s ease, border-color .22s ease;
+}
+
+.metric-tile:hover {
+  transform: translateY(-4px);
+  border-color: rgba(33,132,95,.28);
+  box-shadow: 0 14px 30px rgba(55,43,34,.09);
+}
+
+.metric-tile span {
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .11em;
+  color: #6d6258;
+}
+
+.metric-tile strong {
+  margin-top: 6px;
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: #1b1816;
+}
+
+.metric-tile small {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 650;
+  color: #887b70;
+}
+
+.rank-band {
+  overflow: hidden;
+}
+
+.rank-band::before {
+  content: '';
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -52px;
+  top: -72px;
+  border-radius: 50%;
+  background: rgba(33,132,95,.08);
+  filter: blur(5px);
+}
+
+@media (min-width: 1024px) {
+  .dashboard-premium .opportunity-board-card {
+    min-height: 286px;
+  }
+}
