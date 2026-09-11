@@ -231,10 +231,10 @@ export const TrackerView: React.FC = () => {
           <div className="p-1 rounded-2xl bg-white/10 flex items-center gap-1 border border-white/10">
             <button
               onClick={() => setActiveBoard('applications')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 font-['Outfit',sans-serif] ${
+              className={`tracker-board-tab px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 font-['Outfit',sans-serif] ${
                 activeBoard === 'applications'
-                  ? 'bg-white text-slate-950 shadow-xs'
-                  : 'text-slate-300 hover:text-white'
+                  ? 'tracker-board-tab-active bg-white text-slate-950 shadow-xs'
+                  : 'tracker-board-tab-idle text-slate-300 hover:text-white'
               }`}
             >
               <Kanban className="w-3.5 h-3.5" />
@@ -243,10 +243,10 @@ export const TrackerView: React.FC = () => {
 
             <button
               onClick={() => setActiveBoard('hackathons')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 font-['Outfit',sans-serif] ${
+              className={`tracker-board-tab px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 font-['Outfit',sans-serif] ${
                 activeBoard === 'hackathons'
-                  ? 'bg-white text-slate-950 shadow-xs'
-                  : 'text-slate-300 hover:text-white'
+                  ? 'tracker-board-tab-active bg-white text-slate-950 shadow-xs'
+                  : 'tracker-board-tab-idle text-slate-300 hover:text-white'
               }`}
             >
               <Trophy className="w-3.5 h-3.5 text-amber-400" />
@@ -255,10 +255,10 @@ export const TrackerView: React.FC = () => {
 
             <button
               onClick={() => setActiveBoard('activity')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 font-['Outfit',sans-serif] ${
+              className={`tracker-board-tab px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 font-['Outfit',sans-serif] ${
                 activeBoard === 'activity'
-                  ? 'bg-white text-slate-950 shadow-xs'
-                  : 'text-slate-300 hover:text-white'
+                  ? 'tracker-board-tab-active bg-white text-slate-950 shadow-xs'
+                  : 'tracker-board-tab-idle text-slate-300 hover:text-white'
               }`}
             >
               <Activity className="w-3.5 h-3.5 text-emerald-400" />
