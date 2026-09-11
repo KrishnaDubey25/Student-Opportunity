@@ -1532,3 +1532,71 @@ h1,h2,h3,h4,.font-heading{font-family:'Outfit','Plus Jakarta Sans',sans-serif!im
 .dashboard-premium h1,.landing-hero-stage h1{font-weight:850!important;letter-spacing:-.055em!important}.dashboard-premium h2{font-weight:800!important}.dashboard-premium h3{font-weight:780!important}.dashboard-premium p{font-weight:560!important}
 .premium-motion-card,.opportunity-board-card,.standard-dashboard-card,.premium-pillar,.landing-access-step{transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .32s ease,border-color .32s ease,background .32s ease!important}
 @media(max-width:768px){body{font-size:15px!important}.premium-pillar{min-height:auto!important}.dashboard-premium .opportunity-board-card:hover,.dashboard-premium .standard-dashboard-card:hover{transform:translateY(-3px)!important}}
+
+
+/* V6 balanced warm premium system: readable, editorial, not over-dark */
+:root {
+  --warm-canvas: #f7f3ee;
+  --warm-surface: #fffdf9;
+  --warm-surface-2: #f3ece5;
+  --warm-border: #ded4ca;
+  --warm-ink: #241f1b;
+  --warm-muted: #6f6258;
+  --warm-mocha: #6e4f3c;
+  --warm-espresso: #3a2d25;
+}
+
+body, .app-shell, .premium-page { background-color: var(--warm-canvas) !important; color: var(--warm-ink); }
+
+.dashboard-premium h1,
+.dashboard-premium h2,
+.dashboard-premium h3,
+.premium-page h1,
+.premium-page h2,
+.premium-page h3 { color: var(--warm-ink); }
+
+/* Preserve intentional dark hero text only inside dark surfaces */
+.dashboard-hero h1,
+.dashboard-hero .text-white,
+.bg-slate-950 .text-white,
+.bg-emerald-950 .text-white { color: #fffaf4 !important; }
+
+.standard-dashboard-card,
+.opportunity-board-card {
+  background: var(--warm-surface) !important;
+  border-color: var(--warm-border) !important;
+}
+
+.opportunity-board-card:hover,
+.standard-dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 54px rgba(74,55,42,.12) !important;
+}
+
+/* Avoid invisible white text on light cards */
+.premium-pillar .text-white,
+.standard-dashboard-card .text-white,
+.opportunity-board-card .text-white {
+  color: var(--warm-ink) !important;
+}
+
+/* Exception for pills/buttons that are actually dark */
+.premium-pillar .bg-\[\#3a2d25\].text-white,
+.standard-dashboard-card .bg-slate-900.text-white,
+.opportunity-board-card .bg-slate-900.text-white { color: white !important; }
+
+/* Professional readable type scale */
+body { font-weight: 520; }
+.dashboard-premium p,
+.dashboard-premium span,
+.premium-page p,
+.premium-page span { line-height: 1.55; }
+.dashboard-premium .text-xs,
+.premium-page .text-xs { font-size: .78rem; }
+.dashboard-premium .text-\[10px\],
+.dashboard-premium .text-\[9px\],
+.premium-page .text-\[10px\],
+.premium-page .text-\[9px\] { font-size: .72rem !important; }
+
+/* Muted warm shadows and borders */
+[class*="shadow-"] { --tw-shadow-color: rgba(74,55,42,.10); }
