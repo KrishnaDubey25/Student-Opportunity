@@ -344,7 +344,7 @@ export const DashboardView: React.FC = () => {
 
       {/* 2. CAMPUS INTELLIGENCE STRIP */}
       <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-campus relative overflow-hidden rounded-[24px] p-5 bg-[#fffdf9] border border-[#ddd2c8] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-campus relative overflow-hidden rounded-[22px] p-4 bg-[#fffdf9] border border-[#ddd2c8] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-emerald-400/15 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-center justify-between gap-3">
@@ -357,25 +357,25 @@ export const DashboardView: React.FC = () => {
               <div className="rounded-xl border border-[#ded4ca] bg-[#fbf7f2] p-2.5"><div className="text-[11px] font-extrabold text-[#6f6258]">Campus opportunities</div><div className="mt-0.5 text-lg font-black text-[#2b241f]">{selectedCollege.partnerOpportunitiesCount}</div></div>
               <div className="rounded-xl border border-[#ded4ca] bg-[#fbf7f2] p-2.5"><div className="text-[11px] font-extrabold text-[#6f6258]">My applications</div><div className="mt-0.5 text-lg font-black text-[#2b241f]">{myCampusApplications.length}</div></div>
             </div>
-            <div className="mt-3 flex flex-wrap gap-1.5">{(selectedCollege.campusFocus || []).slice(0,3).map(item => <span key={item} className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-black text-[#76533e]">{item}</span>)}</div>
+            <div className="mt-3 flex flex-wrap gap-1.5">{(selectedCollege.campusFocus || []).slice(0,2).map(item => <span key={item} className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-black text-[#76533e]">{item}</span>)}</div>
             <div className="mt-3 flex items-start gap-2 text-[12px] font-semibold text-slate-600"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#76533e]"/><span>{selectedCollege.city} • {selectedCollege.campusStrength}</span></div>
           </div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-updates relative overflow-hidden rounded-[24px] p-5 bg-[#f7f1eb] border border-[#d8cabb] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-updates relative overflow-hidden rounded-[22px] p-4 bg-[#f7f1eb] border border-[#d8cabb] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-violet-700">Recent Updates</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What changed on campus</h2></div><BellRing className="h-5 w-5 text-violet-700"/></div>
           <div className="mt-3 space-y-2">
-            {campusRecentMessages.length ? campusRecentMessages.map(item => <div key={item.id} className="rounded-xl border border-[#ded4ca] bg-[#fbf7f2] p-3"><div className="text-sm font-black text-[#2b241f]">{item.title}</div><div className="mt-1 text-xs leading-relaxed text-[#665b52] line-clamp-2">{item.message}</div><div className="mt-2 text-[10px] font-bold text-[#8a7d72]">{new Date(item.createdAt).toLocaleString()}</div></div>) : <div className="rounded-2xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No new campus broadcast yet. Organization updates will appear here live.</div>}
+            {campusRecentMessages.length ? campusRecentMessages.slice(0,2).map(item => <div key={item.id} className="rounded-xl border border-[#ded4ca] bg-[#fbf7f2] p-3"><div className="text-sm font-black text-[#2b241f]">{item.title}</div><div className="mt-1 text-xs leading-relaxed text-[#665b52] line-clamp-2">{item.message}</div><div className="mt-2 text-[10px] font-bold text-[#8a7d72]">{new Date(item.createdAt).toLocaleString()}</div></div>) : <div className="rounded-2xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No new campus broadcast yet. Organization updates will appear here live.</div>}
           </div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco relative overflow-hidden rounded-[24px] p-5 bg-[#f2ece6] border border-[#d5c7ba] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco relative overflow-hidden rounded-[22px] p-4 bg-[#f2ece6] border border-[#d5c7ba] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-[#76533e]">Recommended For You</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Best next opportunities</h2></div><BrainCircuit className="h-6 w-6 text-[#76533e]"/></div>
           <p className="mt-2 text-sm text-slate-600">Ranked using your match, eligibility and career-impact scores.</p>
-          <div className="mt-3 space-y-2">{personalizedRecommendations.map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="w-full rounded-xl border border-[#ded4ca] bg-[#fbf7f2] p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-[#f6efe8] hover:border-[#cbb8a7]"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-[#2b241f]">{opp.title}</div><div className="mt-1 text-[12px] font-semibold text-[#6f6258]">{opp.type} • {opp.organization}</div></div><div className="rounded-xl bg-[#3a2d25] px-2.5 py-1.5 text-xs font-black text-white">{opp.matchScore}%</div></div><div className="mt-2 flex items-center gap-1.5 text-[11px] font-black text-[#7a5b47]"><Star className="h-3 w-3"/>Recommended because it fits your current profile</div></button>)}</div>
+          <div className="mt-3 space-y-2">{personalizedRecommendations.slice(0,2).map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="w-full rounded-xl border border-[#ded4ca] bg-[#fbf7f2] p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-[#f6efe8] hover:border-[#cbb8a7]"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-[#2b241f]">{opp.title}</div><div className="mt-1 text-[12px] font-semibold text-[#6f6258]">{opp.type} • {opp.organization}</div></div><div className="rounded-xl bg-[#3a2d25] px-2.5 py-1.5 text-xs font-black text-white">{opp.matchScore}%</div></div><div className="mt-2 flex items-center gap-1.5 text-[11px] font-black text-[#7a5b47]"><Star className="h-3 w-3"/>Recommended because it fits your current profile</div></button>)}</div>
         </motion.div>
 
-        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-rank relative overflow-hidden rounded-[24px] p-5 bg-[#eee5dc] border border-[#cfbeae] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
+        <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-rank relative overflow-hidden rounded-[22px] p-4 bg-[#eee5dc] border border-[#cfbeae] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="text-[12px] font-black uppercase tracking-[0.14em] text-slate-700">Campus Rank</div>

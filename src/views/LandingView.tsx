@@ -490,7 +490,7 @@ export const LandingView: React.FC = () => {
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          className="campus-access-story relative overflow-hidden rounded-[30px] border border-slate-200 bg-slate-950 p-6 sm:p-8 text-white shadow-xl"
+          className="campus-access-story relative overflow-hidden rounded-[30px] border border-[#6d5443] bg-[#5a4437] p-6 sm:p-8 text-[#fff8f0] shadow-[0_22px_60px_rgba(76,56,43,.22)]"
         >
           <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#9c7458]/18 blur-3xl ambient-orb" />
           <div className="absolute -bottom-24 left-1/4 h-56 w-56 rounded-full bg-gold-500/14 blur-3xl ambient-orb" />
@@ -503,12 +503,12 @@ export const LandingView: React.FC = () => {
               <h2 className="mt-4 text-2xl sm:text-4xl font-black tracking-tight font-['Outfit',sans-serif]">
                 Your college workspace appears only after registration and sign-in.
               </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-[#f2e6da]">
                 A campus selection on the public page never opens private dashboards. Students create an account for their institution, sign in with that registered college email, complete personalization, and then receive campus-specific opportunities and collaboration context.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {['Fresh student profile', 'College-linked account', 'Private progress', 'Guided onboarding'].map(item => (
-                  <span key={item} className="rounded-xl border border-white/10 bg-white/[0.06] px-3 py-1.5 text-[11px] font-bold text-slate-200">
+                  <span key={item} className="rounded-xl border border-[#d9c3b0]/35 bg-[#fff8f0]/10 px-3 py-1.5 text-[11px] font-bold text-[#fff4e9]">
                     {item}
                   </span>
                 ))}

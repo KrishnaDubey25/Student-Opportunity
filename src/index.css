@@ -1771,7 +1771,7 @@ body{background:var(--v10-canvas)!important;color:var(--v10-ink)!important;}
 
 /* Typography stays compact but visibly professional. */
 #root{font-weight:570!important;}
-#root h1,#root h2,#root h3,#root h4{font-weight:820!important;color:var(--v10-ink);}
+#root h1,#root h2,#root h3,#root h4{font-weight:820!important;}
 #root .text-\[9px\]{font-size:11px!important;}
 #root .text-\[10px\]{font-size:11.5px!important;}
 #root .text-\[11px\]{font-size:12px!important;}
@@ -1793,4 +1793,92 @@ body{background:var(--v10-canvas)!important;color:var(--v10-ink)!important;}
 }
 @media(min-width:1280px){
   .dashboard-premium .premium-pillar{max-height:290px;}
+}
+
+
+/* === V11 direct contrast + compact dashboard fix === */
+:root{
+  --v11-canvas:#f3ede6;
+  --v11-card:#fffaf4;
+  --v11-card-soft:#f7efe7;
+  --v11-brown:#6b5141;
+  --v11-brown-2:#7a604e;
+  --v11-brown-dark:#4c382e;
+  --v11-border:#dccfc3;
+  --v11-ink:#241d18;
+  --v11-muted:#62564d;
+  --v11-ivory:#fff7ed;
+}
+body{background:var(--v11-canvas)!important;color:var(--v11-ink)!important;}
+
+/* Dark surfaces always get high-contrast ivory copy. */
+#root .dashboard-hero,
+#root .workspace-card-head,
+#root .campus-access-story,
+#root .organization-premium .bg-slate-950{
+  color:var(--v11-ivory)!important;
+}
+#root .dashboard-hero :where(h1,h2,h3,h4,p,span,small),
+#root .workspace-card-head :where(h1,h2,h3,h4,p,span,small),
+#root .campus-access-story :where(h1,h2,h3,h4,p,span,small),
+#root .organization-premium .bg-slate-950 :where(h1,h2,h3,h4,p,span,small){
+  color:inherit!important;
+  opacity:1!important;
+}
+#root .campus-access-story h2{color:#fffaf3!important;}
+#root .campus-access-story p{color:#f2e6da!important;}
+
+/* Light cards always get dark readable copy. */
+#root .dashboard-premium :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.metric-tile),
+#root .organization-premium :where(.premium-soft-card,.org-premium-hero){
+  background-color:var(--v11-card)!important;
+  color:var(--v11-ink)!important;
+  border-color:var(--v11-border)!important;
+}
+#root .dashboard-premium :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.metric-tile) :where(h1,h2,h3,h4,strong),
+#root .organization-premium :where(.premium-soft-card,.org-premium-hero) :where(h1,h2,h3,h4,strong){
+  color:var(--v11-ink)!important;
+  opacity:1!important;
+}
+#root .dashboard-premium :where(.premium-pillar,.standard-dashboard-card,.opportunity-board-card,.metric-tile) :where(p,small,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600),
+#root .organization-premium :where(.premium-soft-card,.org-premium-hero) :where(p,small,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600){
+  color:var(--v11-muted)!important;
+  opacity:1!important;
+}
+
+/* Four executive cards are truly compact on desktop. */
+#root .dashboard-premium .premium-pillar{
+  padding:14px!important;
+  min-height:0!important;
+  max-height:none!important;
+  border-radius:20px!important;
+}
+#root .dashboard-premium .premium-pillar h2{font-size:1.05rem!important;line-height:1.2!important;margin-top:.25rem!important;}
+#root .dashboard-premium .premium-pillar p{font-size:.75rem!important;line-height:1.42!important;}
+#root .dashboard-premium .premium-pillar .mt-3{margin-top:.55rem!important;}
+#root .dashboard-premium .premium-pillar .space-y-2 > :not([hidden]) ~ :not([hidden]){margin-top:.4rem!important;}
+#root .dashboard-premium .premium-pillar [class*="p-3"]{padding:.6rem!important;}
+#root .dashboard-premium .premium-pillar .text-4xl{font-size:2rem!important;}
+
+/* Beige canvas + brown accent, no random competing accents. */
+#root .dashboard-premium .premium-pillar{background:linear-gradient(180deg,#fffaf4 0%,#f6eee6 100%)!important;}
+#root .dashboard-premium .premium-pillar svg{color:var(--v11-brown)!important;}
+#root .dashboard-premium .premium-pillar [class*="text-violet"],
+#root .dashboard-premium .premium-pillar [class*="text-emerald"]{color:var(--v11-brown)!important;}
+#root .dashboard-premium .premium-pillar [class*="bg-emerald"],
+#root .dashboard-premium .premium-pillar [class*="bg-violet"]{background:#eee1d6!important;color:var(--v11-brown-dark)!important;}
+
+/* Premium restrained motion. */
+#root .premium-pillar,
+#root .standard-dashboard-card,
+#root .opportunity-board-card,
+#root .premium-soft-card{
+  transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s ease,border-color .22s ease!important;
+}
+#root .premium-pillar:hover,
+#root .standard-dashboard-card:hover,
+#root .opportunity-board-card:hover,
+#root .premium-soft-card:hover{
+  transform:translateY(-3px)!important;
+  box-shadow:0 18px 42px rgba(73,54,42,.12)!important;
 }
