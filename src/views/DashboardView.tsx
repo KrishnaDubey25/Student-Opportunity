@@ -450,22 +450,22 @@ export const DashboardView: React.FC = () => {
                 whileTap={{ scale: 0.985 }}
                 animate={{ scale: activatingCard === card.id ? 0.985 : 1 }}
                 onClick={() => openAnimatedCard(card)}
-                className={`opportunity-board-card premium-motion-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-white flex flex-col justify-between min-h-[270px]`}
+                className={`opportunity-board-card feature-${card.id} premium-motion-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-white flex flex-col justify-between min-h-[270px]`}
               >
                 {/* Lightweight category header: no remote image banner. */}
-                <div className="workspace-card-head relative min-h-[82px] overflow-hidden border-b border-slate-200 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-4 sm:p-5">
+                <div className="workspace-card-head relative min-h-[96px] overflow-hidden border-b p-4 sm:p-5">
                   <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-emerald-400/10 blur-2xl" />
                   <div className="relative z-10 flex h-full items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <span className="text-[9px] font-black uppercase tracking-[0.18em] text-emerald-700 font-mono">Student Workspace</span>
-                      <div className="mt-1 text-lg sm:text-xl font-black tracking-tight text-slate-950 font-['Outfit',sans-serif] leading-none">
+                      <span className="card-kicker text-[11px] font-black uppercase tracking-[0.15em] font-mono">Student Workspace</span>
+                      <div className="card-category mt-1 text-xl sm:text-[22px] font-black tracking-tight font-['Outfit',sans-serif] leading-none">
                         {card.categoryLabel}
                       </div>
                       <div className="mt-2 inline-flex max-w-full items-center rounded-full border border-emerald-200 bg-white px-2.5 py-1 text-[10px] font-black text-slate-600">
                         <span className="truncate">{card.countLabel}</span>
                       </div>
                     </div>
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-emerald-200 bg-white text-emerald-700">
+                    <div className="card-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border bg-white/85 shadow-sm">
                       <Icon className="h-4 w-4" />
                     </div>
                   </div>
@@ -475,10 +475,10 @@ export const DashboardView: React.FC = () => {
                 <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5 sm:space-y-3">
                   <div>
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(33,132,95,.08)]" />
+                      <span className="card-dot h-2 w-2 rounded-full shadow-[0_0_0_4px_rgba(33,132,95,.08)]" />
                       <span className="text-[9px] font-black tracking-[0.16em] text-slate-400 font-mono uppercase">Student Workspace</span>
                     </div>
-                    <h3 className="text-lg font-black text-slate-950 group-hover:text-emerald-700 transition-colors font-['Outfit',sans-serif] leading-snug">
+                    <h3 className="card-title text-xl font-black text-slate-950 transition-colors font-['Outfit',sans-serif] leading-snug">
                       {card.title}
                     </h3>
                     <p className="text-sm text-slate-600 font-medium leading-relaxed mt-1.5 line-clamp-2">
@@ -487,7 +487,7 @@ export const DashboardView: React.FC = () => {
                   </div>
 
                   <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-xs font-bold text-emerald-600 group-hover:text-emerald-700 flex items-center gap-1 font-['Outfit',sans-serif]">
+                    <span className="card-action text-sm font-extrabold flex items-center gap-1 font-['Outfit',sans-serif]">
                       <span>{card.actionText}</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </span>

@@ -1186,3 +1186,73 @@ input:focus, select:focus, textarea:focus {
     min-height: 286px;
   }
 }
+
+/* 2026 rich premium restoration — stronger contrast, professional type scale */
+:root {
+  --premium-ink:#171412;
+  --premium-muted:#655c55;
+  --premium-surface:#fffdf9;
+}
+body {
+  font-size: 16px;
+  line-height: 1.58;
+  color: var(--premium-ink);
+  background:
+    radial-gradient(circle at 10% -2%, rgba(132,41,74,.10), transparent 28rem),
+    radial-gradient(circle at 92% 5%, rgba(33,132,95,.10), transparent 30rem),
+    linear-gradient(180deg,#fffdf9 0%,#fbf7f2 45%,#fffdfa 100%);
+}
+body, button, input, select, textarea { font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+h1,h2,h3,h4,.font-heading { font-family:'Outfit','Plus Jakarta Sans',sans-serif; letter-spacing:-.032em; }
+p { color:var(--premium-muted); }
+
+/* stop the UI from looking tiny */
+.dashboard-premium .text-\[9px\], .dashboard-premium .text-\[10px\], .dashboard-premium .text-\[11px\],
+.target-jobs-page .text-\[9px\], .target-jobs-page .text-\[10px\], .target-jobs-page .text-\[11px\],
+.profile-premium .text-\[9px\], .profile-premium .text-\[10px\], .profile-premium .text-\[11px\] { font-size:12px !important; line-height:1.45 !important; }
+.dashboard-premium .text-xs, .target-jobs-page .text-xs, .profile-premium .text-xs { font-size:13.5px !important; line-height:1.55 !important; }
+.dashboard-premium .text-sm, .target-jobs-page .text-sm, .profile-premium .text-sm { font-size:14.5px !important; line-height:1.62 !important; }
+
+/* Rich opportunity board: category color without visual clutter */
+.dashboard-premium .opportunity-board-card {
+  min-height: 292px;
+  background: rgba(255,255,255,.97);
+  border-width:1px;
+  box-shadow:0 14px 34px rgba(31,24,20,.09), 0 2px 8px rgba(31,24,20,.04);
+}
+.dashboard-premium .opportunity-board-card:hover { transform:translateY(-8px) scale(1.015); box-shadow:0 26px 58px rgba(31,24,20,.16); }
+.dashboard-premium .workspace-card-head { background:var(--card-bg); border-color:var(--card-border); }
+.dashboard-premium .card-kicker,.dashboard-premium .card-category,.dashboard-premium .card-action { color:var(--card-strong); }
+.dashboard-premium .card-icon { color:var(--card-strong); border-color:var(--card-border); }
+.dashboard-premium .card-dot { background:var(--card-strong); }
+.dashboard-premium .opportunity-board-card:hover .card-title { color:var(--card-strong); }
+.dashboard-premium .feature-hackathons { --card-bg:linear-gradient(135deg,#fff7dc 0%,#fffaf0 48%,#fff 100%); --card-border:#f3c95f; --card-strong:#a85a05; }
+.dashboard-premium .feature-workshops { --card-bg:linear-gradient(135deg,#f3eaff 0%,#fbf8ff 52%,#fff 100%); --card-border:#c7a8f3; --card-strong:#6d32a8; }
+.dashboard-premium .feature-internships { --card-bg:linear-gradient(135deg,#e3f7ed 0%,#f5fcf8 50%,#fff 100%); --card-border:#8bd0af; --card-strong:#126847; }
+.dashboard-premium .feature-scholarships { --card-bg:linear-gradient(135deg,#ffe8ef 0%,#fff6f8 52%,#fff 100%); --card-border:#eaa0b7; --card-strong:#9f3157; }
+.dashboard-premium .feature-competitions { --card-bg:linear-gradient(135deg,#fff0e8 0%,#fff8f4 52%,#fff 100%); --card-border:#efad8f; --card-strong:#b74c2d; }
+.dashboard-premium .feature-tracker { --card-bg:linear-gradient(135deg,#e7f8f5 0%,#f6fcfb 52%,#fff 100%); --card-border:#8fd6cb; --card-strong:#147668; }
+.dashboard-premium .feature-simulator { --card-bg:linear-gradient(135deg,#fff0db 0%,#fff9ef 52%,#fff 100%); --card-border:#efbd78; --card-strong:#aa5d0c; }
+.dashboard-premium .feature-college { --card-bg:linear-gradient(135deg,#f9edc7 0%,#fff9e9 52%,#fff 100%); --card-border:#ddbe63; --card-strong:#85610f; }
+.dashboard-premium .feature-target-jobs { --card-bg:linear-gradient(135deg,#f7e6ed 0%,#fff6f9 52%,#fff 100%); --card-border:#d6a2b6; --card-strong:#7d2d4c; }
+.dashboard-premium .feature-roadmap { --card-bg:linear-gradient(135deg,#e8f5df 0%,#f8fcf4 52%,#fff 100%); --card-border:#a9cd92; --card-strong:#467126; }
+
+/* Landing: richer, deeper and still white-led */
+.landing-hero-stage {
+  background:
+    radial-gradient(circle at 85% 12%,rgba(109,50,168,.13),transparent 19rem),
+    radial-gradient(circle at 8% 5%,rgba(168,90,5,.12),transparent 21rem),
+    linear-gradient(135deg,#fffdf9 0%,#fff 48%,#f5fbf7 100%) !important;
+  border:1px solid rgba(91,72,58,.17) !important;
+  box-shadow:0 34px 90px rgba(50,37,28,.13), inset 0 1px 0 rgba(255,255,255,.85);
+}
+.landing-hero-stage h1 { font-size:clamp(2.75rem,5.2vw,5.6rem) !important; line-height:.96 !important; letter-spacing:-.052em !important; }
+.landing-hero-stage p { font-size:clamp(.98rem,1.3vw,1.12rem) !important; line-height:1.7 !important; }
+.landing-access-panel { border-color:rgba(91,72,58,.19) !important; background:linear-gradient(160deg,#fff 0%,#fffaf3 58%,#f5fbf7 100%) !important; box-shadow:0 28px 80px rgba(40,29,23,.17) !important; }
+.landing-access-step { background:rgba(255,255,255,.82) !important; border-color:rgba(91,72,58,.13) !important; }
+.landing-access-step:hover { transform:translateX(5px) translateY(-2px); box-shadow:0 12px 28px rgba(45,33,25,.10); }
+.landing-campus-section::before { background:linear-gradient(180deg,rgba(249,241,230,.82),rgba(255,255,255,.97)) !important; border-color:rgba(132,41,74,.11) !important; }
+
+/* richer motion, restrained */
+.premium-motion-card, .landing-access-step, .landing-auth-square { transition:transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s ease, border-color .28s ease, background .28s ease; }
+@media (prefers-reduced-motion:reduce){.premium-motion-card,.landing-access-step,.landing-auth-square{transition:none!important;transform:none!important}}
