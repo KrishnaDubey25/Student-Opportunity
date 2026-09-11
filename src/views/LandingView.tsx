@@ -67,15 +67,15 @@ export const LandingView: React.FC = () => {
   };
 
   return (
-    <div className="premium-page w-full flex flex-col min-h-screen bg-ivory-50 text-slate-900 selection:bg-emerald-600 selection:text-white pb-12 overflow-hidden">
+    <div className="premium-page w-full flex flex-col min-h-screen bg-[#f1ece6] text-slate-900 selection:bg-amber-400 selection:text-slate-950 pb-12 overflow-hidden">
       {/* Subtle Background Elements (Warm Ivory & Pure White) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="ambient-orb absolute -top-32 -left-32 w-96 h-96 bg-emerald-100 rounded-full blur-3xl opacity-70" />
-        <div className="ambient-orb absolute top-48 -right-32 w-96 h-96 bg-orange-100 rounded-full blur-3xl opacity-55" />
+        <div className="ambient-orb absolute -top-32 -left-32 w-96 h-96 bg-emerald-900/30 rounded-full blur-3xl opacity-70" />
+        <div className="ambient-orb absolute top-48 -right-32 w-96 h-96 bg-plum-900/25 rounded-full blur-3xl opacity-55" />
       </div>
 
       {/* 1. HERO SECTION */}
-      <section className="landing-hero-stage relative z-10 mt-4 sm:mt-8 pt-8 sm:pt-12 pb-10 sm:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] rounded-[28px] sm:rounded-[36px]">
+      <section className="landing-hero-stage relative z-10 mt-4 sm:mt-8 pt-10 sm:pt-14 pb-10 sm:pb-14 px-5 sm:px-7 lg:px-10 max-w-7xl mx-auto w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] rounded-[30px] sm:rounded-[38px] bg-gradient-to-br from-slate-950 via-[#211d1a] to-[#45172d] border border-white/10 shadow-[0_34px_100px_rgba(15,23,42,.28)]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Headline, Tagline, & CTAs */}
           <motion.div 
@@ -89,14 +89,14 @@ export const LandingView: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ivory-100 border border-slate-300 text-slate-900 text-xs font-bold mb-4 shadow-2xs"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.08] border border-white/10 text-white text-xs font-extrabold mb-5 shadow-sm backdrop-blur"
             >
-              <Sparkles className="w-3.5 h-3.5 text-plum-900" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>Campus Career Acceleration Platform</span>
             </motion.div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-950 font-['Outfit',sans-serif] leading-[1.08]">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-[-0.055em] text-white font-['Outfit',sans-serif] leading-[0.98]">
               Student Opportunity Engine
             </h1>
 
@@ -114,9 +114,9 @@ export const LandingView: React.FC = () => {
             </div>
 
             {/* Dynamic Animated Keyword Banner */}
-            <div className="mt-4 flex items-center gap-2 text-base sm:text-lg font-bold text-slate-700 font-['Outfit',sans-serif]">
+            <div className="mt-5 flex items-center gap-2 text-base sm:text-lg font-extrabold text-slate-200 font-['Outfit',sans-serif]">
               <span>Accelerating student careers in</span>
-              <div className="h-8 min-w-[200px] relative overflow-hidden bg-emerald-50 border border-emerald-300 rounded-lg shadow-sm flex items-center justify-center px-3">
+              <div className="h-9 min-w-[210px] relative overflow-hidden bg-emerald-400/10 border border-emerald-300/20 rounded-xl shadow-sm flex items-center justify-center px-3 backdrop-blur">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={keywords[keywordIndex]}
@@ -124,7 +124,7 @@ export const LandingView: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ duration: 0.25 }}
-                    className="text-emerald-900 font-black text-xs sm:text-sm"
+                    className="text-emerald-300 font-black text-sm"
                   >
                     {keywords[keywordIndex]}
                   </motion.span>
@@ -133,7 +133,7 @@ export const LandingView: React.FC = () => {
             </div>
 
             {/* Short explanation */}
-            <p className="mt-4 text-sm sm:text-base text-slate-600 max-w-xl leading-relaxed">
+            <p className="mt-5 text-[15px] sm:text-[17px] text-slate-300 max-w-xl leading-8 font-semibold">
               A focused career operating system for engineering and university students. Discover verified opportunities, understand readiness, track applications, and connect with relevant campus peers based on shared technical interests.
             </p>
 
@@ -143,7 +143,7 @@ export const LandingView: React.FC = () => {
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.96 }}
                 onClick={handleGetStarted}
-                className="premium-shine w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all font-['Outfit',sans-serif]"
+                className="premium-shine w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm flex items-center justify-center gap-2 shadow-[0_14px_35px_rgba(245,158,11,.20)] transition-all font-['Outfit',sans-serif]"
               >
                 <span>Get Started Now</span>
                 <ArrowRight className="w-4 h-4" />
@@ -162,18 +162,18 @@ export const LandingView: React.FC = () => {
             </div>
 
             {/* Quick Stats */}
-            <div className="mt-8 pt-6 border-t border-slate-100 grid grid-cols-3 gap-6 w-full">
+            <div className="mt-9 pt-7 border-t border-white/10 grid grid-cols-3 gap-6 w-full">
               <motion.div whileHover={{ y: -2 }}>
-                <div className="text-2xl font-black text-slate-900 font-['Outfit',sans-serif]">12</div>
-                <div className="text-xs text-slate-500 font-medium">Opportunity Tracks</div>
+                <div className="text-3xl font-black text-white font-['Outfit',sans-serif]">12</div>
+                <div className="text-xs text-slate-400 font-bold">Opportunity Tracks</div>
               </motion.div>
               <motion.div whileHover={{ y: -2 }}>
-                <div className="text-2xl font-black text-slate-900 font-['Outfit',sans-serif]">96%</div>
-                <div className="text-xs text-slate-500 font-medium">Peak Fit Score</div>
+                <div className="text-3xl font-black text-white font-['Outfit',sans-serif]">96%</div>
+                <div className="text-xs text-slate-400 font-bold">Peak Fit Score</div>
               </motion.div>
               <motion.div whileHover={{ y: -2 }}>
-                <div className="text-2xl font-black text-emerald-600 font-['Outfit',sans-serif]">14-Day</div>
-                <div className="text-xs text-slate-500 font-medium">Sprint Roadmaps</div>
+                <div className="text-3xl font-black text-emerald-300 font-['Outfit',sans-serif]">14-Day</div>
+                <div className="text-xs text-slate-400 font-bold">Sprint Roadmaps</div>
               </motion.div>
             </div>
           </motion.div>
@@ -185,7 +185,7 @@ export const LandingView: React.FC = () => {
             transition={{ duration: 0.65, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-5 relative"
           >
-            <div className="landing-access-panel landing-access-contrast relative mx-auto w-full max-w-md overflow-hidden rounded-[30px] border border-slate-300 bg-white p-5 sm:p-6 shadow-[0_28px_80px_rgba(27,24,22,.18)]">
+            <div className="landing-access-panel landing-access-contrast relative mx-auto w-full max-w-md overflow-hidden rounded-[30px] border border-white/10 bg-[#171513]/90 p-5 sm:p-6 shadow-[0_28px_80px_rgba(0,0,0,.34)] backdrop-blur-xl">
               <div className="pointer-events-none absolute -right-14 -top-16 h-44 w-44 rounded-full bg-emerald-200/55 blur-3xl ambient-orb" />
               <div className="pointer-events-none absolute -bottom-16 -left-12 h-44 w-44 rounded-full bg-gold-200/45 blur-3xl ambient-orb" />
 
@@ -289,7 +289,7 @@ export const LandingView: React.FC = () => {
       <section className="landing-campus-section relative z-10 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-900 border border-slate-200 text-xs font-bold mb-3 font-mono">
-            <Building2 className="w-3.5 h-3.5 text-plum-900" />
+            <Building2 className="w-3.5 h-3.5 text-amber-300" />
             <span>Verified Campus Network</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
@@ -308,7 +308,7 @@ export const LandingView: React.FC = () => {
               {totalCampusOpportunities}+ Campus Tracks
             </span>
             <span className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-800 inline-flex items-center gap-1.5 shadow-2xs">
-              <Users className="w-3.5 h-3.5 text-plum-900" />
+              <Users className="w-3.5 h-3.5 text-amber-300" />
               Interest-Based Peer Discovery
             </span>
           </div>
