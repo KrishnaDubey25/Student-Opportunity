@@ -17,7 +17,9 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['AI/ML', 'Web Engineering', 'Hackathons'],
     departments: ['Computer Engineering', 'IT', 'Electronics & Computer Science'],
     campusStrength: 'Fast-growing project and hackathon culture',
-    placementSignal: 'Strong software-role preparation'
+    placementSignal: 'Strong software-role preparation',
+    emailDomains: ['slrtce.in', 'slrtce.ac.in'],
+    emailAliases: ['slrtce', 'lrit', 'tiwari']
   },
   {
     id: 'col-tcet',
@@ -35,7 +37,9 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['Product Engineering', 'Competitive Coding', 'Cloud'],
     departments: ['Computer Engineering', 'IT', 'AI & Data Science'],
     campusStrength: 'Industry-linked technical ecosystem',
-    placementSignal: 'High internship and placement participation'
+    placementSignal: 'High internship and placement participation',
+    emailDomains: ['tcetmumbai.in', 'tcet.ac.in', 'thakureducation.org'],
+    emailAliases: ['tcet', 'thakur']
   },
   {
     id: 'col-atharva',
@@ -53,7 +57,9 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['Robotics', 'AI/ML', 'Startup Projects'],
     departments: ['Computer Engineering', 'Electronics', 'AI & Data Science'],
     campusStrength: 'Hands-on innovation and maker culture',
-    placementSignal: 'Growing startup and technical hiring pipeline'
+    placementSignal: 'Growing startup and technical hiring pipeline',
+    emailDomains: ['atharvacoe.ac.in', 'atharvauniversity.edu.in'],
+    emailAliases: ['atharva', 'ace']
   },
   {
     id: 'col-mithibai',
@@ -71,7 +77,9 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['Data Science', 'Research', 'Business-Tech'],
     departments: ['Computer Science', 'Data Science', 'Statistics'],
     campusStrength: 'Interdisciplinary academic ecosystem',
-    placementSignal: 'Strong research and analytics orientation'
+    placementSignal: 'Strong research and analytics orientation',
+    emailDomains: ['mithibai.ac.in'],
+    emailAliases: ['mithibai']
   },
   {
     id: 'col-vjti',
@@ -89,7 +97,9 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['Systems', 'Core Engineering', 'Competitive Programming'],
     departments: ['Computer Engineering', 'IT', 'Electronics'],
     campusStrength: 'Deep technical and competitive culture',
-    placementSignal: 'High-intensity technical opportunity pipeline'
+    placementSignal: 'High-intensity technical opportunity pipeline',
+    emailDomains: ['vjti.ac.in'],
+    emailAliases: ['vjti']
   },
   {
     id: 'col-spit',
@@ -107,7 +117,9 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['Software Engineering', 'Research', 'Product Development'],
     departments: ['Computer Engineering', 'IT', 'Electronics'],
     campusStrength: 'Project-driven engineering culture',
-    placementSignal: 'Strong product and software readiness'
+    placementSignal: 'Strong product and software readiness',
+    emailDomains: ['spit.ac.in'],
+    emailAliases: ['spit']
   },
   {
     id: 'col-iitb',
@@ -125,7 +137,9 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['Deep Tech', 'Research', 'Entrepreneurship'],
     departments: ['CSE', 'Electrical Engineering', 'Mechanical Engineering'],
     campusStrength: 'Research-intensive innovation ecosystem',
-    placementSignal: 'Top-tier research and technology opportunities'
+    placementSignal: 'Top-tier research and technology opportunities',
+    emailDomains: ['iitb.ac.in'],
+    emailAliases: ['iitb', 'iitbombay']
   },
   {
     id: 'col-bits',
@@ -143,8 +157,21 @@ export const COLLEGES_LIST: CollegeInfo[] = [
     campusFocus: ['Entrepreneurship', 'Research', 'Product'],
     departments: ['Computer Science', 'Electronics', 'Mechanical Engineering'],
     campusStrength: 'Flexible project and startup ecosystem',
-    placementSignal: 'Strong internship and startup participation'
+    placementSignal: 'Strong internship and startup participation',
+    emailDomains: ['bits-pilani.ac.in'],
+    emailAliases: ['bits', 'pilani']
   }
 ];
 
 export const DEFAULT_COLLEGE: CollegeInfo = COLLEGES_LIST[0]; // Shri L. R. Tiwari College of Engineering
+
+
+export const detectCollegeFromEmail = (email: string): CollegeInfo | null => {
+  const normalized = email.trim().toLowerCase();
+  const domain = normalized.split('@')[1] || '';
+  if (!domain) return null;
+  return COLLEGES_LIST.find(college =>
+    (college.emailDomains || []).some(item => domain === item || domain.endsWith('.' + item)) ||
+    (college.emailAliases || []).some(alias => domain.includes(alias))
+  ) || null;
+};

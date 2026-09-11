@@ -23,7 +23,11 @@ import {
   BrainCircuit,
   CloudCog,
   Plus,
-  X
+  X,
+  ExternalLink,
+  PlayCircle,
+  Building2,
+  BookMarked
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
@@ -61,6 +65,24 @@ const topic = (
   hours: number,
   level: Topic['level'] = 'Core'
 ): Topic => ({ id, title, note, hours, level });
+
+
+type LearningResource = {
+  title: string;
+  provider: string;
+  type: 'YouTube' | 'Official' | 'Practice';
+  url: string;
+  note: string;
+};
+
+const TRUSTED_LEARNING_RESOURCES: LearningResource[] = [
+  { title: 'Full Stack & Programming Courses', provider: 'freeCodeCamp', type: 'YouTube', url: 'https://www.youtube.com/@freecodecamp', note: 'Long-form English courses for JavaScript, React, Python, DSA, databases and full-stack development.' },
+  { title: 'Developer Skills & Product Engineering', provider: 'Microsoft Developer', type: 'YouTube', url: 'https://www.youtube.com/@MicrosoftDeveloper', note: 'Official engineering videos covering JavaScript, cloud, GitHub, AI and modern developer workflows.' },
+  { title: 'Cloud & Developer Learning', provider: 'Amazon Web Services', type: 'YouTube', url: 'https://www.youtube.com/@amazonwebservices', note: 'Official AWS English content for cloud fundamentals, architecture, deployment and developer tooling.' },
+  { title: 'Interview Warmup', provider: 'Google Career Certificates', type: 'Practice', url: 'https://grow.google/certificates/interview-warmup/', note: 'Practice explaining answers clearly before internship and placement interviews.' },
+  { title: 'GitHub Skills', provider: 'GitHub', type: 'Official', url: 'https://skills.github.com/', note: 'Hands-on guided labs for Git, GitHub, collaboration, pull requests and developer workflows.' },
+  { title: 'IBM SkillsBuild', provider: 'IBM', type: 'Official', url: 'https://skillsbuild.org/', note: 'Structured learning for AI, cybersecurity, data and professional skills from IBM.' }
+];
 
 const TARGET_ROLES: TargetRole[] = [
   {
@@ -878,6 +900,47 @@ export const TargetJobsView: React.FC = () => {
           </section>
 
           <section className="grid gap-4 xl:grid-cols-[1fr_.8fr]">
+            <div className="rounded-[26px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-gold-50 p-4 sm:p-5 shadow-sm xl:col-span-2">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <div className="flex items-center gap-2 text-emerald-700">
+                    <BookMarked className="h-4 w-4" />
+                    <span className="text-[11px] font-black uppercase tracking-[0.15em]">Trusted Learning Channel</span>
+                  </div>
+                  <h3 className="mt-1 text-xl sm:text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What to study — and where to learn it</h3>
+                  <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">English-first resources from trusted developer communities and major technology companies. Use these alongside the syllabus above instead of searching randomly.</p>
+                </div>
+                <div className="rounded-2xl border border-white bg-white/80 px-3 py-2 text-xs font-black text-emerald-700 shadow-sm">Mapped to {selectedRole.title}</div>
+              </div>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                {TRUSTED_LEARNING_RESOURCES.map((resource, index) => (
+                  <motion.a
+                    key={resource.title}
+                    href={resource.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.04 }}
+                    whileHover={{ y: -5, rotate: index % 2 ? 0.4 : -0.4 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-emerald-300 hover:shadow-lg"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${resource.type === 'YouTube' ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-700'}`}>
+                        {resource.type === 'YouTube' ? <PlayCircle className="h-5 w-5" /> : <Building2 className="h-5 w-5" />}
+                      </div>
+                      <ExternalLink className="h-4 w-4 text-slate-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-700" />
+                    </div>
+                    <div className="mt-3 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">{resource.provider} • {resource.type}</div>
+                    <div className="mt-1 text-base font-black text-slate-950 font-['Outfit',sans-serif]">{resource.title}</div>
+                    <p className="mt-1.5 text-xs leading-5 text-slate-600">{resource.note}</p>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+
             <div className="rounded-[24px] border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
               <div className="flex items-center gap-2">
                 <BookOpen className="h-4 w-4 text-plum-900" />

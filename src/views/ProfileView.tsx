@@ -6,7 +6,10 @@ import {
   Award,
   Save,
   X,
-  Trophy
+  Trophy,
+  Camera,
+  Upload,
+  Image as ImageIcon
 } from 'lucide-react';
 
 export const ProfileView: React.FC = () => {
@@ -25,6 +28,28 @@ export const ProfileView: React.FC = () => {
 
   const [newSkill, setNewSkill] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [photoError, setPhotoError] = useState('');
+
+
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setPhotoError('');
+    if (!file.type.startsWith('image/')) {
+      setPhotoError('Please choose an image file.');
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setPhotoError('Use an image smaller than 2 MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = String(reader.result || '');
+      if (result) updateProfile({ avatar: result });
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleAddSkill = (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,7 +110,7 @@ export const ProfileView: React.FC = () => {
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full space-y-6 pb-20 max-w-4xl mx-auto bg-white"
+      className="profile-premium w-full space-y-6 pb-20 max-w-5xl mx-auto"
     >
       {/* Header */}
       <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -117,6 +142,29 @@ export const ProfileView: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Profile Photo */}
+      <motion.div whileHover={{ y: -2 }} className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-emerald-50 via-white to-gold-50 border border-emerald-200 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+          <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-[28px] border-4 border-white bg-slate-100 shadow-lg">
+            {profile.avatar ? <img src={profile.avatar} alt={`${profile.name} profile`} className="h-full w-full object-cover" /> : <div className="flex h-full w-full items-center justify-center"><ImageIcon className="h-8 w-8 text-slate-400" /></div>}
+            <div className="absolute inset-x-0 bottom-0 flex justify-center bg-slate-950/70 py-1.5 text-white"><Camera className="h-3.5 w-3.5" /></div>
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-[11px] font-black uppercase tracking-[0.16em] text-emerald-700">Student Identity</div>
+            <h2 className="mt-1 text-xl sm:text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Add your profile photo</h2>
+            <p className="mt-1 text-sm leading-6 text-slate-600">Your photo appears on your student profile and helps the college identify applications and team members quickly.</p>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-700">
+                <Upload className="h-4 w-4" /> Upload photo
+                <input type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
+              </label>
+              <span className="text-[11px] font-semibold text-slate-500">JPG, PNG or WEBP • max 2 MB</span>
+            </div>
+            {photoError && <div className="mt-2 text-xs font-bold text-rose-600">{photoError}</div>}
+          </div>
+        </div>
+      </motion.div>
 
       {/* Profile Strength Bar */}
       <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">

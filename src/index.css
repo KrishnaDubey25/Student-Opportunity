@@ -1012,3 +1012,69 @@ input:focus, select:focus, textarea:focus {
   }
 }
 .field{width:100%;border:1px solid #e2e8f0;border-radius:12px;padding:11px 12px;font-size:12px;font-weight:600;outline:none;background:#fff;color:#0f172a}.field:focus{border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(139,92,246,.09)}
+
+
+/* 2026 clean premium refinement */
+.premium-soft-card {
+  box-shadow: 0 10px 30px rgba(39,34,31,.055);
+  transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+}
+.premium-soft-card:hover {
+  box-shadow: 0 16px 42px rgba(39,34,31,.09);
+}
+.opportunity-board-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+.dashboard-premium {
+  --section-gap: 1.5rem;
+}
+.dashboard-premium h1 { line-height: 1.02; }
+.dashboard-premium h2 { line-height: 1.08; }
+.org-premium-hero h1 { line-height: .98; }
+@media (min-width: 1024px) {
+  .dashboard-premium { font-size: 15px; }
+}
+
+
+/* Student-facing readability + motion refinement */
+.dashboard-premium .text-\[9px\],
+.target-jobs-page .text-\[9px\],
+.profile-premium .text-\[9px\] { font-size: 10.5px; }
+.dashboard-premium .text-\[10px\],
+.target-jobs-page .text-\[10px\],
+.profile-premium .text-\[10px\] { font-size: 11.5px; }
+.dashboard-premium .text-\[11px\],
+.target-jobs-page .text-\[11px\],
+.profile-premium .text-\[11px\] { font-size: 12.5px; }
+.dashboard-premium .text-xs,
+.target-jobs-page .text-xs,
+.profile-premium .text-xs { line-height: 1.55; }
+
+.premium-motion-card {
+  transform-style: preserve-3d;
+  perspective: 900px;
+  will-change: transform, box-shadow;
+}
+.premium-motion-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(120deg, transparent 15%, rgba(255,255,255,.62) 48%, transparent 78%);
+  transform: translateX(-120%);
+  transition: opacity 220ms ease;
+}
+.premium-motion-card:hover::after {
+  opacity: .75;
+  animation: premium-card-sheen 900ms cubic-bezier(.22,1,.36,1);
+}
+@keyframes premium-card-sheen {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-motion-card::after { display: none; }
+}

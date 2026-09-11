@@ -24,7 +24,7 @@ import {
   INITIAL_SKILL_GAPS,
   INITIAL_JOB_READINESS_ITEMS
 } from '../data/mockData';
-import { COLLEGES_LIST, DEFAULT_COLLEGE } from '../data/colleges';
+import { COLLEGES_LIST, DEFAULT_COLLEGE, detectCollegeFromEmail } from '../data/colleges';
 import { INITIAL_NEXT_ACTIONS } from '../data/nextActions';
 
 export type NavTab = 
@@ -668,7 +668,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return { success: false, error: 'Registration requires a valid college email address.' };
     }
 
-    const matchedCollege = COLLEGES_LIST.find(
+    const emailDetectedCollege = detectCollegeFromEmail(data.studentIdOrEmail);
+    const matchedCollege = emailDetectedCollege || COLLEGES_LIST.find(
       c => c.name.toLowerCase() === data.college?.toLowerCase() || 
            c.code.toLowerCase() === data.collegeCode?.toLowerCase() ||
            c.shortName.toLowerCase() === data.college?.toLowerCase()

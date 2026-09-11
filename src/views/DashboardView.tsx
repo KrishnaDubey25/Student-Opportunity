@@ -33,9 +33,15 @@ import {
   BrainCircuit,
   Activity,
   MapPin,
-  Star
+  Star,
+  BookOpenCheck,
+  Presentation,
+  Link2,
+  CheckSquare2,
+  UsersRound
 } from 'lucide-react';
 import { OpportunityCategory, Opportunity } from '../types';
+import { useCampusOperations } from '../hooks/useCampusOperations';
 
 export const DashboardView: React.FC = () => {
   const { 
@@ -63,6 +69,14 @@ export const DashboardView: React.FC = () => {
 
   // Interactive Skill Simulator state on dashboard
   const [simulatedSkillName, setSimulatedSkillName] = useState<string | null>(null);
+  const [showMoreTools, setShowMoreTools] = useState(false);
+  const [activatingCard, setActivatingCard] = useState<string | null>(null);
+
+  const campusOps = useCampusOperations(selectedCollege.code);
+  const myCampusTasks = campusOps.tasks.filter(task => !task.assignedTo || task.assignedTo === currentUser?.id);
+  const pendingCampusTasks = myCampusTasks.filter(task => (task.statusByStudent[currentUser?.id || ''] || 'Pending') !== 'Completed');
+  const campusStudyResources = campusOps.resources.slice(0, 4);
+  const campusCollaborations = campusOps.collaborations.slice(0, 4);
 
   // Selected simulated skill object
   const activeSimulatedSkill = AVAILABLE_SIMULATOR_SKILLS.find(s => s.name === simulatedSkillName) || null;
@@ -88,6 +102,10 @@ export const DashboardView: React.FC = () => {
 
   const competitions = opportunities.filter(
     o => o.type === 'Competition' || o.category.includes('Competition')
+  );
+
+  const workshops = opportunities.filter(
+    o => o.type === 'Workshop' || o.category === 'Workshops'
   );
 
   // Handle simulator toggle
@@ -140,6 +158,19 @@ export const DashboardView: React.FC = () => {
       accentColor: 'border-amber-400/40 hover:border-amber-500',
       actionText: 'Go to Hackathons',
       onClick: () => openCategoryInDiscover('College Hackathons')
+    },
+    {
+      id: 'workshops',
+      title: 'Workshops & Skill Sessions',
+      categoryLabel: 'WORKSHOPS',
+      subtitle: 'Hands-on campus sessions, bootcamps and expert-led skill workshops you can join now.',
+      countLabel: `${workshops.length} Active Workshops`,
+      prizeLabel: 'Learn With Mentors',
+      icon: Presentation,
+      badgeColor: 'bg-violet-600 text-white',
+      accentColor: 'border-violet-300/70 hover:border-violet-500',
+      actionText: 'Explore Workshops',
+      onClick: () => openCategoryInDiscover('Workshops')
     },
     {
       id: 'internships',
@@ -247,6 +278,15 @@ export const DashboardView: React.FC = () => {
     }
   ];
 
+  const visibleFeatureCards = showMoreTools ? featureCards : featureCards.slice(0, 5);
+  const openAnimatedCard = (card: typeof featureCards[number]) => {
+    setActivatingCard(card.id);
+    window.setTimeout(() => {
+      card.onClick();
+      setActivatingCard(null);
+    }, 220);
+  };
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }} className="dashboard-premium w-full space-y-8 pb-16 text-slate-900">
       
@@ -298,21 +338,21 @@ export const DashboardView: React.FC = () => {
 
       {/* 2. CAMPUS INTELLIGENCE STRIP */}
       <section className="grid xl:grid-cols-[1.05fr_1fr_1.15fr] gap-5">
-        <motion.div whileHover={{ y: -4 }} className="relative overflow-hidden rounded-[28px] border border-slate-800 bg-slate-950 p-6 text-white shadow-xl">
+        <motion.div whileHover={{ y: -4 }} className="premium-soft-card relative overflow-hidden rounded-[28px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-stone-50 p-6 text-slate-950 shadow-sm">
           <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-emerald-400/15 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-center justify-between gap-3">
-              <div className="text-[12px] font-black uppercase tracking-[0.16em] text-emerald-300">Campus Snapshot</div>
-              <Building2 className="h-5 w-5 text-emerald-300" />
+              <div className="text-[12px] font-black uppercase tracking-[0.16em] text-emerald-700">Campus Snapshot</div>
+              <Building2 className="h-5 w-5 text-emerald-700" />
             </div>
             <h2 className="mt-3 text-2xl font-black tracking-tight font-['Outfit',sans-serif]">{selectedCollege.shortName}</h2>
-            <p className="mt-1 text-sm font-semibold text-slate-300">{selectedCollege.campusTheme || selectedCollege.type}</p>
+            <p className="mt-1 text-sm font-semibold text-slate-600">{selectedCollege.campusTheme || selectedCollege.type}</p>
             <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3"><div className="text-[11px] text-slate-400">Campus opportunities</div><div className="mt-1 text-xl font-black">{selectedCollege.partnerOpportunitiesCount}</div></div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3"><div className="text-[11px] text-slate-400">My applications</div><div className="mt-1 text-xl font-black">{myCampusApplications.length}</div></div>
+              <div className="rounded-2xl border border-emerald-100 bg-white p-3"><div className="text-[11px] text-slate-500">Campus opportunities</div><div className="mt-1 text-xl font-black">{selectedCollege.partnerOpportunitiesCount}</div></div>
+              <div className="rounded-2xl border border-emerald-100 bg-white p-3"><div className="text-[11px] text-slate-500">My applications</div><div className="mt-1 text-xl font-black">{myCampusApplications.length}</div></div>
             </div>
-            <div className="mt-4 flex flex-wrap gap-2">{(selectedCollege.campusFocus || []).slice(0,3).map(item => <span key={item} className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-[10px] font-black text-emerald-200">{item}</span>)}</div>
-            <div className="mt-4 flex items-start gap-2 text-xs text-slate-300"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300"/><span>{selectedCollege.city} • {selectedCollege.campusStrength}</span></div>
+            <div className="mt-4 flex flex-wrap gap-2">{(selectedCollege.campusFocus || []).slice(0,3).map(item => <span key={item} className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-black text-emerald-700">{item}</span>)}</div>
+            <div className="mt-4 flex items-start gap-2 text-xs text-slate-600"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600"/><span>{selectedCollege.city} • {selectedCollege.campusStrength}</span></div>
           </div>
         </motion.div>
 
@@ -330,7 +370,45 @@ export const DashboardView: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* 3. PROFESSIONAL WORKSPACE NAVIGATION CARDS */}
+      {/* 3. LIVE CAMPUS EXECUTION LAYER */}
+      <section className="grid xl:grid-cols-[1.15fr_.9fr_.95fr] gap-5">
+        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-slate-800 bg-slate-950 p-6 text-white shadow-xl overflow-hidden relative">
+          <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-violet-500/20 blur-3xl" />
+          <div className="relative z-10">
+            <div className="flex items-start justify-between gap-4"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-violet-300">My Campus Tasks</div><h2 className="mt-1 text-2xl font-black font-['Outfit',sans-serif]">Work that moves your profile</h2></div><CheckSquare2 className="h-6 w-6 text-violet-300" /></div>
+            <p className="mt-2 text-sm text-slate-300">PPTs, reviews, presentations, research and duties assigned by your college appear here live.</p>
+            <div className="mt-5 space-y-3">
+              {myCampusTasks.slice(0,4).map(task => {
+                const status = task.statusByStudent[currentUser?.id || ''] || 'Pending';
+                return <div key={task.id} className="rounded-2xl border border-white/10 bg-white/[.06] p-4">
+                  <div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black">{task.title}</div><div className="mt-1 text-xs text-slate-400">{task.category} • Due {task.dueDate}</div></div><span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-black text-violet-200">{status}</span></div>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-300">{task.description}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {status !== 'Completed' && <button onClick={() => currentUser && campusOps.updateTaskStatus(task.id, currentUser.id, status === 'Pending' ? 'In Progress' : 'Completed')} className="rounded-xl bg-violet-400 px-3 py-2 text-[11px] font-black text-slate-950">{status === 'Pending' ? 'Start Task' : 'Mark Completed'}</button>}
+                    {status === 'Completed' && <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5"/>Completed & synced</span>}
+                  </div>
+                </div>;
+              })}
+              {!myCampusTasks.length && <div className="rounded-2xl border border-dashed border-white/15 p-5 text-sm text-slate-400">No task assigned yet. New college tasks will appear here instantly.</div>}
+            </div>
+            <div className="mt-4 text-[11px] font-bold text-slate-400">{pendingCampusTasks.length} pending • synced across open tabs</div>
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-emerald-200 bg-gradient-to-br from-white to-emerald-50 p-6 shadow-sm">
+          <div className="flex items-start justify-between"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-emerald-700">Study Resource Channel</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What to study. Where to study.</h2></div><BookOpenCheck className="h-6 w-6 text-emerald-700"/></div>
+          <p className="mt-2 text-sm text-slate-600">Curated learning links published by your college for current preparation.</p>
+          <div className="mt-5 space-y-3">{campusStudyResources.map(resource => <div key={resource.id} className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm"><div className="text-sm font-black text-slate-950">{resource.title}</div><div className="mt-1 text-[11px] font-bold text-emerald-700">{resource.subject} • {resource.level}</div><p className="mt-2 text-xs text-slate-600">{resource.description}</p><div className="mt-3 flex flex-wrap gap-2">{resource.links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-2.5 py-1.5 text-[10px] font-black text-slate-700 hover:border-emerald-400"><Link2 className="h-3 w-3"/>{link.label}</a>)}</div></div>)}{!campusStudyResources.length && <div className="rounded-2xl border border-dashed border-emerald-200 p-5 text-sm text-slate-500">Your faculty resource channels will appear here.</div>}</div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -3 }} className="rounded-[30px] border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-violet-50 p-6 shadow-sm">
+          <div className="flex items-start justify-between"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-amber-700">Inter-College Network</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Collaborations & live openings</h2></div><UsersRound className="h-6 w-6 text-amber-700"/></div>
+          <p className="mt-2 text-sm text-slate-600">See workshops, hackathons, research and placement collaborations opened by your campus.</p>
+          <div className="mt-5 space-y-3">{campusCollaborations.map(collab => <div key={collab.id} className="rounded-2xl border border-white bg-white/90 p-4 shadow-sm"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-slate-950">{collab.title}</div><div className="mt-1 text-[11px] font-bold text-slate-500">with {collab.partnerCollege}</div></div><span className="rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-black text-amber-800">{collab.status}</span></div><div className="mt-2 flex items-center gap-2 text-[11px] font-bold text-violet-700"><Presentation className="h-3.5 w-3.5"/>{collab.type} • {collab.date}</div></div>)}{!campusCollaborations.length && <div className="rounded-2xl border border-dashed border-amber-200 p-5 text-sm text-slate-500">No active collaboration posted yet.</div>}</div>
+        </motion.div>
+      </section>
+
+      {/* 4. PROFESSIONAL WORKSPACE NAVIGATION CARDS */}
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
@@ -339,21 +417,21 @@ export const DashboardView: React.FC = () => {
                 Opportunity Command Center
               </span>
               <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-gold-50 text-gold-600 border border-gold-200">
-                9 focused workspaces
+                Core tools + workshops
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
-              Explore Your Opportunity Workspace
+              Your Opportunity Workspace
             </h2>
           </div>
           <p className="text-xs text-slate-500">
-            Each workspace is designed around a single student goal for faster navigation and clearer decisions.
+            Start with the most-used student tools, including live workshops. Open more only when you need them.
           </p>
         </div>
 
         {/* Highly visual, animated workspace cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {featureCards.map((card) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+          {visibleFeatureCards.map((card) => {
             const Icon = card.icon;
             return (
               <motion.div
@@ -361,11 +439,12 @@ export const DashboardView: React.FC = () => {
                 initial={{ opacity: 0, y: 20, scale: 0.985 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, delay: Math.min(0.28, featureCards.indexOf(card) * 0.045), ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -7, scale: 1.015 }}
+                transition={{ duration: 0.45, delay: Math.min(0.18, visibleFeatureCards.indexOf(card) * 0.04), ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -5, scale: 1.01, rotateX: 2, rotateY: -2 }}
                 whileTap={{ scale: 0.985 }}
-                onClick={card.onClick}
-                className={`opportunity-board-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-white flex flex-col justify-between`}
+                animate={{ rotateY: activatingCard === card.id ? 10 : 0, scale: activatingCard === card.id ? 0.97 : 1 }}
+                onClick={() => openAnimatedCard(card)}
+                className={`opportunity-board-card premium-motion-card group relative rounded-[26px] overflow-hidden border ${card.accentColor} shadow-xs hover:shadow-xl transition-all cursor-pointer bg-white flex flex-col justify-between`}
               >
                 {/* Lightweight category header: no remote image banner. */}
                 <div className="workspace-card-head relative min-h-[82px] overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-3.5 sm:p-4">
@@ -415,6 +494,18 @@ Open workspace
             );
           })}
         </div>
+        {featureCards.length > 5 && (
+          <div className="flex justify-center pt-2">
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setShowMoreTools(v => !v)}
+              className="rounded-2xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-black text-slate-700 shadow-sm hover:border-emerald-300 hover:text-emerald-700 transition"
+            >
+              {showMoreTools ? 'Show fewer tools' : `Show ${featureCards.length - 5} more tools`}
+            </motion.button>
+          </div>
+        )}
       </div>
 
       {/* 3. VISUAL GRAPHS & INDUSTRY LEVEL READINESS GAUGE */}

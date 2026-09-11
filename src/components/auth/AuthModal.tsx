@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useApp } from '../../context/AppContext';
-import { COLLEGES_LIST } from '../../data/colleges';
+import { COLLEGES_LIST, detectCollegeFromEmail } from '../../data/colleges';
 import {
   X,
   Mail,
@@ -44,6 +44,7 @@ export const AuthModal: React.FC = () => {
   const [collegeEmail, setCollegeEmail] = useState('');
   const [studentRollId, setStudentRollId] = useState('');
   const [selectedCollegeName, setSelectedCollegeName] = useState(selectedCollege.name);
+  const detectedCollege = detectCollegeFromEmail(collegeEmail);
   const [degree, setDegree] = useState('B.Tech in Computer Engineering');
   const [year, setYear] = useState('Third Year (Junior)');
   const [registerPassword, setRegisterPassword] = useState('');
@@ -131,19 +132,24 @@ export const AuthModal: React.FC = () => {
 
     setIsSubmitting(true);
     setTimeout(() => {
-      // Find matching college or create info
-      const matched = COLLEGES_LIST.find(c => 
+      const matched = detectCollegeFromEmail(collegeEmail) || COLLEGES_LIST.find(c =>
         c.name.toLowerCase() === selectedCollegeName.toLowerCase() ||
         c.shortName.toLowerCase() === selectedCollegeName.toLowerCase()
       );
+
+      if (!matched) {
+        setIsSubmitting(false);
+        setErrorMessage('We could not identify this campus from the email domain. Choose the correct college below before creating the account.');
+        return;
+      }
 
       const result = register(
         {
           name: fullName.trim(),
           studentIdOrEmail: collegeEmail.trim().toLowerCase(),
           password: registerPassword,
-          college: selectedCollegeName,
-          collegeCode: matched ? matched.code : undefined,
+          college: matched.name,
+          collegeCode: matched.code,
           degree: isOrganization ? 'Organization Account' : degree,
           year: isOrganization ? 'Organization' : year,
           careerGoal: isOrganization ? 'Campus Opportunity Management' : 'Software Engineer / AI Systems Engineer',
@@ -388,7 +394,12 @@ export const AuthModal: React.FC = () => {
                       <input
                         type="email"
                         value={collegeEmail}
-                        onChange={e => setCollegeEmail(e.target.value)}
+                        onChange={e => {
+                          const value = e.target.value;
+                          setCollegeEmail(value);
+                          const detected = detectCollegeFromEmail(value);
+                          if (detected) setSelectedCollegeName(detected.name);
+                        }}
                         placeholder="e.g. krishna@college.edu.in"
                         required
                         className="w-full pl-10 pr-3 py-2.5 rounded-xl text-xs border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-100 font-medium transition-all"
@@ -410,11 +421,19 @@ export const AuthModal: React.FC = () => {
                   </div>}
                 </div>
 
+                {collegeEmail && (
+                  <div className={`rounded-2xl border px-3.5 py-3 text-[11px] font-bold ${detectedCollege ? 'border-emerald-200 bg-emerald-50 text-emerald-800' : 'border-amber-200 bg-amber-50 text-amber-800'}`}>
+                    {detectedCollege
+                      ? `Detected campus: ${detectedCollege.name}. Student and organization data will stay inside ${detectedCollege.shortName}.`
+                      : 'Campus not detected from this domain yet. Use the official college email or select the correct campus below.'}
+                  </div>
+                )}
+
                 {/* College Selection */}
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="block text-xs font-bold text-slate-800 font-['Outfit',sans-serif]">
-                      College / University *
+                      Detected College / University *
                     </label>
                     <span className="text-[10px] font-bold text-emerald-600 font-mono">
                       Institution
@@ -423,8 +442,9 @@ export const AuthModal: React.FC = () => {
                   <div className="relative">
                     <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <select
-                      value={selectedCollegeName}
+                      value={detectedCollege?.name || selectedCollegeName}
                       onChange={e => setSelectedCollegeName(e.target.value)}
+                      disabled={Boolean(detectedCollege)}
                       className="w-full pl-10 pr-8 py-2.5 rounded-xl text-xs border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-100 font-medium transition-all bg-white"
                     >
                       {COLLEGES_LIST.map(col => (
@@ -448,8 +468,9 @@ export const AuthModal: React.FC = () => {
                       <button
                         key={col.short}
                         type="button"
-                        onClick={() => setSelectedCollegeName(col.name)}
-                        className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border transition-colors ${
+                        onClick={() => !detectedCollege && setSelectedCollegeName(col.name)}
+                        disabled={Boolean(detectedCollege)}
+                        className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border transition-colors ${detectedCollege ? 'opacity-45 cursor-not-allowed' : ''} ${
                           selectedCollegeName === col.name
                             ? 'bg-slate-900 text-white border-slate-900'
                             : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'

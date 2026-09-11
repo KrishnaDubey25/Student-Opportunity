@@ -69,6 +69,8 @@ export interface CollegeInfo {
   departments?: string[];
   campusStrength?: string;
   placementSignal?: string;
+  emailDomains?: string[];
+  emailAliases?: string[];
 }
 
 export interface Opportunity {
