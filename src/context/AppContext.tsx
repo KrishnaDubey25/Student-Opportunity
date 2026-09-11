@@ -122,7 +122,7 @@ interface AppContextType {
   isPortalChoiceOpen: boolean;
   setIsPortalChoiceOpen: (open: boolean) => void;
   applications: OpportunityApplication[];
-  submitOpportunityApplication: (opportunityId: string, participationType: 'Individual'|'Team', teamName?: string, teamMembers?: string[]) => void;
+  submitOpportunityApplication: (opportunityId: string, participationType: 'Individual'|'Team', teamName?: string, teamMembers?: string[], attachment?: {name:string; dataUrl:string}) => void;
   campusMessages: CampusMessage[];
   publishCampusOpportunity: (opp: Opportunity) => void;
   removeCampusOpportunity: (id: string) => void;
@@ -829,7 +829,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Campus opportunity removed.');
   };
 
-  const submitOpportunityApplication = (opportunityId: string, participationType: 'Individual'|'Team', teamName?: string, teamMembers: string[] = []) => {
+  const submitOpportunityApplication = (opportunityId: string, participationType: 'Individual'|'Team', teamName?: string, teamMembers: string[] = [], attachment?: {name:string; dataUrl:string}) => {
     if (!currentUser) return;
     const opp = opportunities.find(o => o.id === opportunityId);
     if (!opp) return;
@@ -838,7 +838,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       studentUserId: currentUser.id, studentName: currentUser.name,
       studentRoll: profile.studentId, collegeCode: profile.collegeCode,
       participationType, teamName: teamName?.trim() || undefined,
-      teamMembers: teamMembers.filter(Boolean), appliedAt: new Date().toISOString(), status: 'Applied'
+      teamMembers: teamMembers.filter(Boolean), appliedAt: new Date().toISOString(), status: 'Applied',
+      studentAvatar: profile.avatar || undefined,
+      attachmentName: attachment?.name, attachmentDataUrl: attachment?.dataUrl,
+      profileSnapshot: { degree: profile.degree, year: profile.year, careerGoal: profile.careerGoal, skills: profile.skills.map(s=>s.name), projects: profile.projects.map(p=>p.title) }
     };
     setApplications(prev => {
       const next = [record, ...prev.filter(a => !(a.opportunityId === opportunityId && a.studentUserId === currentUser.id))];

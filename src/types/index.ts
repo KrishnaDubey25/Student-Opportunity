@@ -249,7 +249,12 @@ export interface OpportunityApplication {
   teamMembers?: string[];
   appliedAt: string;
   status: 'Applied' | 'Under Review' | 'Shortlisted' | 'Selected' | 'Rejected';
+  studentAvatar?: string;
+  attachmentName?: string;
+  attachmentDataUrl?: string;
+  profileSnapshot?: { degree: string; year: string; careerGoal: string; skills: string[]; projects: string[] };
 }
+
 
 export interface CampusMessage {
   id: string;

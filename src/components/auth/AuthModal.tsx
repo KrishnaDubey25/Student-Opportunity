@@ -45,6 +45,9 @@ export const AuthModal: React.FC = () => {
   const [studentRollId, setStudentRollId] = useState('');
   const [selectedCollegeName, setSelectedCollegeName] = useState(selectedCollege.name);
   const detectedCollege = detectCollegeFromEmail(collegeEmail);
+  const selectedCollegeObject = COLLEGES_LIST.find(c => c.name === selectedCollegeName) || selectedCollege;
+  const selectedEmailDomain = selectedCollegeObject.emailDomains?.[0] || 'campus.edu.in';
+  const emailLocalPart = (collegeEmail.split('@')[0] || '').replace(/\s+/g, '');
   const [degree, setDegree] = useState('B.Tech in Computer Engineering');
   const [year, setYear] = useState('Third Year (Junior)');
   const [registerPassword, setRegisterPassword] = useState('');
@@ -59,6 +62,13 @@ export const AuthModal: React.FC = () => {
       setSelectedCollegeName(selectedCollege.name);
     }
   }, [isAuthModalOpen, authModalTab, selectedCollege.name]);
+
+
+  useEffect(() => {
+    if (authModalTab === 'register' && emailLocalPart) {
+      setCollegeEmail(`${emailLocalPart}@${selectedEmailDomain}`);
+    }
+  }, [selectedCollegeName]);
 
   if (!isAuthModalOpen) return null;
 
@@ -192,10 +202,10 @@ export const AuthModal: React.FC = () => {
           className="auth-premium-panel relative w-full max-w-xl bg-white rounded-[30px] border border-slate-200 shadow-2xl overflow-hidden z-10 my-4 sm:my-6"
         >
           {/* Header Banner */}
-          <div className="p-6 border-b border-slate-100 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white">
+          <div className="p-6 border-b border-slate-100 bg-[linear-gradient(135deg,#3f2d24_0%,#51392d_58%,#6a4a39_100%)] text-white">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-base shadow-md">
+                <div className="w-11 h-11 rounded-2xl bg-[#eadbce] text-[#3f2d24] flex items-center justify-center font-black text-base shadow-md">
                   SO
                 </div>
                 <div>
@@ -286,9 +296,9 @@ export const AuthModal: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-4 p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium flex items-center gap-2.5"
+                className="mb-4 p-3 rounded-2xl bg-[#f3e8de] border border-[#d8c4b3] text-[#684a38] text-xs font-medium flex items-center gap-2.5"
               >
-                <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600" />
+                <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-[#7b5842]" />
                 <span>{successNotice}</span>
               </motion.div>
             )}
@@ -358,7 +368,7 @@ export const AuthModal: React.FC = () => {
                   whileTap={{ scale: 0.99 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-2 font-['Outfit',sans-serif] mt-2"
+                  className="w-full py-3 rounded-xl bg-[#463126] hover:bg-[#5a4031] text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-2 font-['Outfit',sans-serif] mt-2"
                 >
                   <span>{isSubmitting ? 'Signing in...' : 'Verify & Continue'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -391,19 +401,17 @@ export const AuthModal: React.FC = () => {
                     </label>
                     <div className="relative">
                       <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="email"
-                        value={collegeEmail}
-                        onChange={e => {
-                          const value = e.target.value;
-                          setCollegeEmail(value);
-                          const detected = detectCollegeFromEmail(value);
-                          if (detected) setSelectedCollegeName(detected.name);
-                        }}
-                        placeholder="e.g. krishna@college.edu.in"
-                        required
-                        className="w-full pl-10 pr-3 py-2.5 rounded-xl text-xs border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-100 font-medium transition-all"
-                      />
+                      <div className="flex overflow-hidden rounded-xl border border-[#d8c9bb] bg-white focus-within:border-[#8d6850] focus-within:ring-2 focus-within:ring-[#eaded4] transition-all">
+                        <input
+                          type="text"
+                          value={emailLocalPart}
+                          onChange={e => setCollegeEmail(`${e.target.value.replace(/@.*/, '').replace(/\s+/g, '')}@${selectedEmailDomain}`)}
+                          placeholder={isOrganization ? 'admin' : 'student.name'}
+                          required
+                          className="min-w-0 flex-1 pl-10 pr-2 py-2.5 text-[13px] font-semibold outline-none bg-transparent text-[#2a211c]"
+                        />
+                        <div className="flex items-center border-l border-[#e1d5ca] bg-[#f4ece4] px-3 text-[12px] font-extrabold text-[#6b503f]">@{selectedEmailDomain}</div>
+                      </div>
                     </div>
                   </div>
 
@@ -425,7 +433,7 @@ export const AuthModal: React.FC = () => {
                   <div className={`rounded-2xl border px-3.5 py-3 text-[11px] font-bold ${detectedCollege ? 'border-emerald-200 bg-emerald-50 text-emerald-800' : 'border-amber-200 bg-amber-50 text-amber-800'}`}>
                     {detectedCollege
                       ? `Detected campus: ${detectedCollege.name}. Student and organization data will stay inside ${detectedCollege.shortName}.`
-                      : 'Campus not detected from this domain yet. Use the official college email or select the correct campus below.'}
+                      : 'Select your college first. The official email suffix will be applied automatically.'}
                   </div>
                 )}
 
@@ -433,9 +441,9 @@ export const AuthModal: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="block text-xs font-bold text-slate-800 font-['Outfit',sans-serif]">
-                      Detected College / University *
+                      Your College / University *
                     </label>
-                    <span className="text-[10px] font-bold text-emerald-600 font-mono">
+                    <span className="text-[10px] font-bold text-[#7b5842] font-mono">
                       Institution
                     </span>
                   </div>
@@ -443,8 +451,7 @@ export const AuthModal: React.FC = () => {
                     <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <select
                       value={detectedCollege?.name || selectedCollegeName}
-                      onChange={e => setSelectedCollegeName(e.target.value)}
-                      disabled={Boolean(detectedCollege)}
+                      onChange={e => { const name=e.target.value; setSelectedCollegeName(name); const col=COLLEGES_LIST.find(c=>c.name===name); if(col && emailLocalPart) setCollegeEmail(`${emailLocalPart}@${col.emailDomains?.[0] || 'campus.edu.in'}`); }}
                       className="w-full pl-10 pr-8 py-2.5 rounded-xl text-xs border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-100 font-medium transition-all bg-white"
                     >
                       {COLLEGES_LIST.map(col => (
@@ -468,9 +475,8 @@ export const AuthModal: React.FC = () => {
                       <button
                         key={col.short}
                         type="button"
-                        onClick={() => !detectedCollege && setSelectedCollegeName(col.name)}
-                        disabled={Boolean(detectedCollege)}
-                        className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border transition-colors ${detectedCollege ? 'opacity-45 cursor-not-allowed' : ''} ${
+                        onClick={() => { setSelectedCollegeName(col.name); const c=COLLEGES_LIST.find(x=>x.name===col.name); if(c && emailLocalPart) setCollegeEmail(`${emailLocalPart}@${c.emailDomains?.[0] || 'campus.edu.in'}`); }}
+                        className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border transition-colors ${
                           selectedCollegeName === col.name
                             ? 'bg-slate-900 text-white border-slate-900'
                             : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
@@ -561,10 +567,10 @@ export const AuthModal: React.FC = () => {
                   whileTap={{ scale: 0.99 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-2 font-['Outfit',sans-serif] mt-2"
+                  className="w-full py-3 rounded-xl bg-[#463126] hover:bg-[#5a4031] text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-2 font-['Outfit',sans-serif] mt-2"
                 >
                   <Sparkles className="w-4 h-4 text-amber-400" />
-                  <span>{isSubmitting ? 'Registering Account...' : 'Register & Enter Student Dashboard'}</span>
+                  <span>{isSubmitting ? 'Creating Account...' : `Create ${portalLabel} Account`}</span>
                 </motion.button>
               </form>
             )}
@@ -572,7 +578,7 @@ export const AuthModal: React.FC = () => {
             {/* Privacy note */}
             <div className="mt-5 pt-3 border-t border-slate-100 text-center">
               <p className="text-[11px] text-slate-400 flex items-center justify-center gap-1 font-medium">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#7b5842]" />
                 <span>Zero external API keys required. 100% private in browser localStorage.</span>
               </p>
             </div>

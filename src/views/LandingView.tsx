@@ -255,13 +255,13 @@ export const LandingView: React.FC = () => {
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => setIsPortalChoiceOpen(true)}
-                      className="landing-auth-square premium-shine group min-h-[92px] rounded-2xl border border-emerald-700 bg-emerald-700 p-3 text-left text-white shadow-md shadow-emerald-900/15 transition-all hover:bg-emerald-800"
+                      className="landing-auth-square premium-shine group min-h-[92px] rounded-2xl border border-[#463126] bg-[#463126] p-3 text-left text-white shadow-md shadow-emerald-900/15 transition-all hover:bg-[#5a4031]"
                     >
                       <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/14 text-white border border-white/10">
                         <GraduationCap className="h-4 w-4" />
                       </div>
                       <div className="mt-3 text-xs font-black font-['Outfit',sans-serif]">Get Started</div>
-                      <div className="mt-0.5 text-[10px] font-semibold text-emerald-100">Choose Student or Organization</div>
+                      <div className="mt-0.5 text-[10px] font-semibold text-[#eadbce]">Choose Student or Organization</div>
                     </motion.button>
                   </div>
                 ) : (
@@ -276,7 +276,7 @@ export const LandingView: React.FC = () => {
                 )}
 
                 <div className="mt-4 flex items-center justify-center gap-2 text-[10px] font-bold text-slate-400">
-                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#76533e]" />
                   Private workspace unlocks only after verified sign-in · Student and Organization accounts stay separate
                 </div>
               </div>
@@ -343,7 +343,7 @@ export const LandingView: React.FC = () => {
                       </div>
                     </div>
                     {isSelected && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 shrink-0 font-mono">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#efe3d8] text-[#644938] shrink-0 font-mono">
                         Selected
                       </span>
                     )}
@@ -365,7 +365,7 @@ export const LandingView: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-slate-500 text-[11px]">Live Opportunities:</span>
-                      <span className="font-bold text-emerald-600 text-[11px] font-mono">
+                      <span className="font-bold text-[#76533e] text-[11px] font-mono">
                         {college.partnerOpportunitiesCount} Active Tracks
                       </span>
                     </div>
@@ -452,7 +452,7 @@ export const LandingView: React.FC = () => {
                 whileHover={{ y: -6, scale: 1.018 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => openCategoryInDiscover(cat.title as any)}
-                className="category-launch-card p-4 rounded-[22px] border border-slate-200 bg-white hover:border-emerald-400 transition-all cursor-pointer text-left flex flex-col justify-between shadow-xs group overflow-hidden relative"
+                className="category-launch-card p-4 rounded-[22px] border border-slate-200 bg-white hover:border-[#a27c61] transition-all cursor-pointer text-left flex flex-col justify-between shadow-xs group overflow-hidden relative"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -492,11 +492,11 @@ export const LandingView: React.FC = () => {
           viewport={{ once: true, amount: 0.2 }}
           className="campus-access-story relative overflow-hidden rounded-[30px] border border-slate-200 bg-slate-950 p-6 sm:p-8 text-white shadow-xl"
         >
-          <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-emerald-500/20 blur-3xl ambient-orb" />
+          <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#9c7458]/18 blur-3xl ambient-orb" />
           <div className="absolute -bottom-24 left-1/4 h-56 w-56 rounded-full bg-gold-500/14 blur-3xl ambient-orb" />
           <div className="relative z-10 grid gap-7 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-emerald-300">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#e5cdb9]">
                 <Building2 className="h-3.5 w-3.5" />
                 Account-Bound Campus Access
               </div>
@@ -530,7 +530,7 @@ export const LandingView: React.FC = () => {
                   transition={{ delay: index * 0.06 }}
                   className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.055] p-3.5"
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-400 text-slate-950 text-[10px] font-black font-mono">{item.n}</div>
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#ead7c6] text-[#3f2d24] text-[10px] font-black font-mono">{item.n}</div>
                   <div>
                     <div className="text-xs font-black font-['Outfit',sans-serif]">{item.title}</div>
                     <div className="mt-0.5 text-[10px] font-semibold text-slate-400">{item.text}</div>

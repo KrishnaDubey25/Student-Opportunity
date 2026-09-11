@@ -348,8 +348,8 @@ export const DashboardView: React.FC = () => {
           <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-emerald-400/15 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-center justify-between gap-3">
-              <div className="text-[12px] font-black uppercase tracking-[0.16em] text-emerald-700">Campus Snapshot</div>
-              <Building2 className="h-5 w-5 text-emerald-700" />
+              <div className="text-[12px] font-black uppercase tracking-[0.16em] text-[#76533e]">Campus Snapshot</div>
+              <Building2 className="h-5 w-5 text-[#76533e]" />
             </div>
             <h2 className="mt-3 text-2xl font-black tracking-tight font-['Outfit',sans-serif]">{selectedCollege.shortName}</h2>
             <p className="mt-1 text-sm font-semibold text-slate-600">{selectedCollege.campusTheme || selectedCollege.type}</p>
@@ -357,8 +357,8 @@ export const DashboardView: React.FC = () => {
               <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-3"><div className="text-[12px] font-bold text-slate-300">Campus opportunities</div><div className="mt-1 text-xl font-black">{selectedCollege.partnerOpportunitiesCount}</div></div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-3"><div className="text-[12px] font-bold text-slate-300">My applications</div><div className="mt-1 text-xl font-black">{myCampusApplications.length}</div></div>
             </div>
-            <div className="mt-4 flex flex-wrap gap-2">{(selectedCollege.campusFocus || []).slice(0,3).map(item => <span key={item} className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-black text-emerald-700">{item}</span>)}</div>
-            <div className="mt-4 flex items-start gap-2 text-xs text-slate-600"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600"/><span>{selectedCollege.city} • {selectedCollege.campusStrength}</span></div>
+            <div className="mt-4 flex flex-wrap gap-2">{(selectedCollege.campusFocus || []).slice(0,3).map(item => <span key={item} className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-black text-[#76533e]">{item}</span>)}</div>
+            <div className="mt-4 flex items-start gap-2 text-xs text-slate-600"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#76533e]"/><span>{selectedCollege.city} • {selectedCollege.campusStrength}</span></div>
           </div>
         </motion.div>
 
@@ -370,7 +370,7 @@ export const DashboardView: React.FC = () => {
         </motion.div>
 
         <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-reco relative overflow-hidden rounded-[28px] p-6 bg-[#f2ece6] border border-[#d5c7ba] shadow-[0_16px_42px_rgba(74,55,42,.08)]">
-          <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-emerald-700">Recommended For You</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Best next opportunities</h2></div><BrainCircuit className="h-6 w-6 text-emerald-700"/></div>
+          <div className="flex items-center justify-between"><div><div className="text-[12px] font-black uppercase tracking-[0.14em] text-[#76533e]">Recommended For You</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Best next opportunities</h2></div><BrainCircuit className="h-6 w-6 text-[#76533e]"/></div>
           <p className="mt-2 text-sm text-slate-600">Ranked using your match, eligibility and career-impact scores.</p>
           <div className="mt-4 space-y-3">{personalizedRecommendations.map(opp => <button key={opp.id} onClick={() => openIntelligence(opp.id)} className="w-full rounded-2xl border border-[#ded4ca] bg-[#fbf7f2] p-3.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-[#f6efe8] hover:border-[#cbb8a7]"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-black text-[#2b241f]">{opp.title}</div><div className="mt-1 text-[12px] font-semibold text-[#6f6258]">{opp.type} • {opp.organization}</div></div><div className="rounded-xl bg-[#3a2d25] px-2.5 py-1.5 text-xs font-black text-white">{opp.matchScore}%</div></div><div className="mt-2 flex items-center gap-1.5 text-[11px] font-black text-[#7a5b47]"><Star className="h-3 w-3"/>Recommended because it fits your current profile</div></button>)}</div>
         </motion.div>
@@ -422,9 +422,9 @@ export const DashboardView: React.FC = () => {
         </motion.div>
 
         <motion.div whileHover={{ y: -3 }} className="standard-dashboard-card rounded-[30px] border border-[#dfd6ce] bg-[#fffdf9] p-6 text-[#2b241f] shadow-[0_16px_42px_rgba(74,55,42,.065)]">
-          <div className="flex items-start justify-between"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-emerald-700">Study Resource Channel</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What to study. Where to study.</h2></div><BookOpenCheck className="h-6 w-6 text-emerald-700"/></div>
+          <div className="flex items-start justify-between"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-[#76533e]">Study Resource Channel</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">What to study. Where to study.</h2></div><BookOpenCheck className="h-6 w-6 text-[#76533e]"/></div>
           <p className="mt-2 text-sm text-slate-600">Curated learning links published by your college for current preparation.</p>
-          <div className="mt-5 space-y-3">{campusStudyResources.map(resource => <div key={resource.id} className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm"><div className="text-sm font-black text-[#2b241f]">{resource.title}</div><div className="mt-1 text-[11px] font-bold text-emerald-700">{resource.subject} • {resource.level}</div><p className="mt-2 text-xs text-slate-600">{resource.description}</p><div className="mt-3 flex flex-wrap gap-2">{resource.links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-2.5 py-1.5 text-[10px] font-black text-slate-700 hover:border-emerald-400"><Link2 className="h-3 w-3"/>{link.label}</a>)}</div></div>)}{!campusStudyResources.length && <div className="rounded-2xl border border-dashed border-emerald-200 p-5 text-sm text-slate-500">Your faculty resource channels will appear here.</div>}</div>
+          <div className="mt-5 space-y-3">{campusStudyResources.map(resource => <div key={resource.id} className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm"><div className="text-sm font-black text-[#2b241f]">{resource.title}</div><div className="mt-1 text-[11px] font-bold text-[#76533e]">{resource.subject} • {resource.level}</div><p className="mt-2 text-xs text-slate-600">{resource.description}</p><div className="mt-3 flex flex-wrap gap-2">{resource.links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-2.5 py-1.5 text-[10px] font-black text-slate-700 hover:border-emerald-400"><Link2 className="h-3 w-3"/>{link.label}</a>)}</div></div>)}{!campusStudyResources.length && <div className="rounded-2xl border border-dashed border-emerald-200 p-5 text-sm text-slate-500">Your faculty resource channels will appear here.</div>}</div>
         </motion.div>
 
         <motion.div whileHover={{ y: -3 }} className="standard-dashboard-card rounded-[30px] border border-[#dfd6ce] bg-[#fffdf9] p-6 text-[#2b241f] shadow-[0_16px_42px_rgba(74,55,42,.065)]">
@@ -439,7 +439,7 @@ export const DashboardView: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-black uppercase text-emerald-700 font-mono tracking-[0.16em]">
+              <span className="text-[11px] font-black uppercase text-[#76533e] font-mono tracking-[0.16em]">
                 Opportunity Command Center
               </span>
               <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-gold-50 text-gold-600 border border-gold-200">
@@ -525,7 +525,7 @@ Open workspace
       {/* 3. VISUAL GRAPHS & INDUSTRY LEVEL READINESS GAUGE */}
       <div className="space-y-3 pt-2">
         <div>
-          <span className="text-[11px] font-black uppercase text-emerald-600 font-mono tracking-wider">
+          <span className="text-[11px] font-black uppercase text-[#76533e] font-mono tracking-wider">
             Student Analytics & Metrics
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
@@ -539,7 +539,7 @@ Open workspace
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
           
           {/* Main Industry Gauge (7 cols) */}
-          <div className="lg:col-span-7 p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white border border-emerald-800 shadow-md flex flex-col justify-between">
+          <div className="lg:col-span-7 p-6 sm:p-7 rounded-3xl bg-[linear-gradient(135deg,#3c2b22_0%,#51392d_58%,#6a4a39_100%)] text-white border border-[#745340] shadow-md flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
@@ -687,14 +687,14 @@ Open workspace
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => openCategoryInDiscover('College Hackathons')}
-                  className="font-bold text-emerald-600 hover:underline"
+                  className="font-bold text-[#76533e] hover:underline"
                 >
                   Hackathons
                 </button>
                 <span className="text-slate-300">•</span>
                 <button
                   onClick={() => openCategoryInDiscover('Internships')}
-                  className="font-bold text-emerald-600 hover:underline"
+                  className="font-bold text-[#76533e] hover:underline"
                 >
                   Internships
                 </button>
@@ -748,14 +748,14 @@ Open workspace
                   <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200">
                     {opp.category}
                   </span>
-                  <span className="text-xs font-black font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  <span className="text-xs font-black font-mono text-[#76533e] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                     {opp.matchScore}% Match
                   </span>
                 </div>
 
                 <h3 
                   onClick={() => openIntelligence(opp.id)}
-                  className="text-sm font-black text-slate-900 hover:text-emerald-600 transition-colors cursor-pointer font-['Outfit',sans-serif] line-clamp-1"
+                  className="text-sm font-black text-slate-900 hover:text-[#76533e] transition-colors cursor-pointer font-['Outfit',sans-serif] line-clamp-1"
                 >
                   {opp.title}
                 </h3>
@@ -787,7 +787,7 @@ Open workspace
                       showToast(`Added ${opp.title} to your Tracker!`);
                       setActiveTab('tracker');
                     }}
-                    className="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-bold transition-all"
+                    className="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#76533e] border border-emerald-200 text-xs font-bold transition-all"
                     title="Track in Pipeline"
                   >
                     Track
@@ -812,7 +812,7 @@ Open workspace
       {/* 5. TRIPLE ACTION STATUS CARDS: Next Actions, Completed & In Progress, Gaps */}
       <div className="space-y-3 pt-2">
         <div>
-          <span className="text-[11px] font-black uppercase text-emerald-600 font-mono tracking-wider">
+          <span className="text-[11px] font-black uppercase text-[#76533e] font-mono tracking-wider">
             Execution Roadmap
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Outfit',sans-serif] tracking-tight">
@@ -830,7 +830,7 @@ Open workspace
             <div>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 text-[#76533e] flex items-center justify-center font-bold">
                     <ListTodo className="w-4 h-4" />
                   </div>
                   <div>
@@ -842,7 +842,7 @@ Open workspace
                     </span>
                   </div>
                 </div>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-[#76533e]">
                   {nextActions.filter(a => !a.completed).length} Pending
                 </span>
               </div>
@@ -855,7 +855,7 @@ Open workspace
                     className="p-3 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-emerald-50/50 hover:border-emerald-200 transition-all cursor-pointer flex items-start gap-2.5"
                   >
                     <div className="w-4 h-4 rounded-md border border-slate-300 mt-0.5 flex items-center justify-center bg-white flex-shrink-0">
-                      {action.completed && <Check className="w-3 h-3 text-emerald-600" />}
+                      {action.completed && <Check className="w-3 h-3 text-[#76533e]" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-bold text-slate-900 leading-snug">
@@ -884,7 +884,7 @@ Open workspace
             <div>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 text-[#76533e] flex items-center justify-center font-bold">
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
                   <div>
@@ -896,7 +896,7 @@ Open workspace
                     </span>
                   </div>
                 </div>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-[#76533e]">
                   4 Verified
                 </span>
               </div>
@@ -905,7 +905,7 @@ Open workspace
                 <div className="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-200 text-xs">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-slate-900">Innobuzz 2026 Team Registered</span>
-                    <span className="text-[10px] font-mono text-emerald-700 font-bold">Stage 2</span>
+                    <span className="text-[10px] font-mono text-[#76533e] font-bold">Stage 2</span>
                   </div>
                   <p className="text-[11px] text-slate-600 mt-0.5">
                     Team: ByteWarriors • SLRTCE Campus Techfest
@@ -925,7 +925,7 @@ Open workspace
                 <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-slate-900">Microsoft SWE Application</span>
-                    <span className="text-[10px] font-mono text-emerald-700 font-bold">Under Review</span>
+                    <span className="text-[10px] font-mono text-[#76533e] font-bold">Under Review</span>
                   </div>
                   <p className="text-[11px] text-slate-600 mt-0.5">
                     Online assessment round pending
@@ -990,7 +990,7 @@ Open workspace
 
             <button
               onClick={() => setActiveTab('simulator')}
-              className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all flex items-center justify-center gap-1 font-['Outfit',sans-serif]"
+              className="w-full py-2.5 rounded-xl bg-[#463126] hover:bg-[#5a4031] text-white text-xs font-bold transition-all flex items-center justify-center gap-1 font-['Outfit',sans-serif]"
             >
               <span>Bridge Gaps with Simulator</span>
               <Sparkles className="w-3.5 h-3.5" />
