@@ -1797,139 +1797,135 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
 }
 
 /* =========================================================
-   V21 — HARD VISIBILITY LOCK FOR DASHBOARD HEADER + TOP FOUR
-   Scope is intentionally limited to the signed-in dashboard hero
-   and the four executive cards directly below it.
+   V22 — RESTORE V4/V5 COLOR LANGUAGE (COLOR ONLY)
+   Scope: signed-in dashboard main header + four cards below it.
+   No layout, sizing, scroll, spacing, content or behavior changes.
    ========================================================= */
 
-#root .dashboard-premium .dashboard-hero,
-#root .dashboard-premium .executive-strip .executive-pillar{
-  background:#ffffff!important;
-  color:#111111!important;
-  border:1px solid #d8d8d8!important;
-  box-shadow:0 12px 30px rgba(0,0,0,.07)!important;
-  filter:none!important;
-  mix-blend-mode:normal!important;
+/* Main dashboard header — V5 espresso brown + ivory copy. */
+#root .dashboard-premium .dashboard-hero{
+  background:linear-gradient(135deg,#3b2921 0%,#4a3328 52%,#5a3f31 100%)!important;
+  color:#fffaf3!important;
+  border-color:rgba(255,250,243,.16)!important;
 }
-
-/* Every ordinary text/icon node in these five surfaces is forced readable. */
-#root .dashboard-premium .dashboard-hero *,
-#root .dashboard-premium .executive-strip .executive-pillar *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+#root .dashboard-premium .dashboard-hero :is(h1,h2,h3,h4,strong,span){
+  color:#fffaf3!important;
+  -webkit-text-fill-color:#fffaf3!important;
+}
+#root .dashboard-premium .dashboard-hero :is(p,small,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600){
+  color:#e8ddd4!important;
+  -webkit-text-fill-color:#e8ddd4!important;
   opacity:1!important;
-  text-shadow:none!important;
-  filter:none!important;
-  mix-blend-mode:normal!important;
 }
-
-#root .dashboard-premium .dashboard-hero p,
-#root .dashboard-premium .executive-strip .executive-pillar p,
-#root .dashboard-premium .executive-strip .executive-pillar small{
-  color:#353535!important;
-  -webkit-text-fill-color:#353535!important;
-}
-
-/* Header badges remain light with dark readable copy. */
+#root .dashboard-premium .dashboard-hero svg{color:#f4e4d5!important;}
 #root .dashboard-premium .dashboard-hero .dashboard-hero-badge{
-  background:#f5f5f5!important;
-  border-color:#d8d8d8!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+  background:rgba(255,250,243,.10)!important;
+  color:#f8eadc!important;
+  -webkit-text-fill-color:#f8eadc!important;
+  border-color:rgba(255,250,243,.18)!important;
 }
-
-/* Header actions: one black/white, one white/black. */
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action{
-  background:#111111!important;
-  border-color:#111111!important;
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
-  box-shadow:none!important;
+  background:#fff5e9!important;
+  color:#3b2921!important;
+  -webkit-text-fill-color:#3b2921!important;
+  border-color:#ead1b9!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action *{
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
-}
-#root .dashboard-premium .dashboard-hero .dashboard-hero-action:hover{
-  background:#252525!important;
-  border-color:#252525!important;
+  color:#3b2921!important;
+  -webkit-text-fill-color:#3b2921!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary{
-  background:#ffffff!important;
-  border-color:#bdbdbd!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-  box-shadow:none!important;
+  background:rgba(255,250,243,.10)!important;
+  color:#fffaf3!important;
+  -webkit-text-fill-color:#fffaf3!important;
+  border-color:rgba(255,250,243,.20)!important;
 }
 #root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-}
-#root .dashboard-premium .dashboard-hero .dashboard-hero-action-secondary:hover{
-  background:#f4f4f4!important;
+  color:#fffaf3!important;
+  -webkit-text-fill-color:#fffaf3!important;
 }
 
-/* Four cards keep their existing size/scroll behaviour; only visibility changes. */
-#root .dashboard-premium .executive-strip .executive-inner-tile{
-  background:#fafafa!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-  border-color:#dddddd!important;
-  box-shadow:none!important;
+/* Four top cards — nuanced brown tones from the V4/V5 family. */
+#root .dashboard-premium .executive-strip .executive-pillar{
+  color:#fffaf3!important;
+  border-color:rgba(255,250,243,.16)!important;
 }
-#root .dashboard-premium .executive-strip .executive-inner-tile *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+#root .dashboard-premium .executive-strip .executive-pillar:nth-child(1){
+  background:linear-gradient(145deg,#402d24 0%,#4c352a 56%,#593f31 100%)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar:nth-child(2){
+  background:linear-gradient(145deg,#453026 0%,#52392d 56%,#604536 100%)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar:nth-child(3){
+  background:linear-gradient(145deg,#4a3328 0%,#583e30 56%,#674a39 100%)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar:nth-child(4){
+  background:linear-gradient(145deg,#50382c 0%,#5e4334 56%,#6d4f3d 100%)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar :is(h1,h2,h3,h4,strong,span){
+  color:#fffaf3!important;
+  -webkit-text-fill-color:#fffaf3!important;
   opacity:1!important;
 }
-#root .dashboard-premium .executive-strip button.executive-inner-tile:hover{
-  background:#f2f2f2!important;
-  border-color:#c9c9c9!important;
+#root .dashboard-premium .executive-strip .executive-pillar :is(p,small,.text-slate-300,.text-slate-400,.text-slate-500,.text-slate-600){
+  color:#e8ddd4!important;
+  -webkit-text-fill-color:#e8ddd4!important;
+  opacity:1!important;
 }
+#root .dashboard-premium .executive-strip .executive-pillar svg{color:#f1dbc5!important;opacity:1!important;}
 
+/* Inner mini-panels stay warm/translucent like V5, not white cards. */
+#root .dashboard-premium .executive-strip .executive-inner-tile{
+  background:rgba(255,250,243,.085)!important;
+  color:#fffaf3!important;
+  -webkit-text-fill-color:#fffaf3!important;
+  border-color:rgba(255,250,243,.16)!important;
+}
+#root .dashboard-premium .executive-strip .executive-inner-tile :is(h1,h2,h3,h4,strong,span){
+  color:#fffaf3!important;
+  -webkit-text-fill-color:#fffaf3!important;
+}
+#root .dashboard-premium .executive-strip .executive-inner-tile :is(p,small){
+  color:#e8ddd4!important;
+  -webkit-text-fill-color:#e8ddd4!important;
+}
 #root .dashboard-premium .executive-strip .executive-chip{
-  background:#efefef!important;
-  border-color:#d3d3d3!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+  background:rgba(255,250,243,.10)!important;
+  border-color:rgba(255,250,243,.18)!important;
+  color:#f8ece1!important;
+  -webkit-text-fill-color:#f8ece1!important;
 }
 #root .dashboard-premium .executive-strip .executive-chip *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+  color:#f8ece1!important;
+  -webkit-text-fill-color:#f8ece1!important;
 }
-
-/* Match percentage badge is the only inverse element. */
 #root .dashboard-premium .executive-strip .executive-score{
-  background:#111111!important;
-  border-color:#111111!important;
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
+  background:#fff5e9!important;
+  color:#3b2921!important;
+  -webkit-text-fill-color:#3b2921!important;
+  border-color:#ead1b9!important;
 }
 #root .dashboard-premium .executive-strip .executive-score *{
-  color:#ffffff!important;
-  -webkit-text-fill-color:#ffffff!important;
+  color:#3b2921!important;
+  -webkit-text-fill-color:#3b2921!important;
 }
-
 #root .dashboard-premium .executive-strip .executive-scroll-cue{
-  background:linear-gradient(180deg,rgba(255,255,255,0),#ffffff 45%,#ffffff 100%)!important;
-  border-top-color:#e4e4e4!important;
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
-  backdrop-filter:none!important;
+  background:rgba(45,29,22,.88)!important;
+  border-color:rgba(255,250,243,.15)!important;
+  color:#f6e9de!important;
+  -webkit-text-fill-color:#f6e9de!important;
 }
 #root .dashboard-premium .executive-strip .executive-scroll-cue *{
-  color:#111111!important;
-  -webkit-text-fill-color:#111111!important;
+  color:#f6e9de!important;
+  -webkit-text-fill-color:#f6e9de!important;
 }
-
 #root .dashboard-premium .executive-pillar-scroll{
-  scrollbar-color:#8f8f8f #eeeeee!important;
+  scrollbar-color:#c5a78f rgba(255,255,255,.08)!important;
 }
 #root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-track{
-  background:#eeeeee!important;
+  background:rgba(255,255,255,.06)!important;
 }
 #root .dashboard-premium .executive-pillar-scroll::-webkit-scrollbar-thumb{
-  background:#8f8f8f!important;
-  border:2px solid transparent!important;
-  background-clip:padding-box!important;
+  background:#c5a78f!important;
 }
+
