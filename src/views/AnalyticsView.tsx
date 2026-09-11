@@ -138,7 +138,7 @@ export const AnalyticsView: React.FC = () => {
             </div>
           </div>
           <div className="text-2xl font-black text-gold-600 font-['Outfit',sans-serif]">{hackathonsApplied} Tracked</div>
-          <div className="text-[11px] text-slate-500 mt-1">Innobuzz 2026 + SIH 2026</div>
+          <div className="text-[11px] text-slate-500 mt-1">{selectedCollege.featuredHackathon || `${selectedCollege.shortName} Campus Hackathon`} + SIH 2026</div>
         </motion.div>
 
         <motion.div

@@ -25,6 +25,7 @@ import {
   INITIAL_JOB_READINESS_ITEMS
 } from '../data/mockData';
 import { COLLEGES_LIST, DEFAULT_COLLEGE, detectCollegeFromEmail } from '../data/colleges';
+import { createCampusOpportunities } from '../data/campusOpportunities';
 import { INITIAL_NEXT_ACTIONS } from '../data/nextActions';
 
 export type NavTab = 
@@ -295,14 +296,57 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     )}`;
   };
 
-  const getFreshOpportunities = (): Opportunity[] =>
-    INITIAL_OPPORTUNITIES.map(opp => ({
+  const getCollegeForWorkspace = (collegeCode?: string) =>
+    COLLEGES_LIST.find(college => college.code === collegeCode) || selectedCollege || DEFAULT_COLLEGE;
+
+  const personalizeGlobalOpportunity = (opp: Opportunity, college: CollegeInfo): Opportunity => {
+    const replaceCollegeText = (value: string) => value
+      .replace(/Shri L\. R\. Tiwari College of Engineering/g, college.name)
+      .replace(/SLRTCE/g, college.shortName)
+      .replace(/Mira Road, Mumbai/g, college.city);
+
+    return {
       ...opp,
+      title: replaceCollegeText(opp.title),
+      organization: replaceCollegeText(opp.organization),
+      location: replaceCollegeText(opp.location),
+      eligibility: replaceCollegeText(opp.eligibility),
+      description: replaceCollegeText(opp.description),
+      whyMatch: opp.whyMatch.map(replaceCollegeText),
+      missingSkills: opp.missingSkills.map(replaceCollegeText),
+      recommendedActions: opp.recommendedActions.map(replaceCollegeText),
       status: 'Interested' as ApplicationStatus,
       appliedDate: undefined,
       notes: undefined,
       hackathonStage: undefined
-    }));
+    };
+  };
+
+  const getFreshOpportunities = (collegeCode?: string): Opportunity[] => {
+    const college = getCollegeForWorkspace(collegeCode);
+    const globalOpportunities = INITIAL_OPPORTUNITIES
+      .filter(opp => !opp.collegeCode)
+      .map(opp => personalizeGlobalOpportunity(opp, college));
+
+    return [...createCampusOpportunities(college), ...globalOpportunities];
+  };
+
+  const buildCollegeWorkspaceOpportunities = (collegeCode: string, saved: Opportunity[] = []): Opportunity[] => {
+    const fresh = getFreshOpportunities(collegeCode);
+    const savedById = new Map(saved.map(item => [item.id, item]));
+    return fresh.map(item => {
+      const previous = savedById.get(item.id);
+      if (!previous) return item;
+      return {
+        ...item,
+        status: previous.status,
+        appliedDate: previous.appliedDate,
+        notes: previous.notes,
+        hackathonStage: previous.hackathonStage,
+        appliedCount: Math.max(item.appliedCount, previous.appliedCount || 0)
+      };
+    });
+  };
 
   const getFreshRoadmap = (): RoadmapStep[] =>
     INITIAL_ROADMAP_STEPS.map(step => ({ ...step, completed: false }));
@@ -397,8 +441,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [opportunities, setOpportunities] = useState<Opportunity[]>(() =>
     currentUser
-      ? readUserWorkspace(currentUser.id, 'opportunities', getFreshOpportunities())
-      : getFreshOpportunities()
+      ? buildCollegeWorkspaceOpportunities(
+          currentUser.collegeCode || currentUser.profile?.collegeCode || selectedCollege.code,
+          readUserWorkspace(currentUser.id, 'opportunities', [])
+        )
+      : getFreshOpportunities(selectedCollege.code)
   );
 
   const [roadmapSteps, setRoadmapSteps] = useState<RoadmapStep[]>(() =>
@@ -567,10 +614,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const hydratedProfile = readUserWorkspace(user.id, 'profile', user.profile);
       setProfile(hydratedProfile);
       setOpportunities(() => {
-        const personal = readUserWorkspace(user.id, 'opportunities', getFreshOpportunities());
-        const campus = campusPublishedOpportunities.filter(o => !o.collegeCode || o.collegeCode === (user.collegeCode || hydratedProfile.collegeCode));
+        const collegeCode = user.collegeCode || hydratedProfile.collegeCode;
+        const saved = readUserWorkspace(user.id, 'opportunities', [] as Opportunity[]);
+        const personal = buildCollegeWorkspaceOpportunities(collegeCode, saved);
+        const campus = campusPublishedOpportunities.filter(o => !o.collegeCode || o.collegeCode === collegeCode);
         const map = new Map([...personal, ...campus].map(o => [o.id, o]));
-        return Array.from(map.values());
+        const corrected = Array.from(map.values());
+        localStorage.setItem(userStorageKey(user.id, 'opportunities'), JSON.stringify(corrected));
+        return corrected;
       });
       setRoadmapSteps(readUserWorkspace(user.id, 'roadmap', getFreshRoadmap()));
       const savedNotifications = readUserWorkspace(user.id, 'notifications', []);
@@ -740,7 +791,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // Registration and sign-in are intentionally separate. A new account starts clean.
     localStorage.removeItem(onboardingStorageKey(newUser.id));
     localStorage.setItem(userStorageKey(newUser.id, 'profile'), JSON.stringify(newProfile));
-    localStorage.setItem(userStorageKey(newUser.id, 'opportunities'), JSON.stringify(getFreshOpportunities()));
+    localStorage.setItem(userStorageKey(newUser.id, 'opportunities'), JSON.stringify(getFreshOpportunities(matchedCollege.code)));
     localStorage.setItem(userStorageKey(newUser.id, 'roadmap'), JSON.stringify(getFreshRoadmap()));
     localStorage.setItem(userStorageKey(newUser.id, 'notifications'), JSON.stringify([]));
     localStorage.setItem(userStorageKey(newUser.id, 'job_readiness'), JSON.stringify(getFreshJobReadiness()));
@@ -1080,14 +1131,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const resetWorkspaceData = () => {
     if (!currentUser) return;
-    setOpportunities(getFreshOpportunities());
+    setOpportunities(getFreshOpportunities(profile.collegeCode || currentUser.collegeCode || selectedCollege.code));
     setRoadmapSteps(getFreshRoadmap());
     setNotifications([]);
     setJobReadinessItems(getFreshJobReadiness());
     setNextActions(getFreshNextActions());
     setSelectedOpportunityId(null);
 
-    localStorage.setItem(userStorageKey(currentUser.id, 'opportunities'), JSON.stringify(getFreshOpportunities()));
+    localStorage.setItem(userStorageKey(currentUser.id, 'opportunities'), JSON.stringify(getFreshOpportunities(profile.collegeCode || currentUser.collegeCode || selectedCollege.code)));
     localStorage.setItem(userStorageKey(currentUser.id, 'roadmap'), JSON.stringify(getFreshRoadmap()));
     localStorage.setItem(userStorageKey(currentUser.id, 'notifications'), JSON.stringify([]));
     localStorage.setItem(userStorageKey(currentUser.id, 'job_readiness'), JSON.stringify(getFreshJobReadiness()));

@@ -910,11 +910,11 @@ Open workspace
               <div className="space-y-2.5 my-3">
                 <div className="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-200 text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">Innobuzz 2026 Team Registered</span>
+                    <span className="font-bold text-slate-900">{selectedCollege.featuredHackathon || `${selectedCollege.shortName} Campus Hackathon`} Team Registered</span>
                     <span className="text-[10px] font-mono text-[#76533e] font-bold">Stage 2</span>
                   </div>
                   <p className="text-[11px] text-slate-600 mt-0.5">
-                    Team: ByteWarriors • SLRTCE Campus Techfest
+                    Team: ByteWarriors • {selectedCollege.shortName} Campus Techfest
                   </p>
                 </div>
 
@@ -984,7 +984,7 @@ Open workspace
 
                 <div className="p-3 rounded-2xl bg-amber-50/60 border border-amber-200 text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">Innobuzz PPT Submission</span>
+                    <span className="font-bold text-slate-900">{selectedCollege.featuredHackathon || `${selectedCollege.shortName} Campus Hackathon`} PPT Submission</span>
                     <span className="text-[10px] font-mono text-amber-700 font-bold">5 Days Left</span>
                   </div>
                   <p className="text-[11px] text-slate-600 mt-0.5">

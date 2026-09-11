@@ -71,7 +71,7 @@ export const TrackerView: React.FC = () => {
   const [activityLogs, setActivityLogs] = useState<ActivityLogItem[]>([
     {
       id: 'log-1',
-      title: 'Innobuzz National Hackathon 2026',
+      title: selectedCollege.featuredHackathon || `${selectedCollege.shortName} Campus Hackathon 2026`,
       category: 'Hackathon',
       timestamp: 'Today, 2:45 PM',
       status: 'Team Formed & Registered',

@@ -164,7 +164,7 @@ export const DiscoverView: React.FC = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by role, company (Microsoft, SLRTCE...), or skill (React, Python...)"
+              placeholder="Search by role, organization, campus event, or skill (React, Python...)"
               className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-900 text-xs placeholder:text-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all font-medium"
             />
             {searchQuery && (
