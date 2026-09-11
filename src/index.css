@@ -1294,19 +1294,14 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
     radial-gradient(circle at 55% 86%, rgba(197,138,33,.08), transparent 28rem);
 }
 
-.dashboard-hero,
-.landing-hero-stage {
+.dashboard-hero {
   color: #fff;
-  background:
-    radial-gradient(circle at 88% 15%, rgba(197,138,33,.14), transparent 22rem),
-    radial-gradient(circle at 8% 95%, rgba(33,132,95,.18), transparent 22rem),
-    linear-gradient(135deg, #171311 0%, #27221f 48%, #3a1121 100%) !important;
+  background: linear-gradient(135deg, #3b2921 0%, #4a3328 52%, #5a3f31 100%) !important;
   border-color: rgba(255,255,255,.10) !important;
-  box-shadow: 0 28px 80px rgba(27,24,22,.24) !important;
+  box-shadow: 0 18px 42px rgba(58,38,29,.16) !important;
 }
-.dashboard-hero h1, .dashboard-hero h2, .dashboard-hero p,
-.landing-hero-stage h1, .landing-hero-stage h2 { color: #fff !important; }
-.dashboard-hero p, .landing-hero-stage p { color: #d9d1ca !important; }
+.dashboard-hero h1, .dashboard-hero h2, .dashboard-hero p { color: #fff !important; }
+.dashboard-hero p { color: #e8ddd4 !important; }
 
 /* executive top pillars */
 .premium-pillar {
@@ -1342,22 +1337,8 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
 }
 .opportunity-board-card:hover { box-shadow: 0 24px 60px rgba(42,32,26,.17) !important; }
 
-/* landing secure panel becomes dark premium instead of plain white */
-.landing-access-panel {
-  background: linear-gradient(155deg, #1a1715 0%, #29231f 72%, #3a1121 100%) !important;
-  border-color: rgba(255,255,255,.10) !important;
-  color: #fff;
-}
-.landing-access-panel h2, .landing-access-panel h3, .landing-access-panel .text-slate-950, .landing-access-panel .text-slate-900 { color: #fff !important; }
-.landing-access-panel p, .landing-access-panel .text-slate-500, .landing-access-panel .text-slate-600 { color: #cfc6bf !important; }
-.landing-access-panel .landing-access-step,
-.landing-access-panel .landing-auth-square:not(.premium-shine) {
-  background: rgba(255,255,255,.055) !important;
-  border-color: rgba(255,255,255,.10) !important;
-}
-
 /* restrained premium motion */
-.opportunity-board-card, .premium-pillar, .landing-access-step, .landing-auth-square {
+.opportunity-board-card, .premium-pillar {
   transition: transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s ease, border-color .28s ease;
 }
 .opportunity-board-card:hover, .premium-pillar:hover { transform: translateY(-6px); }
@@ -1594,4 +1575,74 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
   #root .dashboard-premium .executive-strip{gap:14px!important;}
   #root .dashboard-premium .executive-strip .executive-pillar{height:300px!important;min-height:300px!important;max-height:300px!important;border-radius:20px!important;}
   #root .dashboard-premium .executive-pillar-scroll{padding:17px 15px 44px!important;}
+}
+
+
+/* =========================================================
+   V17 — LANDING PRESERVED + DASHBOARD LIGHTING CORRECTION
+   Landing keeps its existing light beige/brown UI.
+   Dashboard removes decorative glow/radial lighting only.
+   ========================================================= */
+
+/* Landing page: restore the component's intended light public UI.
+   These selectors only neutralize late theme leakage; layout/content is untouched. */
+#root .landing-hero-stage{
+  color:#241f1b!important;
+  background:linear-gradient(118deg,rgba(255,253,249,.99) 0%,rgba(255,255,255,.99) 64%,rgba(248,242,235,.99) 100%)!important;
+  border-color:#ded4ca!important;
+  box-shadow:0 28px 90px rgba(74,55,42,.12)!important;
+}
+#root .landing-hero-stage h1,
+#root .landing-hero-stage h2{color:#171311!important;-webkit-text-fill-color:#171311!important;}
+#root .landing-hero-stage p{color:#5f554e!important;-webkit-text-fill-color:#5f554e!important;}
+#root .landing-access-panel{
+  color:#241f1b!important;
+  background:#fffdf9!important;
+  border-color:#ded4ca!important;
+  box-shadow:0 24px 70px rgba(74,55,42,.10)!important;
+}
+#root .landing-access-panel :is(h2,h3,.text-slate-950,.text-slate-900){color:#171311!important;-webkit-text-fill-color:#171311!important;}
+#root .landing-access-panel :is(p,.text-slate-500,.text-slate-600){color:#655b54!important;-webkit-text-fill-color:#655b54!important;}
+#root .landing-access-panel .landing-access-step{
+  background:rgba(255,253,249,.92)!important;
+  border-color:#e2d8cf!important;
+}
+#root .landing-access-panel .landing-auth-square:not(.premium-shine){
+  background:#fff!important;
+  border-color:#d8cec5!important;
+}
+
+/* Dashboard only: remove the artificial light blooms and strong shine. */
+#root .private-workspace-main:has(.dashboard-premium)::before,
+#root .app-shell:has(.dashboard-premium)::before{display:none!important;}
+
+#root .dashboard-premium{
+  background:linear-gradient(180deg,#f8f1eb 0%,#f3eae2 100%)!important;
+}
+#root .dashboard-premium .dashboard-hero{
+  background:linear-gradient(135deg,#3b2921 0%,#4a3328 55%,#5a3f31 100%)!important;
+  box-shadow:0 14px 34px rgba(58,38,29,.14)!important;
+}
+#root .dashboard-premium .dashboard-hero::before,
+#root .dashboard-premium .dashboard-hero::after,
+#root .dashboard-premium .executive-pillar::after,
+#root .dashboard-premium .premium-motion-card::after{
+  display:none!important;
+  content:none!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar{
+  background:linear-gradient(145deg,#463126 0%,#52392d 58%,#5c4133 100%)!important;
+  box-shadow:0 12px 28px rgba(58,38,29,.13)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar:hover{
+  box-shadow:0 16px 34px rgba(58,38,29,.16)!important;
+}
+#root .dashboard-premium :is(.dashboard-light-card,.standard-dashboard-card,.opportunity-board-card){
+  box-shadow:0 8px 22px rgba(74,51,40,.07)!important;
+}
+#root .dashboard-premium :is(.dashboard-light-card,.standard-dashboard-card,.opportunity-board-card):hover{
+  box-shadow:0 12px 28px rgba(74,51,40,.10)!important;
+}
+#root .dashboard-premium .workspace-card-head{
+  background:linear-gradient(135deg,#463126 0%,#52392d 62%,#5c4133 100%)!important;
 }

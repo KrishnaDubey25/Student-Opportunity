@@ -298,10 +298,6 @@ export const DashboardView: React.FC = () => {
       
       {/* 1. STUDENT & CAMPUS BANNER */}
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="dashboard-hero p-7 sm:p-9 rounded-[30px] border border-slate-200 bg-white text-slate-950 relative overflow-hidden shadow-[0_20px_60px_rgba(15,23,42,.08)]">
-        {/* Background decorative blur */}
-        <div className="absolute -right-16 -top-16 w-64 h-64 bg-[#8a624c]/10 rounded-full blur-3xl pointer-events-none ambient-orb" />
-        <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl pointer-events-none ambient-orb" />
-
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 flex-wrap">
@@ -345,7 +341,6 @@ export const DashboardView: React.FC = () => {
       {/* 2. CAMPUS INTELLIGENCE STRIP */}
       <section className="executive-strip grid md:grid-cols-2 xl:grid-cols-4 gap-5">
         <motion.div whileHover={{ y: -4 }} className="premium-pillar pillar-campus executive-pillar relative rounded-[22px] border shadow-[0_16px_42px_rgba(74,55,42,.12)]">
-          <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-white/10 blur-3xl pointer-events-none" />
           <div className="executive-pillar-scroll relative z-10">
             <div className="flex items-center justify-between gap-3">
               <div className="text-[12px] font-black uppercase tracking-[0.16em]">Campus Snapshot</div>
@@ -412,7 +407,6 @@ export const DashboardView: React.FC = () => {
       {/* 3. LIVE CAMPUS EXECUTION LAYER */}
       <section className="grid xl:grid-cols-[1.15fr_.9fr_.95fr] gap-5">
         <motion.div whileHover={{ y: -3 }} className="dashboard-light-card standard-dashboard-card rounded-[30px] border border-[#dfd6ce] bg-[#fffdf9] p-6 text-[#2b241f] shadow-[0_16px_42px_rgba(74,55,42,.065)] overflow-hidden relative">
-          <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-violet-500/20 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-start justify-between gap-4"><div><div className="text-[12px] font-black uppercase tracking-[.16em] text-violet-700">My Campus Tasks</div><h2 className="mt-1 text-2xl font-black text-slate-950 font-['Outfit',sans-serif]">Work that moves your profile</h2></div><CheckSquare2 className="h-6 w-6 text-violet-700" /></div>
             <p className="mt-2 text-sm text-slate-600">PPTs, reviews, presentations, research and duties assigned by your college appear here live.</p>
@@ -487,7 +481,6 @@ export const DashboardView: React.FC = () => {
               >
                 {/* Lightweight category header: no remote image banner. */}
                 <div className="workspace-card-head relative min-h-[82px] overflow-hidden border-b p-4 sm:p-5">
-                  <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-emerald-400/10 blur-2xl" />
                   <div className="relative z-10 flex h-full items-start justify-between gap-3">
                     <div className="min-w-0">
                       <span className="card-kicker text-[11px] font-black uppercase tracking-[0.15em] font-mono">Student Workspace</span>
