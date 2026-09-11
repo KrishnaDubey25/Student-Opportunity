@@ -186,28 +186,28 @@ export const GuidedOnboarding: React.FC = () => {
           className="w-full max-w-6xl overflow-hidden rounded-[32px] border border-white/60 bg-[#fffdf8] shadow-[0_30px_100px_rgba(15,23,42,0.35)]"
         >
           <div className="grid lg:grid-cols-[0.78fr_1.22fr] lg:min-h-[650px]">
-            <aside className="relative hidden lg:block overflow-hidden bg-slate-950 px-6 py-7 sm:px-8 sm:py-9 text-white">
+            <aside className="guided-onboarding-panel relative hidden lg:block overflow-hidden bg-[#6b4f3e] px-6 py-7 sm:px-8 sm:py-9 text-[#fffaf4]">
               <div className="absolute -right-20 -top-16 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl" />
               <div className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-amber-400/15 blur-3xl" />
 
               <div className="relative h-full flex flex-col">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500 text-slate-950 font-black shadow-lg shadow-emerald-500/20">SO</div>
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#f0d7c4] bg-[#fff3e8] text-[#5f4537] font-black shadow-md">SO</div>
                   <div>
-                    <div className="text-xs font-black uppercase tracking-[0.2em] text-emerald-300">Student Opportunity Engine</div>
-                    <div className="mt-1 text-sm text-slate-400">Personal setup guide</div>
+                    <div className="guided-onboarding-brand text-xs font-black uppercase tracking-[0.2em] text-[#ffe9d8]">Student Opportunity Engine</div>
+                    <div className="guided-onboarding-subtitle mt-1 text-sm text-[#f1dfd1]">Personal setup guide</div>
                   </div>
                 </div>
 
                 <div className="mt-12">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-bold text-slate-300">
+                  <div className="guided-onboarding-step inline-flex items-center gap-2 rounded-full border border-[#ead6c6]/30 bg-[#fffaf4]/10 px-3 py-1.5 text-xs font-bold text-[#fff2e7]">
                     <Sparkles className="h-3.5 w-3.5 text-amber-300" />
                     Step {step} of 3 · {progress}% complete
                   </div>
-                  <h2 className="mt-5 max-w-md text-3xl sm:text-4xl font-black tracking-tight font-['Outfit',sans-serif] leading-[1.06]">
+                  <h2 className="guided-onboarding-title mt-5 max-w-md text-3xl sm:text-4xl font-black tracking-tight text-[#fffaf4] font-['Outfit',sans-serif] leading-[1.06]">
                     Build a dashboard that understands what you want next.
                   </h2>
-                  <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
+                  <p className="guided-onboarding-copy mt-4 max-w-sm text-sm leading-6 text-[#f1dfd1]">
                     We use your campus, interests, skills and goals to rank opportunities, surface the right people and generate your next best actions.
                   </p>
                 </div>
@@ -222,8 +222,8 @@ export const GuidedOnboarding: React.FC = () => {
                     const active = item.n === step;
                     const done = item.n < step;
                     return (
-                      <div key={item.n} className={`flex items-center gap-3 rounded-2xl border px-3.5 py-3 transition-all ${active ? 'border-emerald-400/40 bg-emerald-400/10' : done ? 'border-white/10 bg-white/[0.06]' : 'border-white/5 bg-white/[0.025]'}`}>
-                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${active ? 'bg-emerald-400 text-slate-950' : done ? 'bg-white text-slate-950' : 'bg-white/10 text-slate-400'}`}>
+                      <div key={item.n} className={`flex items-center gap-3 rounded-2xl border px-3.5 py-3 transition-all ${active ? 'border-[#f0d7c4]/50 bg-white/[0.12]' : done ? 'border-white/15 bg-white/[0.08]' : 'border-white/10 bg-white/[0.04]'}`}>
+                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${active ? 'bg-[#fff3e8] text-[#5f4537]' : done ? 'bg-white text-[#5f4537]' : 'bg-white/10 text-[#ead8c9]'}`}>
                           {done ? <Check className="h-4 w-4" /> : <Icon className="h-4 w-4" />}
                         </div>
                         <div>

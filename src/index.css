@@ -1646,3 +1646,152 @@ h1, h2, h3, h4, .font-heading { font-weight: 800; color: #171311; letter-spacing
 #root .dashboard-premium .workspace-card-head{
   background:linear-gradient(135deg,#463126 0%,#52392d 62%,#5c4133 100%)!important;
 }
+
+/* =========================================================
+   V18 — READABILITY + SOFTER BROWN CONTRAST
+   No layout redesign. Fixes the exact invisible headings/copy
+   reported across Tracker, Target Jobs, onboarding and campus story.
+   ========================================================= */
+:root{
+  --v18-brown:#6b4f3e;
+  --v18-brown-2:#765946;
+  --v18-brown-3:#84634f;
+  --v18-brown-border:#96745f;
+  --v18-ivory:#fffaf4;
+  --v18-ivory-muted:#f1dfd1;
+  --v18-ink:#2f221b;
+  --v18-beige:#f8f1ea;
+}
+
+/* Private app buttons/chips: stop white-on-white and pitch-black controls. */
+#root .private-workspace-main :is(button,a,span)[class*="bg-slate-900"],
+#root .private-workspace-main :is(button,a,span)[class*="bg-slate-950"]{
+  background:var(--v18-brown)!important;
+  color:var(--v18-ivory)!important;
+  -webkit-text-fill-color:var(--v18-ivory)!important;
+  border-color:var(--v18-brown-border)!important;
+}
+#root .private-workspace-main :is(button,a,span)[class*="bg-slate-900"] *,
+#root .private-workspace-main :is(button,a,span)[class*="bg-slate-950"] *{
+  color:inherit!important;
+  -webkit-text-fill-color:currentColor!important;
+  opacity:1!important;
+}
+
+/* Tracker exact heading/tabs. */
+#root .tracker-page{background:var(--v18-beige)!important;color:var(--v18-ink)!important;}
+#root .tracker-hero{
+  background:linear-gradient(135deg,var(--v18-brown) 0%,var(--v18-brown-2) 58%,var(--v18-brown-3) 100%)!important;
+  color:var(--v18-ivory)!important;
+  border-color:var(--v18-brown-border)!important;
+  box-shadow:0 12px 28px rgba(80,57,43,.14)!important;
+}
+#root .tracker-hero h1{
+  color:var(--v18-ivory)!important;
+  -webkit-text-fill-color:var(--v18-ivory)!important;
+}
+#root .tracker-hero > div:first-child p{
+  color:var(--v18-ivory-muted)!important;
+  -webkit-text-fill-color:var(--v18-ivory-muted)!important;
+  opacity:1!important;
+}
+#root .tracker-board-tab-active{
+  background:#fffaf4!important;
+  color:#3d2c23!important;
+  -webkit-text-fill-color:#3d2c23!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+}
+#root .tracker-board-tab-active *{color:#3d2c23!important;-webkit-text-fill-color:#3d2c23!important;opacity:1!important;}
+#root .tracker-board-tab-idle{
+  color:#fff3e8!important;
+  -webkit-text-fill-color:#fff3e8!important;
+}
+#root .tracker-board-tab-idle *{color:#fff3e8!important;-webkit-text-fill-color:#fff3e8!important;opacity:1!important;}
+
+/* Target Jobs exact hero copy. */
+#root .target-jobs-hero{
+  background:linear-gradient(135deg,var(--v18-brown) 0%,var(--v18-brown-2) 58%,var(--v18-brown-3) 100%)!important;
+  color:var(--v18-ivory)!important;
+  border-color:var(--v18-brown-border)!important;
+  box-shadow:0 14px 32px rgba(80,57,43,.14)!important;
+}
+#root .target-jobs-hero h1{
+  color:var(--v18-ivory)!important;
+  -webkit-text-fill-color:var(--v18-ivory)!important;
+  opacity:1!important;
+}
+#root .target-jobs-hero p,
+#root .target-jobs-hero .text-slate-300,
+#root .target-jobs-hero .text-slate-400{
+  color:var(--v18-ivory-muted)!important;
+  -webkit-text-fill-color:var(--v18-ivory-muted)!important;
+  opacity:1!important;
+}
+#root .target-jobs-hero .text-white{color:var(--v18-ivory)!important;-webkit-text-fill-color:var(--v18-ivory)!important;}
+
+/* Guided onboarding left panel: every reported line has explicit contrast. */
+#root .guided-onboarding-panel{
+  background:linear-gradient(145deg,#654939 0%,var(--v18-brown) 54%,#7b5b48 100%)!important;
+  color:var(--v18-ivory)!important;
+}
+#root .guided-onboarding-panel::before,
+#root .guided-onboarding-panel::after{opacity:.35!important;}
+#root .guided-onboarding-brand,
+#root .guided-onboarding-subtitle,
+#root .guided-onboarding-step,
+#root .guided-onboarding-title,
+#root .guided-onboarding-copy{
+  opacity:1!important;
+}
+#root .guided-onboarding-brand{color:#ffe9d8!important;-webkit-text-fill-color:#ffe9d8!important;}
+#root .guided-onboarding-subtitle,
+#root .guided-onboarding-copy{color:var(--v18-ivory-muted)!important;-webkit-text-fill-color:var(--v18-ivory-muted)!important;}
+#root .guided-onboarding-step,
+#root .guided-onboarding-title{color:var(--v18-ivory)!important;-webkit-text-fill-color:var(--v18-ivory)!important;}
+#root .guided-onboarding-panel h2{color:var(--v18-ivory)!important;-webkit-text-fill-color:var(--v18-ivory)!important;}
+#root .guided-onboarding-panel .text-slate-500,
+#root .guided-onboarding-panel .text-slate-400{
+  color:#ead8c9!important;
+  -webkit-text-fill-color:#ead8c9!important;
+  opacity:1!important;
+}
+#root .guided-onboarding-panel .text-white{color:var(--v18-ivory)!important;-webkit-text-fill-color:var(--v18-ivory)!important;}
+
+/* Landing campus access: same structure, safer brown + explicit copy. */
+#root .campus-access-story{
+  background:linear-gradient(135deg,#6f5342 0%,#795b48 58%,#846650 100%)!important;
+  color:var(--v18-ivory)!important;
+  border-color:#9a7963!important;
+}
+#root .campus-access-story h2{
+  color:var(--v18-ivory)!important;
+  -webkit-text-fill-color:var(--v18-ivory)!important;
+  opacity:1!important;
+}
+#root .campus-access-story p{
+  color:#f5e7dc!important;
+  -webkit-text-fill-color:#f5e7dc!important;
+  opacity:1!important;
+}
+#root .campus-access-story span,
+#root .campus-access-story svg{opacity:1!important;}
+
+/* Footer brand visibility. */
+#root .private-workspace-footer{color:#6b5a4f!important;}
+#root .private-workspace-footer .text-slate-900{color:#33251e!important;-webkit-text-fill-color:#33251e!important;}
+#root .private-workspace-footer .bg-slate-900{background:var(--v18-brown)!important;color:var(--v18-ivory)!important;-webkit-text-fill-color:var(--v18-ivory)!important;}
+
+/* Soften dashboard brown without changing its layout or card system. */
+#root .dashboard-premium .dashboard-hero{
+  background:linear-gradient(135deg,#604536 0%,#6d503e 55%,#7b5b47 100%)!important;
+}
+#root .dashboard-premium .executive-strip .executive-pillar{
+  background:linear-gradient(145deg,#654938 0%,#725440 58%,#80614c 100%)!important;
+  border-color:rgba(255,250,243,.20)!important;
+}
+#root .dashboard-premium .workspace-card-head{
+  background:linear-gradient(135deg,#654938 0%,#725440 62%,#80614c 100%)!important;
+}
+#root .dashboard-premium .dashboard-dark-card{
+  background:linear-gradient(135deg,#604536 0%,#6d503e 58%,#7b5b47 100%)!important;
+}

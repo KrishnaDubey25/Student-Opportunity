@@ -142,7 +142,7 @@ const AppContent: React.FC = () => {
 
           {/* Standard Footer */}
           {hasPrivateWorkspace && (
-            <footer className="mt-16 pt-8 pb-12 border-t border-slate-100 text-xs text-slate-400">
+            <footer className="private-workspace-footer mt-16 pt-8 pb-12 border-t border-slate-200 text-xs text-[#6b5a4f]">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-lg bg-slate-900 text-white flex items-center justify-center font-black text-xs shadow-xs">

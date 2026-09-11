@@ -490,7 +490,7 @@ export const LandingView: React.FC = () => {
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          className="campus-access-story relative overflow-hidden rounded-[30px] border border-[#6d5443] bg-[#5a4437] p-6 sm:p-8 text-[#fff8f0] shadow-[0_22px_60px_rgba(76,56,43,.22)]"
+          className="campus-access-story relative overflow-hidden rounded-[30px] border border-[#8a6a55] bg-[#6f5342] p-6 sm:p-8 text-[#fffaf4] shadow-[0_22px_60px_rgba(76,56,43,.16)]"
         >
           <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#9c7458]/18 blur-3xl ambient-orb" />
           <div className="absolute -bottom-24 left-1/4 h-56 w-56 rounded-full bg-gold-500/14 blur-3xl ambient-orb" />

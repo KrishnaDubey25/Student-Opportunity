@@ -208,10 +208,10 @@ export const TrackerView: React.FC = () => {
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full space-y-6 pb-20 bg-white"
+      className="tracker-page w-full space-y-6 pb-20 bg-[#f8f1ea]"
     >
       {/* 1. HEADER & NAVIGATION TABS */}
-      <div className="p-6 rounded-3xl bg-slate-900 text-white border border-slate-800 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="tracker-hero p-6 rounded-3xl bg-[#6b4f3e] text-[#fffaf4] border border-[#80614e] shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight font-['Outfit',sans-serif]">

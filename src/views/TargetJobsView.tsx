@@ -633,7 +633,7 @@ export const TargetJobsView: React.FC = () => {
       animate={{ opacity: 1 }}
       className="target-jobs-page w-full space-y-5 pb-20 lg:pb-10"
     >
-      <section className="target-jobs-hero relative overflow-hidden rounded-[22px] sm:rounded-[28px] border border-slate-200 bg-slate-950 text-white p-4 sm:p-7 lg:p-8 shadow-xl">
+      <section className="target-jobs-hero v18-readable-dark-surface relative overflow-hidden rounded-[22px] sm:rounded-[28px] border border-[#8a6a55] bg-[#6b4f3e] text-[#fffaf4] p-4 sm:p-7 lg:p-8 shadow-xl">
         <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-emerald-500/25 blur-3xl ambient-orb" />
         <div className="absolute -left-16 -bottom-24 h-64 w-64 rounded-full bg-gold-500/15 blur-3xl ambient-orb" />
 
